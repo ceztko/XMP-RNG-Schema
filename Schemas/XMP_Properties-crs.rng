@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2014 ISO <copyright@iso.org> -->
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:crs="http://ns.adobe.com/camera-rawsettings/1.0/" xmlns:stVer="http://ns.adobe.com/xap/1.0/sType/Version#" xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-crs" combine="choice">
+         <rng:interleave>
+            <rng:optional>
+                <rng:ref name="crs.AutoBrightness"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.AutoContrast"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.AutoExposure"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.AutoShadows"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.BlueHue"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.BlueSaturation"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.Brightness"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.CameraProfile"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.ChromaticAberrationB"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.ChromaticAberrationR"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.ColorNoiseReduction"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.Contrast"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.CropTop"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.CropLeft"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.CropBottom"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.CropRight"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.CropAngle"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.CropWidth"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.CropHeight"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.CropUnits"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.Exposure"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.GreenHue"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.GreenSaturation"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.HasCrop"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.HasSettings"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.LuminanceSmoothing"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.RawFileName"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.RedHue"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.RedSaturation"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.Saturation"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.Shadows"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.ShadowTint"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.Sharpness"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.Temperature"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.Tint"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.ToneCurve"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.ToneCurveName"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.Version"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.VignetteAmount"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.VignetteMidpoint"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="crs.WhiteBalance"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="crs.AutoBrightness" combine="choice"> 
+        <rng:element name="crs:AutoBrightness"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.AutoContrast" combine="choice"> 
+        <rng:element name="crs:AutoContrast"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.AutoExposure" combine="choice"> 
+        <rng:element name="crs:AutoExposure"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.AutoShadows" combine="choice"> 
+        <rng:element name="crs:AutoShadows"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.BlueHue" combine="choice"> 
+        <rng:element name="crs:BlueHue"> 
+            <rng:ref name="crs.BlueHue.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.BlueSaturation" combine="choice"> 
+        <rng:element name="crs:BlueSaturation"> 
+            <rng:ref name="crs.BlueSaturation.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.Brightness" combine="choice"> 
+        <rng:element name="crs:Brightness"> 
+            <rng:ref name="crs.Brightness.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.CameraProfile" combine="choice"> 
+        <rng:element name="crs:CameraProfile"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.ChromaticAberrationB" combine="choice"> 
+        <rng:element name="crs:ChromaticAberrationB"> 
+            <rng:ref name="crs.ChromaticAberrationB.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.ChromaticAberrationR" combine="choice"> 
+        <rng:element name="crs:ChromaticAberrationR"> 
+            <rng:ref name="crs.ChromaticAberrationR.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.ColorNoiseReduction" combine="choice"> 
+        <rng:element name="crs:ColorNoiseReduction"> 
+            <rng:ref name="crs.ColorNoiseReduction.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.Contrast" combine="choice"> 
+        <rng:element name="crs:Contrast"> 
+            <rng:ref name="crs.Contrast.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.CropTop" combine="choice"> 
+        <rng:element name="crs:CropTop"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Real" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.CropLeft" combine="choice"> 
+        <rng:element name="crs:CropLeft"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Real" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.CropBottom" combine="choice"> 
+        <rng:element name="crs:CropBottom"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Real" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.CropRight" combine="choice"> 
+        <rng:element name="crs:CropRight"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Real" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.CropAngle" combine="choice"> 
+        <rng:element name="crs:CropAngle"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Real" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.CropWidth" combine="choice"> 
+        <rng:element name="crs:CropWidth"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Real" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.CropHeight" combine="choice"> 
+        <rng:element name="crs:CropHeight"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Real" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.CropUnits" combine="choice"> 
+        <rng:element name="crs:CropUnits"> 
+            <rng:ref name="crs.CropUnits.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.Exposure" combine="choice"> 
+        <rng:element name="crs:Exposure"> 
+            <rng:ref name="crs.Exposure.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.GreenHue" combine="choice"> 
+        <rng:element name="crs:GreenHue"> 
+            <rng:ref name="crs.GreenHue.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.GreenSaturation" combine="choice"> 
+        <rng:element name="crs:GreenSaturation"> 
+            <rng:ref name="crs.GreenSaturation.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.HasCrop" combine="choice"> 
+        <rng:element name="crs:HasCrop"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.HasSettings" combine="choice"> 
+        <rng:element name="crs:HasSettings"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.LuminanceSmoothing" combine="choice"> 
+        <rng:element name="crs:LuminanceSmoothing"> 
+            <rng:ref name="crs.LuminanceSmoothing.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.RawFileName" combine="choice"> 
+        <rng:element name="crs:RawFileName"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.RedHue" combine="choice"> 
+        <rng:element name="crs:RedHue"> 
+            <rng:ref name="crs.RedHue.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.RedSaturation" combine="choice"> 
+        <rng:element name="crs:RedSaturation"> 
+            <rng:ref name="crs.RedSaturation.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.Saturation" combine="choice"> 
+        <rng:element name="crs:Saturation"> 
+            <rng:ref name="crs.Saturation.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.Shadows" combine="choice"> 
+        <rng:element name="crs:Shadows"> 
+            <rng:ref name="crs.Shadows.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.ShadowTint" combine="choice"> 
+        <rng:element name="crs:ShadowTint"> 
+            <rng:ref name="crs.ShadowTint.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.Sharpness" combine="choice"> 
+        <rng:element name="crs:Sharpness"> 
+            <rng:ref name="crs.Sharpness.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.Temperature" combine="choice"> 
+        <rng:element name="crs:Temperature"> 
+            <rng:ref name="crs.Temperature.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.Tint" combine="choice"> 
+        <rng:element name="crs:Tint"> 
+            <rng:ref name="crs.Tint.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.ToneCurve" combine="choice"> 
+        <rng:element name="crs:ToneCurve"> 
+            <rng:ref name="crs.ToneCurve.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.ToneCurveName" combine="choice"> 
+        <rng:element name="crs:ToneCurveName"> 
+            <rng:ref name="crs.ToneCurveName.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.Version" combine="choice"> 
+        <rng:element name="crs:Version"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.VignetteAmount" combine="choice"> 
+        <rng:element name="crs:VignetteAmount"> 
+            <rng:ref name="crs.VignetteAmount.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.VignetteMidpoint" combine="choice"> 
+        <rng:element name="crs:VignetteMidpoint"> 
+            <rng:ref name="crs.VignetteMidpoint.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="crs.WhiteBalance" combine="choice"> 
+        <rng:element name="crs:WhiteBalance"> 
+            <rng:ref name="crs.WhiteBalance.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <!-- Local types -->
+
+    <rng:define name="crs.BlueHue.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.BlueHue.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.BlueHue.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.BlueHue.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.BlueSaturation.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.BlueSaturation.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.BlueSaturation.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.BlueSaturation.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.Brightness.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.Brightness.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.Brightness.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.Brightness.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">150</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.ChromaticAberrationB.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.ChromaticAberrationB.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.ChromaticAberrationB.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.ChromaticAberrationB.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.ChromaticAberrationR.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.ChromaticAberrationR.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.ChromaticAberrationR.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.ChromaticAberrationR.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.ColorNoiseReduction.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.ColorNoiseReduction.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.ColorNoiseReduction.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.ColorNoiseReduction.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.Contrast.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.Contrast.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.Contrast.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.Contrast.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-50</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <!-- CHECK-ME: This is not declared as a closed choice but the values are limited to few choices anyway -->
+    <rng:define name="crs.CropUnits.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.CropUnits.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.CropUnits.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.CropUnits.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="integer">0</rng:value>
+            <rng:value type="integer">1</rng:value>
+            <rng:value type="integer">2</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="crs.Exposure.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.Exposure.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.Exposure.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.Exposure.Base" combine="choice">
+        <rng:data type="double">
+            <rng:param name="minInclusive">-4</rng:param>
+            <rng:param name="maxInclusive">4</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.GreenHue.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.GreenHue.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.GreenHue.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.GreenHue.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.GreenSaturation.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.GreenSaturation.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.GreenSaturation.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.GreenSaturation.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.LuminanceSmoothing.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.LuminanceSmoothing.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.LuminanceSmoothing.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.LuminanceSmoothing.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.RedHue.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.RedHue.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.RedHue.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.RedHue.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.RedSaturation.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.RedSaturation.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.RedSaturation.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.RedSaturation.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.Saturation.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.Saturation.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.Saturation.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.Saturation.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.Shadows.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.Shadows.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.Shadows.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.Shadows.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.ShadowTint.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.ShadowTint.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.ShadowTint.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.ShadowTint.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.Sharpness.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.Sharpness.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.Sharpness.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.Sharpness.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.Temperature.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.Temperature.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.Temperature.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.Temperature.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">2000</rng:param>
+            <rng:param name="maxInclusive">50000</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.Tint.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.Tint.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.Tint.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.Tint.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-150</rng:param>
+            <rng:param name="maxInclusive">150</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.ToneCurve.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.ToneCurve.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.ToneCurve.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.ToneCurve.Base" combine="choice">
+        <rng:data type="string">
+            <rng:param name="pattern">\(\d+, \d+\)</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.ToneCurveName.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.ToneCurveName.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.ToneCurveName.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.ToneCurveName.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">Linear</rng:value>
+            <rng:value type="string">Medium Contrast</rng:value>
+            <rng:value type="string">Strong Contrast</rng:value>
+            <rng:value type="string">Custom</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="crs.VignetteAmount.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.VignetteAmount.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.VignetteAmount.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.VignetteAmount.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-100</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.VignetteMidpoint.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.VignetteMidpoint.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.VignetteMidpoint.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.VignetteMidpoint.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="crs.WhiteBalance.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="crs.WhiteBalance.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="crs.WhiteBalance.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="crs.WhiteBalance.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">As Shot</rng:value>
+            <rng:value type="string">Auto</rng:value>
+            <rng:value type="string">Daylight</rng:value>
+            <rng:value type="string">Cloudy</rng:value>
+            <rng:value type="string">Shade</rng:value>
+            <rng:value type="string">Tungsten</rng:value>
+            <rng:value type="string">Fluorescent</rng:value>
+            <rng:value type="string">Flash</rng:value>
+            <rng:value type="string">Custom</rng:value>
+        </rng:choice>
+    </rng:define>
+
+</rng:grammar>

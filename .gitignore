@@ -1,0 +1,5 @@
+bin/
+obj/
+.vs/
+launchSettings.json
+*_Packet.rng

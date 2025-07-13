@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+<rng:grammar xmlns:exifEX="http://cipa.jp/exif/1.0/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-exifEX" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="exifEX.InteroprabilityIndex"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.GPSHPositioningError"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.Gamma"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.PhotographicSensitivity"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.SensitivityType"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.StandardOutputSensitivity"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.RecommendedExposureIndex"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.ISOSpeed"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.ISOSpeedLatitudeyyy"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.ISOSpeedLatitudezzz"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.CameraOwnerName"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.BodySerialNumber"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.LensSpecification"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.LensMake"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.LensModel"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="exifEX.LensSerialNumber"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="exifEX.GPSHPositioningError" combine="choice"> 
+        <rng:element name="exifEX:GPSHPositioningError"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.Gamma" combine="choice"> 
+        <rng:element name="exifEX:Gamma"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.PhotographicSensitivity" combine="choice"> 
+        <rng:element name="exifEX:PhotographicSensitivity"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.SensitivityType" combine="choice"> 
+        <rng:element name="exifEX:SensitivityType"> 
+            <rng:ref name="exifEX.SensitivityType.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.StandardOutputSensitivity" combine="choice"> 
+        <rng:element name="exifEX:StandardOutputSensitivity"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.RecommendedExposureIndex" combine="choice"> 
+        <rng:element name="exifEX:RecommendedExposureIndex"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.ISOSpeed" combine="choice"> 
+        <rng:element name="exifEX:ISOSpeed"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.ISOSpeedLatitudeyyy" combine="choice"> 
+        <rng:element name="exifEX:ISOSpeedLatitudeyyy"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.ISOSpeedLatitudezzz" combine="choice"> 
+        <rng:element name="exifEX:ISOSpeedLatitudezzz"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.CameraOwnerName" combine="choice"> 
+        <rng:element name="exifEX:CameraOwnerName"> 
+            <rng:ref name="ISO16684-1.Types.QValue.ProperName" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.BodySerialNumber" combine="choice"> 
+        <rng:element name="exifEX:BodySerialNumber"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.LensSpecification" combine="choice"> 
+        <rng:element name="exifEX:LensSpecification"> 
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.LensMake" combine="choice"> 
+        <rng:element name="exifEX:LensMake"> 
+            <rng:ref name="ISO16684-1.Types.QValue.ProperName" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.LensModel" combine="choice"> 
+        <rng:element name="exifEX:LensModel"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.LensSerialNumber" combine="choice"> 
+        <rng:element name="exifEX:LensSerialNumber"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.InteroprabilityIndex" combine="choice"> 
+        <rng:element name="exifEX:InteroprabilityIndex"> 
+            <rng:ref name="exifEX.InteroprabilityIndex.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="exifEX.SensitivityType.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="exifEX.SensitivityType.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="exifEX.SensitivityType.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="exifEX.SensitivityType.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="integer">0</rng:value>
+            <rng:value type="integer">1</rng:value>
+            <rng:value type="integer">2</rng:value>
+            <rng:value type="integer">3</rng:value>
+            <rng:value type="integer">4</rng:value>
+            <rng:value type="integer">5</rng:value>
+            <rng:value type="integer">6</rng:value>
+            <rng:value type="integer">7</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="exifEX.InteroprabilityIndex.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="exifEX.InteroprabilityIndex.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="exifEX.InteroprabilityIndex.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="exifEX.InteroprabilityIndex.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">R98</rng:value>
+            <rng:value type="string">THM</rng:value>
+            <rng:value type="string">R03</rng:value>
+        </rng:choice>
+    </rng:define>
+
+</rng:grammar>

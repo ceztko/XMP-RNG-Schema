@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2014 ISO <copyright@iso.org> -->
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0">
+    <rng:include href="XMP_Properties-dc.rng"/>
+    <rng:include href="XMP_Properties-xmp.rng"/>
+    <rng:include href="XMP_Properties-xmpRights.rng"/>
+    <rng:include href="XMP_Properties-xmpMM.rng"/>
+    <rng:include href="XMP_Properties-xmpBJ.rng"/>
+    <rng:include href="XMP_Properties-xmpTPg.rng"/>
+    <rng:include href="XMP_Properties-xmpDM.rng" condition="$(IsPDFA2OrGreater)"/>
+    <rng:include href="XMP_Properties-pdf.rng"/>
+    <rng:include href="XMP_Properties-photoshop.rng"/>
+    <rng:include href="XMP_Properties-tiff.rng"/>
+    <rng:include href="XMP_Properties-crs.rng" condition="$(IsPDFA2OrGreater)"/>
+    <rng:include href="XMP_Properties-exif.rng"/>
+    <!-- CHECK-ME: aux properties strangely disappeared from recent XMP specifications -->
+    <rng:include href="XMP_Properties-exif_aux.rng" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
+    <rng:include href="XMP_Properties-exifEX.rng" condition="$(IsPDFA4OrGreater)"/>
+    <rng:include href="XMP_Properties-pdfaid.rng"/>
+    <rng:include href="XMP_Properties-pdfaExtension.rng" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+    <rng:start>
+        <rng:element name="rdf:RDF">
+            <rng:element name="rdf:Description">
+                <rng:attribute name="rdf:about"/>
+                <rng:interleave>
+                    <rng:ref name="XMP_Properties-dc"/>
+                    <rng:ref name="XMP_Properties-xmp"/>
+                    <rng:ref name="XMP_Properties-xmpRights"/>
+                    <rng:ref name="XMP_Properties-xmpMM"/>
+                    <rng:ref name="XMP_Properties-xmpBJ"/>
+                    <rng:ref name="XMP_Properties-xmpTPg"/>
+                    <rng:ref name="XMP_Properties-xmpDM" condition="$(IsPDFA2OrGreater)"/>
+                    <rng:ref name="XMP_Properties-pdf"/>
+                    <rng:ref name="XMP_Properties-photoshop"/>
+                    <rng:ref name="XMP_Properties-tiff"/>
+                    <rng:ref name="XMP_Properties-crs" condition="$(IsPDFA2OrGreater)"/>
+                    <rng:ref name="XMP_Properties-exif"/>
+                    <rng:ref name="XMP_Properties-exif_aux" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
+                    <rng:ref name="XMP_Properties-exifEX" condition="$(IsPDFA4OrGreater)"/>
+                    <rng:ref name="XMP_Properties-pdfaid"/>
+                    <rng:ref name="XMP_Properties-pdfaExtension" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+                </rng:interleave>
+            </rng:element>
+        </rng:element>
+    </rng:start>
+</rng:grammar> 

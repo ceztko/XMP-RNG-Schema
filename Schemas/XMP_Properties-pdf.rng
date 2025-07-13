@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-pdf" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="pdf.Keywords"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="pdf.PDFVersion"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="pdf.Producer"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="pdf.Trapped"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="pdf.Keywords" combine="choice">
+        <rng:element name="pdf:Keywords">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdf.PDFVersion" combine="choice">
+        <rng:element name="pdf:PDFVersion">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdf.Producer" combine="choice">
+        <rng:element name="pdf:Producer">
+            <rng:ref name="ISO16684-1.Types.QValue.AgentName" />
+        </rng:element>
+    </rng:define>
+    <rng:define name="pdf.Trapped" combine="choice">
+        <rng:element name="pdf:Trapped">
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+</rng:grammar>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-pdfaid" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="pdfaid.part"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="pdfaid.conformance"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="pdfaid.rev"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)">
+                <rng:ref name="pdfaid.amd"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA2) Or $(IsPDFA3)">
+                <rng:ref name="pdfaid.corr"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="pdfaid.part" combine="choice">
+        <rng:element name="pdfaid:part">
+            <rng:ref name="pdfaid.part.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaid.conformance" combine="choice">
+        <rng:element name="pdfaid:conformance">
+            <rng:ref name="pdfaid.conformance.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaid.amd" combine="choice">
+        <rng:element name="pdfaid:amd">
+            <rng:ref name="pdfaid.amd.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaid.corr" combine="choice">
+        <rng:element name="pdfaid:corr">
+            <rng:ref name="pdfaid.corr.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaid.rev" combine="choice">
+        <rng:element name="pdfaid:rev">
+            <rng:ref name="pdfaid.rev.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <!-- Local types -->
+    <rng:define name="pdfaid.part.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaid.part.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaid.part.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaid.part.Base" combine="choice">
+        <rng:choice>
+            <rng:choice>
+                <rng:value type="string" condition="$(IsPDFA1)">1</rng:value>
+                <rng:value type="string" condition="$(IsPDFA2)">2</rng:value>
+                <rng:value type="string" condition="$(IsPDFA3)">3</rng:value>
+                <rng:value type="string" condition="$(IsPDFA4)">4</rng:value>
+            </rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfaid.conformance.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaid.conformance.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaid.conformance.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaid.conformance.Base" combine="choice">
+        <rng:choice>
+            <rng:choice>
+                <rng:value type="string" condition="$(IsPDFA4OrGreater)"></rng:value>
+                <rng:value type="string" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)">A</rng:value>
+                <rng:value type="string" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)">B</rng:value>
+                <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">U</rng:value>
+                <rng:value type="string" condition="$(IsPDFA4OrGreater)">E</rng:value>
+                <rng:value type="string" condition="$(IsPDFA4OrGreater)">F</rng:value>
+            </rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfaid.amd.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaid.amd.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaid.amd.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaid.amd.Base" combine="choice">
+        <!-- There are no amendements, as mentioned in "TechNote 0008: Predefined
+        XMP Properties in PDF/A-1" https://pdfa.org/wp-content/uploads/2011/08/tn0008_predefined_xmp_properties_in_pdfa-1_2008-03-20.pdf -->
+        <rng:ref name="ISO16684-1.Types.Base.Text" />
+    </rng:define>
+
+    <rng:define name="pdfaid.corr.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaid.corr.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaid.corr.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaid.corr.Base" combine="choice">
+        <!-- I don't know any corrigendum other than ISO 19005-1:2005/Cor.1:2007
+        and ISO 19005-1:2005/Cor.2:2011 but that's PDF/A-1 which doesn't have
+        <pdfaid:corr> -->
+        <rng:ref name="ISO16684-1.Types.Base.Text" />
+    </rng:define>
+
+    <rng:define name="pdfaid.rev.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaid.rev.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaid.rev.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaid.rev.Base" combine="choice">
+            <rng:choice>
+                <rng:choice>
+                    <rng:value type="string" condition="$(IsPDFA4)">2020</rng:value>
+                </rng:choice>
+                <rng:ref name="ISO16684-1.Types.Base.Text" />
+            </rng:choice>
+    </rng:define>
+</rng:grammar>

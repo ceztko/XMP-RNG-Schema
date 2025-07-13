@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Property definitions for the Dublin Core namespace defined
+in ISO 16684-1 clause 8.3. There is an rng:define element
+for each top-level property providing the formal definition
+of that property. There is also an rng:define for the pattern
+"ISO16684-1.Properties-dc" that contains an rng:interleave
+of all of the top level properties. A full RelaxNG grammar
+would contain the outer rdf:RDF and rdf:Description elements,
+then refer to the relevant ISO16684-1.Properties-xx patterns
+for the necessary namespaces.
+-->
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng" />
+    <rng:include href="ISO16684-1_Types-Array.rng" />
+    <rng:include href="ISO16684-1_Types-Array.rng" />
+    <rng:include href="ISO16684-1_Types-Structure.rng" />
+    <!-- ========================================= -->
+    <!-- Interleave of all Dublin Core properties. -->
+    <!-- ========================================= -->
+    <rng:define name="ISO16684-1.Properties-dc" combine="choice">
+        <ui:schema>
+            <ui:label xml:lang="en" value="Dublin Core Metadata Element Set"/>
+            <ui:label xml:lang="de" value="Dublin Core Metadata Element Set"/>
+            <ui:description xml:lang="en" value="The Dublin Core Metadata ElementSet is a vocabulary of fifteen properties for use in resource description."/>
+            <ui:description xml:lang="de" value="Das Dublin Core Metadata ElementSet ist ein Wortschatz von fünfzehn Eigenschaften für die Beschreibung von Ressourcen."/>
+        </ui:schema>
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="dc.contributor" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.coverage" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.creator" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.date" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.description" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.format" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.identifier" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.language" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.publisher" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.relation" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.rights" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.source" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.subject" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.title" />
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="dc.type" />
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+    <!-- ============================================= -->
+    <!-- Dublin Core properties in alpahbetical order. -->
+    <!-- ============================================= -->
+    <rng:define name="dc.contributor" combine="choice">
+        <rng:element name="dc:contributor">
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.ProperName" />
+            <ui:property>
+                <ui:label xml:lang="en" value="List of contributors"/>
+                <ui:description xml:lang="en" value="Entities responsible formaking contributions to theresource. Examples of a contributor include a person, anorganization, or a service. Typically, the name of acontributor should beused to indicate the entity."/>
+                <ui:label xml:lang="de" value="Liste von Mitwirkenden"/>
+                <ui:description xml:lang="de" value="Entitäten, die dafürverantwortlich sind, Beiträge zu der Ressource zu erschaffen. Ein Mitwirkende kannbeispielsweise eine Person, eine Organisation oder ein Dienst sein. Üblicherweise wird derName des Mitwirkenden zur Bezeichnung der Entität benutzt."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.coverage" combine="choice">
+        <rng:element name="dc:coverage">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+            <ui:property>
+                <ui:label xml:lang="en" value="Coverage"/>
+                <ui:description xml:lang="en" value="The spatial or temporaltopic of the resource, the spatial applicability of the resource, or the jurisdictionunder which the resource is relevant. Spatial topic and spatial applicability may be anamed place or a location specified by its geographic coordinates. Temporal topic may be anamed period, date, or date range. A jurisdiction may be a named administrative entity ora geographic place to which the resource applies. Recommended best practice is to use acontrolled vocabulary such as the Thesaurus of Geographic Names. Where appropriate, namedplaces or time periods can be used in preference to numeric identifiers such as sets ofcoordinates or date ranges."/>
+                <ui:label xml:lang="de" value="Abdeckung"/>
+                <ui:description xml:lang="de" value="Der räumlicheoder zeitliche Bezug der Ressource, deren räumliche Anwendbarkeit oder derZuständigkeitsbereich, für den die Ressource gilt. Der räumliche Bezug und die räumlicheAnwendbarkeit können z. B. als ein benannter oder durch geographische Koordinatenspezifizierter Ort ausgedrückt werden. Der zeitliche Bezug kann z. B. eine benanntePeriode, eine Zeitangabe oder ein Zeitraum sein. Ein Zuständigkeitsbereich kann einebenannte Verwaltungseinheit oder ein geographischer Ort sein, für den die Ressourcezutrifft. Generell wird empfohlen, ein kontrolliertes Vokabular wie den Thesaurus ofGeographic Names zu verwenden. Des Weiteren können dort, wo es angemessen ist, benannteOrte oder Zeitperioden gegenüber numerischen Identifikatoren, wie etwa Sätze vonKoordinaten oder Zeiträumen, bevorzugt werden."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.creator" combine="choice">
+        <rng:element name="dc:creator">
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.ProperName" />
+            <ui:property>
+                <ui:label xml:lang="en" value="List of creators"/>
+                <ui:description xml:lang="en" value="An entity primarilyresponsible for making the resource. Examples of a Creator include a person, anorganization, or a service. Typically, the name of a Creator should be used to indicatethe entity."/>
+                <ui:label xml:lang="de" value="Liste der Ersteller"/>
+                <ui:description xml:lang="de" value="Liste der für dieErstellung der Ressource hauptsächlich Verantwortlichen. Ein Ersteller kann beispielsweiseeine Person, eine Organisation oder ein Dienst sein. Üblicherweise wird hierbei der Namedes Erstellers verwendet."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.date" combine="choice">
+        <rng:element name="dc:date">
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Date" />
+            <ui:property>
+                <ui:label xml:lang="en" value="List of dates"/>
+                <ui:description xml:lang="en" value="Points or periods of timeassociated with an event in the lifecycle of the resource. Date may be used to expresstemporal information at any level of granularity. "/>
+                <ui:label xml:lang="de" value="Liste von Zeitangaben"/>
+                <ui:description xml:lang="de" value="Liste von Zeitpunkten oderZeitspannen, die in Verbindung mit einem Ereignis im Entwicklungsprozess der Ressourcestehen. Eine Zeitangabe kann verwendet werden, um zeitliche Informationen auf jederGranularitäts-Ebene auszudrücken."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.description" combine="choice">
+        <rng:element name="dc:description">
+            <rng:ref name="ISO16684-1.Types.QValue.LanguageAlternative" />
+            <ui:property>
+                <ui:label xml:lang="en" value="Description"/>
+                <ui:description xml:lang="en" value="An account of theresource. Description may include but is not limited to: an abstract, a table of contents,a graphical representation, or a free-text account of the resource."/>
+                <ui:label xml:lang="de" value="Beschreibung"/>
+                <ui:description xml:lang="de" value="Eine inhaltlicheZusammenfassung der Ressource. Eine Beschreibung kann beispielsweise ein Abstract, einInhaltsverzeichnis, eine graphische Darstellung oder eine Freitextbeschreibung derRessource sein, ist aber nicht darauf beschränkt."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.format" combine="choice">
+        <rng:element name="dc:format">
+            <rng:ref name="ISO16684-1.Types.QValue.MIMEType" />
+            <ui:property>
+                <ui:label xml:lang="en" value="Format"/>
+                <ui:description xml:lang="en" value="The file format of theresource, using a MIME type value."/>
+                <ui:label xml:lang="de" value="Format"/>
+                <ui:description xml:lang="de" value="Das Dateiformat derRessource durch Angabe des MIME-Typs."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.identifier" combine="choice">
+        <rng:element name="dc:identifier">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+            <ui:property>
+                <ui:label xml:lang="en" value="Identifier"/>
+                <ui:description xml:lang="en" value="An unambiguous referenceto the resource within a given context. Recommended best practice is to identify theresource by means of a string conforming to a formal identification system."/>
+                <ui:label xml:lang="de" value="Identifikator"/>
+                <ui:description xml:lang="de" value="Ein eindeutiger Hinweisauf die Ressource in einem gegebenen Kontext. Generell wird empfohlen, die Ressourcemittels einer Zeichenkette, die einem formell anerkannten Identifikationssystem entspricht,zu identifizieren."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.language" combine="choice">
+        <rng:element name="dc:language">
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Locale" />
+            <ui:property>
+                <ui:label xml:lang="en" value="List of languages"/>
+                <ui:description xml:lang="en" value="List of languages used inthe content of the resource. Recommended best practice is to use a controlled vocabularysuch as RFC 4646."/>
+                <ui:label xml:lang="de" value="Liste der Sprachen"/>
+                <ui:description xml:lang="de" value="Liste der im Inhalt derRessource verwendeten Sprachen. Generell wird empfohlen, ein kontrolliertes Vokabular wiez. B. RFC 4646 zu benutzen."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.publisher" combine="choice">
+        <rng:element name="dc:publisher">
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.ProperName" />
+            <ui:property>
+                <ui:label xml:lang="en" value="List of publishers"/>
+                <ui:description xml:lang="en" value="A Publisher is an entityresponsible for making the resource available. Examples of a Publisher include a person,an organization, or a service. Typically, the name of a Publisher should be used toindicate the entity."/>
+                <ui:label xml:lang="de" value="Liste der Verleger"/>
+                <ui:description xml:lang="de" value="Ein Verleger isteine Entität, die dafür verantworlich ist, eine Ressource verfügbar zu machen. Ein/eVerleger/in kann beispielsweise eine Person, eine Organisation oder ein Dienst sein.Üblicherweise wird der Name des Verlegers zur Bezeichnung der Entität benutzt."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.relation" combine="choice">
+        <rng:element name="dc:relation">
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text" />
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.rights" combine="choice">
+        <rng:element name="dc:rights">
+            <rng:ref name="ISO16684-1.Types.QValue.LanguageAlternative" />
+            <ui:property>
+                <ui:label xml:lang="en" value="Rights"/>
+                <ui:description xml:lang="en" value="Information about rights heldin and over the resource. Typically, rights information includes a statement about variousproperty rights associated with the resource, including intellectual property rights."/>
+                <ui:label xml:lang="de" value="Rechteverwaltung"/>
+                <ui:description xml:lang="de" value="Informationen überRechte an der Ressource. Üblicherweise beinhalten Rechteinformationen Aussagen überverschiedenartige Eigentumsrechte, die mit der Ressource verbunden sind, einschließlichder Schutz- und Urheberrechte."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.source" combine="choice">
+        <rng:element name="dc:source">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+            <ui:property>
+                <ui:label xml:lang="en" value="Source"/>
+                <ui:description xml:lang="en" value="A related resource fromwhich the described resource is derived. The described resource may be derived from therelated resource in whole or in part. Recommended best practice is to identify the relatedresource by means of a string conforming to a formal identification system."/>
+                <ui:label xml:lang="de" value="Quelle"/>
+                <ui:description xml:lang="de" value="Eine Ressource, vonder die beschriebene Ressource abgeleitet ist. Die beschriebene Ressource kann von derursprünglichen Quelle vollständig oder teilweise abgeleitet sein. Generell wird empfohlen,die ursprüngliche Quelle mittels einer Zeichenkette, die einem formell anerkanntenIdentifikationssystem entspricht, zu identifizieren."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.subject" combine="choice">
+        <rng:element name="dc:subject">
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text" />
+            <ui:property>
+                <ui:label xml:lang="en" value="List of keywords"/>
+                <ui:description xml:lang="en" value="List of descriptivephrases or keywords that specify the content of the resource. Recommended best practice isto use a controlled vocabulary. "/>
+                <ui:label xml:lang="de" value="Liste von Schlagwörtern"/>
+                <ui:description xml:lang="de" value="Liste beschreibender Sätzeoder Schlagwörter, die den Inhalt der Ressource beschreiben. Generell wird empfohlen, einkontrolliertes Vokabular zu verwenden."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.title" combine="choice">
+        <rng:element name="dc:title">
+            <rng:ref name="ISO16684-1.Types.QValue.LanguageAlternative" />
+            <ui:property>
+                <ui:label xml:lang="en" value="Title"/>
+                <ui:description xml:lang="en" value="A name given to theresource."/>
+                <ui:label xml:lang="de" value="Titel"/>
+                <ui:description xml:lang="de" value="Ein der Ressourcegegebener Name."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+    <rng:define name="dc.type" combine="choice">
+        <rng:element name="dc:type">
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text" />
+            <ui:property>
+                <ui:label xml:lang="en" value="Type"/>
+                <ui:description xml:lang="en" value="The nature or genre of theresource. Recommended best practice is to use a controlled vocabulary such as the DCMIType Vocabulary."/>
+                <ui:label xml:lang="de" value="Typ"/>
+                <ui:description xml:lang="de" value="Art oder Genre derRessource. Generell wird empfohlen, ein kontrolliertes Vokabular wie z.B. das ‘DCMI TypeVocabulary’ zu benutzen."/>
+            </ui:property>
+        </rng:element>
+    </rng:define>
+</rng:grammar>

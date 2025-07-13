@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2014 ISO <copyright@iso.org> -->
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<!--
+Property definitions for the XMP Media Management namespace defined in ISO
+16684-1 clause 8.6. There is an rng:define element for each top-level property
+providing the formal definition of that property. There is also an rng:define
+for the pattern "ISO16684-1.Properties-xmpMM" that contains an rng:interleave of
+all of the top level properties. A full RelaxNG grammar would contain the outer
+rdf:RDF and rdf:Description elements, then refer to the relevant
+ISO16684-1.Properties-xx patterns for the necessary namespaces.
+-->
+<rng:grammar xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:stVer="http://ns.adobe.com/xap/1.0/sType/Version#" xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+    <!-- ================================================== -->
+    <!-- Interleave of all XMP Media Management properties. -->
+    <!-- ================================================== -->
+    <rng:define name="XMP_Properties-xmpMM" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="xmpMM.DerivedFrom"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.DocumentID"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.History"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA2OrGreater)">
+                <rng:ref name="xmpMM.InstanceID"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.Ingredients" condition="$(IsPDFA4OrGreater)"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.ManagedFrom"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.Manager"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.ManageTo"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.ManageUI"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.ManagerVariant"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpMM.OriginalDocumentID"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpMM.Pantry"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.RenditionClass"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.RenditionParams"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.VersionID"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.Versions"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.LastURL"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.RenditionOf"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpMM.SaveID"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+    <!-- ====================================================== -->
+    <!-- XMP Media Management properties in alpahbetical order. -->
+    <!-- ====================================================== -->
+    <rng:define name="xmpMM.DerivedFrom" combine="choice">
+        <rng:element name="xmpMM:DerivedFrom">
+            <rng:ref name="ISO16684-1.Types.QValue.ResourceRef"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.DocumentID" combine="choice">
+        <rng:element name="xmpMM:DocumentID">
+            <rng:ref name="ISO16684-1.Types.Base.URI" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+            <!-- CHECK-ME In ISO16684-1:2019 it is GUID, but remains URI in XMPSpecificationPart2.pdf 2016 -->
+            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$(IsPDFA4OrGreater)"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.History" combine="choice">
+        <rng:element name="xmpMM:History">
+            <rng:ref name="xmpMM.History.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.InstanceID" combine="choice">
+        <rng:element name="xmpMM:InstanceID">
+            <rng:ref name="ISO16684-1.Types.QValue.URI" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
+            <!-- CHECK-ME In ISO16684-1:2019 it is GUID, but remains URI in XMPSpecificationPart2.pdf 2016 -->
+            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$(IsPDFA4OrGreater)"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.Ingredients" combine="choice">
+        <rng:element name="xmpMM:Ingredients">
+            <rng:ref name="xmpMM.Ingredients.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.ManagedFrom" combine="choice">
+        <rng:element name="xmpMM:ManagedFrom">
+            <rng:ref name="ISO16684-1.Types.QValue.ResourceRef"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.Manager" combine="choice">
+        <rng:element name="xmpMM:Manager">
+            <rng:ref name="ISO16684-1.Types.QValue.AgentName"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.ManageTo" combine="choice">
+        <rng:element name="xmpMM:ManageTo">
+            <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.ManageUI" combine="choice">
+        <rng:element name="xmpMM:ManageUI">
+            <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.ManagerVariant" combine="choice">
+        <rng:element name="xmpMM:ManagerVariant">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.OriginalDocumentID" combine="choice">
+        <rng:element name="xmpMM:OriginalDocumentID">
+            <!-- CHECK-ME In ISO16684-1:2019 it is GUID, but remains URI in XMPSpecificationPart2.pdf 2016 -->
+            <rng:ref name="ISO16684-1.Types.QValue.GUID"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.Pantry" combine="choice">
+        <rng:element name="xmpMM:Pantry">
+            <rng:ref name="xmpMM.Pantry.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.RenditionClass" combine="choice">
+        <rng:element name="xmpMM:RenditionClass">
+            <rng:ref name="ISO16684-1.Types.QValue.RenditionClass"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.RenditionParams" combine="choice">
+        <rng:element name="xmpMM:RenditionParams">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.VersionID" combine="choice">
+        <rng:element name="xmpMM:VersionID">
+            <rng:ref name="xmpMM.Version.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.Versions" combine="choice">
+        <rng:element name="xmpMM:Versions">
+            <rng:ref name="xmpMM.Versions.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.LastURL" combine="choice">
+        <rng:element name="xmpMM:LastURL">
+            <rng:ref name="ISO16684-1.Types.QValue.URL"/>
+        </rng:element>
+    </rng:define>
+     <rng:define name="xmpMM.RenditionOf" combine="choice">
+        <rng:element name="xmpMM:RenditionOf">
+            <rng:ref name="ISO16684-1.Types.QValue.ResourceRef"/>
+        </rng:element>
+    </rng:define>
+     <rng:define name="xmpMM.SaveID" combine="choice">
+        <rng:element name="xmpMM:SaveID">
+            <rng:ref name="ISO16684-1.Types.QValue.Integer"/>
+        </rng:element>
+    </rng:define>
+    
+    <!-- Local structures -->
+    <rng:define name="xmpMM.History.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpMM.History.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpMM.History.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpMM.History.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:element name="rdf:Seq">
+                <rng:zeroOrMore>
+                    <rng:element name="rdf:li">
+                        <rng:ref name="xmpMM.ResourceEvent.QValue"/>
+                    </rng:element>
+                </rng:zeroOrMore>
+            </rng:element>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpMM.Ingredients.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpMM.Ingredients.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpMM.Ingredients.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpMM.Ingredients.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:element name="rdf:Seq">
+                <rng:zeroOrMore>
+                    <rng:element name="rdf:li">
+                        <rng:ref name="ISO16684-1.Types.QValue.ResourceRef"/>
+                    </rng:element>
+                </rng:zeroOrMore>
+            </rng:element>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpMM.Pantry.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpMM.Pantry.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpMM.Pantry.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpMM.Pantry.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:element name="rdf:Bag">
+                <rng:zeroOrMore>
+                    <rng:element name="rdf:li">
+                        <!-- TODO: This is completely missing -->
+                        <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+                    </rng:element>
+                </rng:zeroOrMore>
+            </rng:element>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpMM.Versions.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpMM.Versions.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpMM.Versions.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpMM.Versions.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:element name="rdf:Seq">
+                <rng:zeroOrMore>
+                    <rng:element name="rdf:li">
+                        <rng:ref name="xmpMM.Version.QValue"/>
+                    </rng:element>
+                </rng:zeroOrMore>
+            </rng:element>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpMM.Version.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpMM.Version.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpMM.Version.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpMM.Version.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpMM.Version.comments"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpMM.Version.event"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpMM.Version.modifyDate"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpMM.Version.modifier"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpMM.Version.version"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.Version.comments" combine="choice">
+        <rng:element name="stVer:comments">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.Version.event" combine="choice">
+        <rng:element name="stVer:event">
+            <rng:ref name="xmpMM.ResourceEvent.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.Version.modifyDate" combine="choice">
+        <rng:element name="stVer:modifyDate">
+            <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.Version.modifier" combine="choice">
+        <rng:element name="stVer:modifier">
+            <rng:ref name="ISO16684-1.Types.QValue.ProperName"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.Version.version" combine="choice">
+        <rng:element name="stVer:version">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpMM.ResourceEvent.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpMM.ResourceEvent.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpMM.ResourceEvent.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpMM.ResourceEvent.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpMM.ResourceEvent.action"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpMM.ResourceEvent.instanceID"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpMM.ResourceEvent.parameters"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpMM.ResourceEvent.softwareAgent"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpMM.ResourceEvent.when"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpMM.ResourceEvent.action" combine="choice">
+        <rng:element name="stEvt:action">
+            <rng:ref name="xmpMM.ResourceEvent.action.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.ResourceEvent.instanceID" combine="choice">
+        <rng:element name="stEvt:instanceID">
+            <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.ResourceEvent.parameters" combine="choice">
+        <rng:element name="stEvt:parameters">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.ResourceEvent.softwareAgent" combine="choice">
+        <rng:element name="stEvt:softwareAgent">
+            <rng:ref name="ISO16684-1.Types.QValue.AgentName"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpMM.ResourceEvent.when" combine="choice">
+        <rng:element name="stEvt:when">
+            <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpMM.ResourceEvent.action.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpMM.ResourceEvent.action.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpMM.ResourceEvent.action.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpMM.ResourceEvent.action.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">converted</rng:value>
+            <rng:value type="string">copied</rng:value>
+            <rng:value type="string">created</rng:value>
+            <rng:value type="string">cropped</rng:value>
+            <rng:value type="string">edited</rng:value>
+            <rng:value type="string">filtered</rng:value>
+            <rng:value type="string">formatted</rng:value>
+            <rng:value type="string">version_updated</rng:value>
+            <rng:value type="string">printed</rng:value>
+            <rng:value type="string">published</rng:value>
+            <rng:value type="string">managed</rng:value>
+            <rng:value type="string">produced</rng:value>
+            <rng:value type="string">resized</rng:value> 
+        </rng:choice>
+    </rng:define>
+
+</rng:grammar>

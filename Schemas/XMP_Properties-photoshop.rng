@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+    
+    <rng:define name="XMP_Properties-photoshop" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="photoshop.AuthorsPosition"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.CaptionWriter"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.Category"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.City"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.ColorMode" condition="$(IsPDFA4OrGreater)"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.Country"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.Credit"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.DateCreated"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.DocumentAncestors" condition="$(IsPDFA4OrGreater)"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.Headline"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.History" condition="$(IsPDFA4OrGreater)"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.ICCProfile" condition="$(IsPDFA4OrGreater)"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.Instructions"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.Source"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.State"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.SupplementalCategories"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.TextLayers" condition="$(IsPDFA4OrGreater)"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.TransmissionReference"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="photoshop.Urgency"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="photoshop.AuthorsPosition" combine="choice">
+        <rng:element name="photoshop:AuthorsPosition">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.CaptionWriter" combine="choice">
+        <rng:element name="photoshop:CaptionWriter">
+            <rng:ref name="ISO16684-1.Types.QValue.ProperName" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.Category" combine="choice">
+        <rng:element name="photoshop:Category">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.City" combine="choice">
+        <rng:element name="photoshop:City">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.ColorMode" combine="choice">
+        <rng:element name="photoshop:ColorMode">
+            <rng:ref name="photoshop.ColorMode.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.Country" combine="choice">
+        <rng:element name="photoshop:Country">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.Credit" combine="choice">
+        <rng:element name="photoshop:Credit">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.DateCreated" combine="choice">
+        <rng:element name="photoshop:DateCreated">
+            <rng:ref name="ISO16684-1.Types.QValue.Date" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.DocumentAncestors" combine="choice">
+        <rng:element name="photoshop:DocumentAncestors">
+            <rng:ref name="photoshop.DocumentAncestors.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.Headline" combine="choice">
+        <rng:element name="photoshop:Headline">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.History" combine="choice">
+        <rng:element name="photoshop:History">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.ICCProfile" combine="choice">
+        <rng:element name="photoshop:ICCProfile">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.Instructions" combine="choice">
+        <rng:element name="photoshop:Instructions">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.Source" combine="choice">
+        <rng:element name="photoshop:Source">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.State" combine="choice">
+        <rng:element name="photoshop:State">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.SupplementalCategories" combine="choice">
+        <rng:element name="photoshop:SupplementalCategories">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$(IsPDFA1)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text" condition="$(IsPDFA2OrGreater)"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.TextLayers" combine="choice">
+        <rng:element name="photoshop:TextLayers">
+            <rng:ref name="photoshop.TextLayers.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.TransmissionReference" combine="choice">
+        <rng:element name="photoshop:TransmissionReference">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.Urgency" combine="choice">
+        <rng:element name="photoshop:Urgency">
+            <rng:ref name="photoshop.Urgency.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <!-- Local types -->
+    <rng:define name="photoshop.ColorMode.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="photoshop.ColorMode.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="photoshop.ColorMode.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="photoshop.ColorMode.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="integer">0</rng:value>
+            <rng:value type="integer">1</rng:value>
+            <rng:value type="integer">2</rng:value>
+            <rng:value type="integer">3</rng:value>
+            <rng:value type="integer">4</rng:value>
+            <rng:value type="integer">7</rng:value>
+            <rng:value type="integer">8</rng:value>
+            <rng:value type="integer">9</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="photoshop.DocumentAncestors.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="photoshop.DocumentAncestors.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="photoshop.DocumentAncestors.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="photoshop.DocumentAncestors.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:element name="rdf:Seq">
+                <rng:zeroOrMore>
+                    <rng:element name="rdf:li">
+                        <rng:ref name="photoshop.Ancestor.QValue"/>
+                    </rng:element>
+                </rng:zeroOrMore>
+            </rng:element>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.TextLayers.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="photoshop.TextLayers.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="photoshop.TextLayers.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="photoshop.TextLayers.Base" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="photoshop.Layer.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.Urgency.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="photoshop.Urgency.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="photoshop.Urgency.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="photoshop.Urgency.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">1</rng:param>
+            <rng:param name="maxInclusive">8</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="photoshop.Ancestor.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="photoshop.Ancestor.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="photoshop.Ancestor.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="photoshop.Ancestor.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="photoshop.Ancestor.AncestorID"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="photoshop.Ancestor.AncestorID" combine="choice">
+        <rng:element name="photoshop:AncestorID">
+            <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="photoshop.Layer.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="photoshop.Layer.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="photoshop.Layer.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="photoshop.Layer.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="photoshop.Layer.LayerName"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="photoshop.Layer.LayerText"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="photoshop.Layer.LayerName" combine="choice">
+        <rng:element name="photoshop:LayerName">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="photoshop.Layer.LayerText" combine="choice">
+        <rng:element name="photoshop:LayerText">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+</rng:grammar>

@@ -1,2 +1,3 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Disable text normalization. We assume normalization
+# is done by editors with .editorconfig
+* -text

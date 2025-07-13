@@ -1,0 +1,1506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2014 ISO <copyright@iso.org> -->
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:xmpDM="http://ns.adobe.com/xmp/1.0/DynamicMedia/" xmlns:stVer="http://ns.adobe.com/xap/1.0/sType/Version#" xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+    <rng:include href="XMP_Types-cmn.rng"/>
+
+    <rng:define name="XMP_Properties-xmpDM" combine="choice">
+         <rng:interleave>
+            <rng:optional>
+                <rng:ref name="xmpDM.projectRef"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoFrameRate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoFrameSize"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoPixelAspectRatio"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoPixelDepth"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoColorSpace"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoAlphaMode"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoAlphaPremultipleColor"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoAlphaUnityIsTransparent"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoCompressor"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoFieldOrder"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.pullDown"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.audioSampleRate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.audioSampleType"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.audioChannelType"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.audioCompressor"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.speakerPlacement"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.fileDataRate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.tapeName"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.altTapeName"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.startTimecode"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.altTimecode"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.duration"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.scene"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.shotName"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.shotDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.shotLocation"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.logComment"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.markers"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.contributedMedia"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.absPeakAudioFilePath"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.relativePeakAudioFilePath"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.videoModDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.audioModDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.metadataModDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.artist"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.album"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.trackNumber"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.genre"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.copyright"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.releaseDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.composer"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.engineer"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.tempo"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.instrument"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.introTime"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.outCue"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.relativeTimestamp"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.loop"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.numberOfBeats"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.key"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.stretchMode"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.timeScaleParams"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.resampleParams"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.beatSpliceParams"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.timeSignature"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpDM.scaleType"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.cameraAngle"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.cameraLabel"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.cameraModel"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.cameraMove"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.client"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.comment"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.director"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.directorPhotography"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.good"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.projectName"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.shotNumber"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.shotSize"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.takeNumber"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.videoFrameRate"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.partOfCompilation"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.lyrics"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA4OrGreater)">
+                <rng:ref name="xmpDM.discNumber"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="xmpDM.projectRef" combine="choice"> 
+        <rng:element name="xmpDM:projectRef"> 
+            <rng:ref name="xmpDM.ProjectLink.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoFrameRate" combine="choice"> 
+        <rng:element name="xmpDM:videoFrameRate"> 
+            <rng:ref name="xmpDM.videoFrameRate.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoFrameSize" combine="choice"> 
+        <rng:element name="xmpDM:videoFrameSize"> 
+            <rng:ref name="cmn.Dimensions.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoPixelAspectRatio" combine="choice"> 
+        <rng:element name="xmpDM:videoPixelAspectRatio"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoPixelDepth" combine="choice"> 
+        <rng:element name="xmpDM:videoPixelDepth"> 
+            <rng:ref name="xmpDM.videoPixelDepth.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoColorSpace" combine="choice"> 
+        <rng:element name="xmpDM:videoColorSpace"> 
+            <rng:ref name="xmpDM.videoColorSpace.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoAlphaMode" combine="choice"> 
+        <rng:element name="xmpDM:videoAlphaMode"> 
+            <rng:ref name="xmpDM.videoAlphaMode.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoAlphaPremultipleColor" combine="choice"> 
+        <rng:element name="xmpDM:videoAlphaPremultipleColor"> 
+            <rng:ref name="cmn.Colorant.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoAlphaUnityIsTransparent" combine="choice"> 
+        <rng:element name="xmpDM:videoAlphaUnityIsTransparent"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoCompressor" combine="choice"> 
+        <rng:element name="xmpDM:videoCompressor"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoFieldOrder" combine="choice"> 
+        <rng:element name="xmpDM:videoFieldOrder"> 
+            <rng:ref name="xmpDM.videoFieldOrder.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.pullDown" combine="choice"> 
+        <rng:element name="xmpDM:pullDown"> 
+            <rng:ref name="xmpDM.pullDown.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.audioSampleRate" combine="choice"> 
+        <rng:element name="xmpDM:audioSampleRate"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.audioSampleType" combine="choice"> 
+        <rng:element name="xmpDM:audioSampleType"> 
+            <rng:ref name="xmpDM.audioSampleType.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.audioChannelType" combine="choice"> 
+        <rng:element name="xmpDM:audioChannelType"> 
+            <rng:ref name="xmpDM.audioChannelType.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.audioCompressor" combine="choice"> 
+        <rng:element name="xmpDM:audioCompressor"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.speakerPlacement" combine="choice"> 
+        <rng:element name="xmpDM:speakerPlacement"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.fileDataRate" combine="choice"> 
+        <rng:element name="xmpDM:fileDataRate"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.tapeName" combine="choice"> 
+        <rng:element name="xmpDM:tapeName"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.altTapeName" combine="choice"> 
+        <rng:element name="xmpDM:altTapeName"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.startTimecode" combine="choice"> 
+        <rng:element name="xmpDM:startTimecode"> 
+            <rng:ref name="xmpDM.Timecode.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.altTimecode" combine="choice"> 
+        <rng:element name="xmpDM:altTimecode"> 
+            <rng:ref name="xmpDM.Timecode.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.duration" combine="choice"> 
+        <rng:element name="xmpDM:duration"> 
+            <rng:ref name="xmpDM.Time.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.scene" combine="choice"> 
+        <rng:element name="xmpDM:scene"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.shotName" combine="choice"> 
+        <rng:element name="xmpDM:shotName"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.shotDate" combine="choice"> 
+        <rng:element name="xmpDM:shotDate"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Date" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.shotLocation" combine="choice"> 
+        <rng:element name="xmpDM:shotLocation"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.logComment" combine="choice"> 
+        <rng:element name="xmpDM:logComment"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.markers" combine="choice"> 
+        <rng:element name="xmpDM:markers"> 
+            <rng:ref name="xmpDM.markers.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.contributedMedia" combine="choice"> 
+        <rng:element name="xmpDM:contributedMedia"> 
+            <rng:ref name="xmpDM.contributedMedia.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.absPeakAudioFilePath" combine="choice"> 
+        <rng:element name="xmpDM:absPeakAudioFilePath"> 
+            <rng:ref name="ISO16684-1.Types.QValue.URI" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.relativePeakAudioFilePath" combine="choice"> 
+        <rng:element name="xmpDM:relativePeakAudioFilePath"> 
+            <rng:ref name="ISO16684-1.Types.QValue.URI" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoModDate" combine="choice"> 
+        <rng:element name="xmpDM:videoModDate"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Date" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.audioModDate" combine="choice"> 
+        <rng:element name="xmpDM:audioModDate"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Date" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.metadataModDate" combine="choice"> 
+        <rng:element name="xmpDM:metadataModDate"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Date" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.artist" combine="choice"> 
+        <rng:element name="xmpDM:artist"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.album" combine="choice"> 
+        <rng:element name="xmpDM:album"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.trackNumber" combine="choice"> 
+        <rng:element name="xmpDM:trackNumber"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.genre" combine="choice"> 
+        <rng:element name="xmpDM:genre"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.copyright" combine="choice"> 
+        <rng:element name="xmpDM:copyright"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.releaseDate" combine="choice"> 
+        <rng:element name="xmpDM:releaseDate"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Date" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.composer" combine="choice"> 
+        <rng:element name="xmpDM:composer"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.engineer" combine="choice"> 
+        <rng:element name="xmpDM:engineer"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.tempo" combine="choice"> 
+        <rng:element name="xmpDM:tempo"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Real" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.instrument" combine="choice"> 
+        <rng:element name="xmpDM:instrument"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.introTime" combine="choice"> 
+        <rng:element name="xmpDM:introTime"> 
+            <rng:ref name="xmpDM.Time.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.outCue" combine="choice"> 
+        <rng:element name="xmpDM:outCue"> 
+            <rng:ref name="xmpDM.Time.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.relativeTimestamp" combine="choice"> 
+        <rng:element name="xmpDM:relativeTimestamp"> 
+            <rng:ref name="xmpDM.Time.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.loop" combine="choice"> 
+        <rng:element name="xmpDM:loop"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.numberOfBeats" combine="choice"> 
+        <rng:element name="xmpDM:numberOfBeats"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Real" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.key" combine="choice"> 
+        <rng:element name="xmpDM:key"> 
+            <rng:ref name="xmpDM.key.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.stretchMode" combine="choice"> 
+        <rng:element name="xmpDM:stretchMode"> 
+            <rng:ref name="xmpDM.stretchMode.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.timeScaleParams" combine="choice"> 
+        <rng:element name="xmpDM:timeScaleParams"> 
+            <rng:ref name="xmpDM.timeScaleStretch.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.resampleParams" combine="choice"> 
+        <rng:element name="xmpDM:resampleParams"> 
+            <rng:ref name="xmpDM.resampleStretch.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.beatSpliceParams" combine="choice"> 
+        <rng:element name="xmpDM:beatSpliceParams"> 
+            <rng:ref name="xmpDM.beatSpliceStretch.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.timeSignature" combine="choice"> 
+        <rng:element name="xmpDM:timeSignature"> 
+            <rng:ref name="xmpDM.timeSignature.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.scaleType" combine="choice"> 
+        <rng:element name="xmpDM:scaleType"> 
+            <rng:ref name="xmpDM.scaleType.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.cameraAngle" combine="choice"> 
+        <rng:element name="xmpDM:cameraAngle"> 
+            <rng:ref name="xmpDM.cameraAngle.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.cameraLabel" combine="choice"> 
+        <rng:element name="xmpDM:cameraLabel"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.cameraModel" combine="choice"> 
+        <rng:element name="xmpDM:cameraModel"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.cameraMove" combine="choice"> 
+        <rng:element name="xmpDM:cameraMove"> 
+            <rng:ref name="xmpDM.cameraMove.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.client" combine="choice"> 
+        <rng:element name="xmpDM:client"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.comment" combine="choice"> 
+        <rng:element name="xmpDM:comment"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.director" combine="choice"> 
+        <rng:element name="xmpDM:director"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.directorPhotography" combine="choice"> 
+        <rng:element name="xmpDM:directorPhotography"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.good" combine="choice"> 
+        <rng:element name="xmpDM:good"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.projectName" combine="choice"> 
+        <rng:element name="xmpDM:projectName"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.shotNumber" combine="choice"> 
+        <rng:element name="xmpDM:shotNumber"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.shotSize" combine="choice"> 
+        <rng:element name="xmpDM:shotSize"> 
+            <rng:ref name="xmpDM.shotSize.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.takeNumber" combine="choice"> 
+        <rng:element name="xmpDM:takeNumber"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.partOfCompilation" combine="choice"> 
+        <rng:element name="xmpDM:partOfCompilation"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.lyrics" combine="choice"> 
+        <rng:element name="xmpDM:lyrics"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.discNumber" combine="choice"> 
+        <rng:element name="xmpDM:discNumber"> 
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <!-- Local types -->
+    <rng:define name="xmpDM.videoPixelDepth.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.videoPixelDepth.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.videoPixelDepth.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.videoPixelDepth.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">8Int</rng:value>
+            <rng:value type="string">16Int</rng:value>
+            <rng:value type="string">32Int</rng:value>
+            <rng:value type="string">32Float</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoColorSpace.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.videoColorSpace.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.videoColorSpace.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.videoColorSpace.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">sRGB</rng:value>
+            <rng:value type="string">CCIR-601</rng:value>
+            <rng:value type="string">CCIR-709</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoAlphaMode.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.videoAlphaMode.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.videoAlphaMode.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.videoAlphaMode.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">straight</rng:value>
+            <rng:value type="string">pre-multiplied</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoFieldOrder.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.videoFieldOrder.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.videoFieldOrder.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.videoFieldOrder.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">Upper</rng:value>
+            <rng:value type="string">Lower</rng:value>
+            <rng:value type="string">Progressive</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.pullDown.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.pullDown.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.pullDown.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.pullDown.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">WSSWW</rng:value>
+            <rng:value type="string">SSWWW</rng:value>
+            <rng:value type="string">SWWWS</rng:value>
+            <rng:value type="string">WWWSS</rng:value>
+            <rng:value type="string">WWSSW</rng:value>
+            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">WSSWW_24p</rng:value>
+            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">SSWWW_24p</rng:value>
+            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">SWWWS_24p</rng:value>
+            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">WWWSS_24p</rng:value>
+            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">WWSSW_24p</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">WWWSW</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">WWSWW</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">WSWWW</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">SWWWW</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">WWWWS</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.audioSampleType.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.audioSampleType.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.audioSampleType.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.audioSampleType.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">8Int</rng:value>
+            <rng:value type="string">16Int</rng:value>
+            <rng:value type="string">32Int</rng:value>
+            <rng:value type="string">32Float</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">Compressed</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">Packed</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">Other</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.audioChannelType.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.audioChannelType.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.audioChannelType.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.audioChannelType.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">Mono</rng:value>
+            <rng:value type="string">Stereo</rng:value>
+            <rng:value type="string">5.1</rng:value>
+            <rng:value type="string">7.1</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">16</rng:value>
+            <rng:value type="string" condition="$(IsPDFA4OrGreater)">Other</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.markers.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.markers.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.markers.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.markers.Base" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="xmpDM.Marker.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.contributedMedia.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.contributedMedia.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.contributedMedia.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.contributedMedia.Base" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="xmpDM.Media.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.key.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.key.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.key.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.key.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">C</rng:value>
+            <rng:value type="string">C#</rng:value>
+            <rng:value type="string">D</rng:value>
+            <rng:value type="string">D#</rng:value>
+            <rng:value type="string">E</rng:value>
+            <rng:value type="string">F</rng:value>
+            <rng:value type="string">F#</rng:value>
+            <rng:value type="string">G</rng:value>
+            <rng:value type="string">G#</rng:value>
+            <rng:value type="string">A</rng:value>
+            <rng:value type="string">A#</rng:value>
+            <rng:value type="string">B</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.stretchMode.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.stretchMode.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.stretchMode.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.stretchMode.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">Fixed length</rng:value>
+            <rng:value type="string">Time-Scale</rng:value>
+            <rng:value type="string">Resample</rng:value>
+            <rng:value type="string">Beat Splice</rng:value>
+            <rng:value type="string">Hybrid</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.timeSignature.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.timeSignature.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.timeSignature.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.timeSignature.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">2/4</rng:value>
+            <rng:value type="string">3/4</rng:value>
+            <rng:value type="string">4/4</rng:value>
+            <rng:value type="string">5/4</rng:value>
+            <rng:value type="string">7/4</rng:value>
+            <rng:value type="string">6/8</rng:value>
+            <rng:value type="string">9/8</rng:value>
+            <rng:value type="string">12/8</rng:value>
+            <rng:value type="string">other</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.scaleType.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.scaleType.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.scaleType.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.scaleType.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">Major</rng:value>
+            <rng:value type="string">Minor</rng:value>
+            <rng:value type="string">Both</rng:value>
+            <rng:value type="string">Neither</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.cameraAngle.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.cameraAngle.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.cameraAngle.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.cameraAngle.Base" combine="choice">
+        <rng:choice>
+            <rng:choice>
+                <rng:value type="string">Low Angle</rng:value>
+                <rng:value type="string">Eye Level</rng:value>
+                <rng:value type="string">High Angle</rng:value>
+                <rng:value type="string">Overhead Shot</rng:value>
+                <rng:value type="string">Birds Eye Shot</rng:value>
+                <rng:value type="string">Dutch Angle</rng:value>
+                <rng:value type="string">POV</rng:value>
+                <rng:value type="string">Over the Shoulder</rng:value>
+                <rng:value type="string">Reaction shot</rng:value>
+            </rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.cameraMove.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.cameraMove.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.cameraMove.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.cameraMove.Base" combine="choice">
+        <rng:choice>
+            <rng:choice>
+                <rng:value type="string">Aerial</rng:value>
+                <rng:value type="string">Boom Up</rng:value>
+                <rng:value type="string">Boom Down</rng:value>
+                <rng:value type="string">Crane Up</rng:value>
+                <rng:value type="string">Crane Down</rng:value>
+                <rng:value type="string">Dolly In</rng:value>
+                <rng:value type="string">Dolly Out</rng:value>
+                <rng:value type="string">Pan Left</rng:value>
+                <rng:value type="string">Pan Right</rng:value>
+                <rng:value type="string">Pedestal Up</rng:value>
+                <rng:value type="string">Pedestal Down</rng:value>
+                <rng:value type="string">Tilt Up</rng:value>
+                <rng:value type="string">Tilt Down</rng:value>
+                <rng:value type="string">Tracking</rng:value>
+                <rng:value type="string">Truck Left</rng:value>
+                <rng:value type="string">Truck Right</rng:value>
+                <rng:value type="string">Zoom In</rng:value>
+                <rng:value type="string">Zoom Out</rng:value>
+            </rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.shotSize.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.shotSize.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.shotSize.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.shotSize.Base" combine="choice">
+        <rng:choice>
+            <rng:choice>
+                <rng:value type="string">ECU</rng:value>
+                <rng:value type="string">MCU</rng:value>
+                <rng:value type="string">CU</rng:value>
+                <rng:value type="string">MS</rng:value>
+                <rng:value type="string">WS</rng:value>
+                <rng:value type="string">MWS</rng:value>
+                <rng:value type="string">EWS</rng:value>
+            </rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.videoFrameRate.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.videoFrameRate.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.videoFrameRate.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.videoFrameRate.Base" combine="choice">
+        <rng:choice>
+            <rng:choice>
+                <!-- NOTE: In "XMP Specification Part 2" 2016 this is Real, but it was corrected to Open Choice of Text in 2022 -->
+                <rng:value type="string">24</rng:value>
+                <rng:value type="string">NTSC</rng:value>
+                <rng:value type="string">PAL</rng:value>
+            </rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.beatSpliceStretch.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.beatSpliceStretch.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.beatSpliceStretch.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.beatSpliceStretch.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpDM.beatSpliceStretch.useFileBeatsMarker"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.beatSpliceStretch.riseInDecibel"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.beatSpliceStretch.riseInTimeDuration"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.beatSpliceStretch.useFileBeatsMarker" combine="choice">
+        <rng:element name="xmpDM:useFileBeatsMarker">
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.beatSpliceStretch.riseInDecibel" combine="choice">
+        <rng:element name="xmpDM:riseInDecibel">
+            <rng:ref name="ISO16684-1.Types.QValue.Real"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.beatSpliceStretch.riseInTimeDuration" combine="choice">
+        <rng:element name="xmpDM:riseInTimeDuration">
+            <rng:ref name="xmpDM.Time.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.Marker.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.Marker.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.Marker.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Marker.startTime"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Marker.duration"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Marker.comment"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Marker.name"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Marker.location"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Marker.target"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Marker.type"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.startTime" combine="choice">
+        <rng:element name="xmpDM:startTime">
+            <rng:ref name="xmpDM.Time.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.duration" combine="choice">
+        <rng:element name="xmpDM:duration">
+            <rng:ref name="xmpDM.Time.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.comment" combine="choice">
+        <rng:element name="xmpDM:comment">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.name" combine="choice">
+        <rng:element name="xmpDM:name">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.location" combine="choice">
+        <rng:element name="xmpDM:location">
+            <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.target" combine="choice">
+        <rng:element name="xmpDM:target">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.type" combine="choice">
+        <rng:element name="xmpDM:type">
+            <rng:ref name="xmpDM.Marker.type.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.type.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.Marker.type.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.Marker.type.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.Marker.type.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">Chapter</rng:value>
+            <rng:value type="string">Cue</rng:value>
+            <rng:value type="string">Beat</rng:value>
+            <rng:value type="string">Track</rng:value>
+            <rng:value type="string">Index</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.Media.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.Media.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.Media.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.Media.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Media.path"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Media.track"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Media.startTime"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Media.duration"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Media.managed"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Media.webStatement"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Media.path" combine="choice">
+        <rng:element name="xmpDM:path">
+            <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Media.track" combine="choice">
+        <rng:element name="xmpDM:track">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Media.startTime" combine="choice">
+        <rng:element name="xmpDM:startTime">
+            <rng:ref name="xmpDM.Time.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Media.duration" combine="choice">
+        <rng:element name="xmpDM:duration">
+            <rng:ref name="xmpDM.Time.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Media.managed" combine="choice">
+        <rng:element name="xmpDM:managed">
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Media.webStatement" combine="choice">
+        <rng:element name="xmpDM:webStatement">
+            <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.ProjectLink.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.ProjectLink.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.ProjectLink.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.ProjectLink.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpDM.ProjectLink.type"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.ProjectLink.path"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.ProjectLink.type" combine="choice">
+        <rng:element name="xmpDM:type">
+            <rng:ref name="xmpDM.ProjectLink.type.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.ProjectLink.path" combine="choice">
+        <rng:element name="xmpDM:path">
+            <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.ProjectLink.type.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.ProjectLink.type.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.ProjectLink.type.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.ProjectLink.type.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">movie</rng:value>
+            <rng:value type="string">still</rng:value>
+            <rng:value type="string">audio</rng:value>
+            <rng:value type="string">custom</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.resampleStretch.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.resampleStretch.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.resampleStretch.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.resampleStretch.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpDM.resampleStretch.quality"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.resampleStretch.quality" combine="choice">
+        <rng:element name="xmpDM:quality">
+            <rng:ref name="xmpDM.resampleStretch.quality.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.resampleStretch.quality.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.resampleStretch.quality.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.resampleStretch.quality.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.resampleStretch.quality.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">High</rng:value>
+            <rng:value type="string">Medium</rng:value>
+            <rng:value type="string">Low</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.Time.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.Time.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.Time.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.Time.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Time.value"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Time.scale"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Time.value" combine="choice">
+        <rng:element name="xmpDM:value">
+            <rng:ref name="ISO16684-1.Types.QValue.Integer"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Time.scale" combine="choice">
+        <rng:element name="xmpDM:scale">
+            <rng:ref name="ISO16684-1.Types.QValue.Rational"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.Timecode.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.Timecode.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.Timecode.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.Timecode.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Timecode.timeValue"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.Timecode.timeFormat"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Timecode.timeValue" combine="choice">
+        <rng:element name="xmpDM:timeValue">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.Timecode.timeFormat" combine="choice">
+        <rng:element name="xmpDM:timeFormat">
+            <rng:ref name="xmpDM.Timecode.timeFormat.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.Timecode.timeFormat.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.Timecode.timeFormat.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.Timecode.timeFormat.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.Timecode.timeFormat.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">24Timecode</rng:value>
+            <rng:value type="string">25Timecode</rng:value>
+            <!-- CHECK-ME "(semicolon delimiter)" should not be part of the enumeration -->
+            <rng:value type="string">2997DropTimecode </rng:value>
+            <rng:value type="string">2997NonDropTimecode</rng:value>
+            <rng:value type="string">30Timecode</rng:value>
+            <rng:value type="string">50Timecode</rng:value>
+            <rng:value type="string">5994DropTimecode</rng:value>
+            <rng:value type="string">5994NonDropTimecode</rng:value>
+            <rng:value type="string">60Timecode</rng:value>
+            <rng:value type="string">23976Timecode</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="xmpDM.timeScaleStretch.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.timeScaleStretch.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.timeScaleStretch.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.timeScaleStretch.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpDM.timeScaleStretch.quality"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.timeScaleStretch.frameSize"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpDM.timeScaleStretch.frameOverlappingPercentage"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.timeScaleStretch.quality" combine="choice">
+        <rng:element name="xmpDM:quality">
+            <rng:ref name="xmpDM.timeScaleStretch.quality.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.timeScaleStretch.frameSize" combine="choice">
+        <rng:element name="xmpDM:frameSize">
+            <rng:ref name="ISO16684-1.Types.QValue.Real"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpDM.timeScaleStretch.frameOverlappingPercentage" combine="choice">
+        <rng:element name="xmpDM:frameOverlappingPercentage">
+            <rng:ref name="ISO16684-1.Types.QValue.Real"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpDM.timeScaleStretch.quality.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpDM.timeScaleStretch.quality.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpDM.timeScaleStretch.quality.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpDM.timeScaleStretch.quality.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">High</rng:value>
+            <rng:value type="string">Medium</rng:value>
+            <rng:value type="string">Low</rng:value>
+        </rng:choice>
+    </rng:define>
+</rng:grammar>

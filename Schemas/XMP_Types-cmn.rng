@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:xapG="http://ns.adobe.com/xap/1.0/g/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:define name="cmn.Dimensions.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Dimensions.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Dimensions.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Dimensions.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="cmn.Dimensions.w"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Dimensions.h"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Dimensions.unit"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Dimensions.w" combine="choice">
+        <rng:element name="stDim:w">
+            <rng:ref name="ISO16684-1.Types.QValue.Real"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Dimensions.h" combine="choice">
+        <rng:element name="stDim:h">
+            <rng:ref name="ISO16684-1.Types.QValue.Real"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Dimensions.unit" combine="choice">
+        <rng:element name="stDim:unit">
+            <rng:ref name="cmn.Dimensions.unit.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="cmn.Dimensions.unit.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Dimensions.unit.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Dimensions.unit.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Dimensions.unit.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">inch</rng:value>
+            <rng:value type="string">mm</rng:value>
+            <rng:value type="string">pixel</rng:value>
+            <rng:value type="string">pica</rng:value>
+            <rng:value type="string">point</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.swatchName"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.mode"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.type"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.cyan"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.magenta"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.yellow"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.black"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.red"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.green"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.blue"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.L"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.A"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="cmn.Colorant.B"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.swatchName" combine="choice">
+        <rng:element name="xapG:swatchName">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.mode" combine="choice">
+        <rng:element name="xapG:mode">
+            <rng:ref name="cmn.Colorant.mode.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.type" combine="choice">
+        <rng:element name="xapG:type">
+            <rng:ref name="cmn.Colorant.type.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.cyan" combine="choice">
+        <rng:element name="xapG:cyan">
+            <rng:ref name="cmn.Colorant.cyan.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.magenta" combine="choice">
+        <rng:element name="xapG:magenta">
+            <rng:ref name="cmn.Colorant.magenta.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.yellow" combine="choice">
+        <rng:element name="xapG:yellow">
+            <rng:ref name="cmn.Colorant.yellow.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.black" combine="choice">
+        <rng:element name="xapG:black">
+            <rng:ref name="cmn.Colorant.black.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.red" combine="choice">
+        <rng:element name="xapG:red">
+            <rng:ref name="cmn.Colorant.red.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.green" combine="choice">
+        <rng:element name="xapG:green">
+            <rng:ref name="cmn.Colorant.green.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.blue" combine="choice">
+        <rng:element name="xapG:blue">
+            <rng:ref name="cmn.Colorant.blue.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.L" combine="choice">
+        <rng:element name="xapG:L">
+            <rng:ref name="cmn.Colorant.L.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.A" combine="choice">
+        <rng:element name="xapG:A">
+            <rng:ref name="cmn.Colorant.A.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="cmn.Colorant.B" combine="choice">
+        <rng:element name="xapG:B">
+            <rng:ref name="cmn.Colorant.B.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.mode.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.mode.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.mode.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.mode.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">CMYK</rng:value>
+            <rng:value type="string">RGB</rng:value>
+            <rng:value type="string">LAB</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.type.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.type.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.type.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.type.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">PROCESS</rng:value>
+            <rng:value type="string">SPOT</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.cyan.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.cyan.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.cyan.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.cyan.Base" combine="choice">
+        <rng:data type="double">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.magenta.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.magenta.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.magenta.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.magenta.Base" combine="choice">
+        <rng:data type="double">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.yellow.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.yellow.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.yellow.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.yellow.Base" combine="choice">
+        <rng:data type="double">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.black.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.black.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.black.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.black.Base" combine="choice">
+        <rng:data type="double">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.red.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.red.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.red.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.red.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">255</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.green.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.green.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.green.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.green.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">255</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.blue.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.blue.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.blue.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.blue.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">255</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.L.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.L.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.L.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.L.Base" combine="choice">
+        <rng:data type="double">
+            <rng:param name="minInclusive">0</rng:param>
+            <rng:param name="maxInclusive">100</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.A.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.A.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.A.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.A.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-128</rng:param>
+            <rng:param name="maxInclusive">127</rng:param>
+        </rng:data>
+    </rng:define>
+
+    <rng:define name="cmn.Colorant.B.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="cmn.Colorant.B.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="cmn.Colorant.B.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="cmn.Colorant.B.Base" combine="choice">
+        <rng:data type="integer">
+            <rng:param name="minInclusive">-128</rng:param>
+            <rng:param name="maxInclusive">127</rng:param>
+        </rng:data>
+    </rng:define>
+</rng:grammar>

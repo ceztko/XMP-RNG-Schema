@@ -1,0 +1,8 @@
+ISO 16884:1-2014 © ISO 2014
+The source code for this schema can be freely used, in whole
+or in part, without any constraints. The source code can be
+used as the basis of derivative works. "Used" means that the
+source code is copied, modified, distributed in its original
+or a modified form, standalone or as part of something else,
+including open source code and projects, commercially or
+without charging fees.

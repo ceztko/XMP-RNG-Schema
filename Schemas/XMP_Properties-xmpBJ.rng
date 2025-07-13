@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:xmpBJ="http://ns.adobe.com/xap/1.0/bj/" xmlns:stJob="http://ns.adobe.com/xap/1.0/sType/Job#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-xmpBJ" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="xmpBJ.JobRef"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="xmpBJ.JobRef" combine="choice">
+        <rng:element name="xmpBJ:JobRef">
+            <rng:ref name="xmpBJ.JobRef.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <!-- Local types -->
+    <rng:define name="xmpBJ.JobRef.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpBJ.JobRef.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpBJ.JobRef.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpBJ.JobRef.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:element name="rdf:Bag">
+                <rng:zeroOrMore>
+                    <rng:element name="rdf:li">
+                        <rng:ref name="xmpBJ.Job.QValue"/>
+                    </rng:element>
+                </rng:zeroOrMore>
+            </rng:element>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpBJ.Job.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpBJ.Job.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpBJ.Job.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpBJ.Job.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpBJ.Job.name"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpBJ.Job.id"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpBJ.Job.url"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpBJ.Job.name" combine="choice">
+        <rng:element name="stJob:name">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpBJ.Job.id" combine="choice">
+        <rng:element name="stJob:id">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpBJ.Job.url" combine="choice">
+        <rng:element name="stJob:url">
+            <rng:ref name="ISO16684-1.Types.QValue.URL"/>
+        </rng:element>
+    </rng:define>
+</rng:grammar>

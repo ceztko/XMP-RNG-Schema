@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Property definitions for the XMP namespace defined in ISO 16684-1 clause 8.4.
+There is an rng:define element for each top-level property providing the formal
+definition of that property. There is also an rng:define for the pattern
+"ISO16684-1.Properties-xmp" that contains an rng:interleave of all of the top
+level properties. A full RelaxNG grammar would contain the outer rdf:RDF and
+rdf:Description elements, then refer to the relevant ISO16684-1.Properties-xx
+patterns for the necessary namespaces.
+-->
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xmp="http://ns.adobe.com/xap/1.0/" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+    <!-- ================================= -->
+    <!-- Interleave of all XMP properties. -->
+    <!-- ================================= -->
+    <rng:define name="ISO16684-1.Properties-xmp" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="xmp.CreateDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.CreatorTool"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.Identifier"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.Label"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.MetadataDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.ModifyDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.Rating"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+    <!-- ===================================== -->
+    <!-- XMP properties in alpahbetical order. -->
+    <!-- ===================================== -->
+    <rng:define name="xmp.CreateDate" combine="choice">
+        <rng:element name="xmp:CreateDate">
+            <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.CreatorTool" combine="choice">
+        <rng:element name="xmp:CreatorTool">
+            <rng:ref name="ISO16684-1.Types.QValue.AgentName"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Identifier" combine="choice">
+        <rng:element name="xmp:Identifier">
+            <rng:ref name="xmp.QValue.IdentifierArray"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Label" combine="choice">
+        <rng:element name="xmp:Label">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.MetadataDate" combine="choice">
+        <rng:element name="xmp:MetadataDate">
+            <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.ModifyDate" combine="choice">
+        <rng:element name="xmp:ModifyDate">
+            <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Rating" combine="choice">
+        <rng:element name="xmp:Rating">
+            <rng:ref name="xmp.QValue.Rating"/>
+        </rng:element>
+    </rng:define>
+    <!-- ================================== -->
+    <!-- Local types for the XMP namespace. -->
+    <!-- ================================== -->
+    <rng:define name="xmp.QValue.IdentifierArray" combine="choice">
+        <!-- Unordered array of text, items have optional xmpidq:Scheme qualifier. -->
+        <rng:choice>
+            <rng:ref name="xmp.Base.IdentifierArray"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmp.Base.IdentifierArray"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmp.Base.IdentifierArray" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="xmp.QValue.IdentifierItem"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.QValue.IdentifierItem" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.Text"/>
+                </rng:element>
+                <rng:ref name="ISO16684-1.Types.Qualifier.xmpidq-Scheme"/>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmp.QValue.Rating" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmp.Base.Rating"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmp.Base.Rating"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmp.Base.Rating" combine="choice">
+        <rng:choice>
+            <rng:value type="float">-1</rng:value>
+            <rng:data type="float">
+                <rng:param name="minInclusive">0</rng:param>
+                <rng:param name="maxInclusive">5</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+</rng:grammar>

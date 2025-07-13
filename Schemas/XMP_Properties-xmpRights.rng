@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2014 ISO <copyright@iso.org> -->
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<!--
+Property definitions for the XMP Rights Management namespace defined in ISO
+16684-1 clause 8.5. There is an rng:define element for each top-level property
+providing the formal definition of that property. There is also an rng:define
+for the pattern "ISO16684-1.Properties-xmpRights" that contains an
+rng:interleave of all of the top level properties. A full RelaxNG grammar would
+contain the outer rdf:RDF and rdf:Description elements, then refer to the
+relevant ISO16684-1.Properties-xx patterns for the necessary namespaces.
+-->
+<rng:grammar xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+    <!-- =================================================== -->
+    <!-- Interleave of all XMP Rights Management properties. -->
+    <!-- =================================================== -->
+    <rng:define name="XMP_Properties-xmpRights" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="xmpRights.Certificate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpRights.Marked"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpRights.Owner"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpRights.UsageTerms"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpRights.WebStatement"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+    <!-- ======================================================= -->
+    <!-- XMP Rights Management properties in alpahbetical order. -->
+    <!-- ======================================================= -->
+    <rng:define name="xmpRights.Certificate" combine="choice">
+        <rng:element name="xmpRights:Certificate">
+            <rng:ref name="ISO16684-1.Types.QValue.URL" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$(IsPDFA4OrGreater)"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpRights.Marked" combine="choice">
+        <rng:element name="xmpRights:Marked">
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpRights.Owner" combine="choice">
+        <rng:element name="xmpRights:Owner">
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.ProperName" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text" condition="$(IsPDFA4OrGreater)"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpRights.UsageTerms" combine="choice">
+        <rng:element name="xmpRights:UsageTerms">
+            <rng:ref name="ISO16684-1.Types.QValue.LanguageAlternative"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpRights.WebStatement" combine="choice">
+        <rng:element name="xmpRights:WebStatement">
+            <rng:ref name="ISO16684-1.Types.QValue.URL" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$(IsPDFA4OrGreater)"/>
+        </rng:element>
+    </rng:define>
+</rng:grammar>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Core structure value types defined in ISO 16684-1 clause 8.2.
+There are three patterns for each type, one named ISO16684-1.Types.QValue.Xyz,
+one named ISO16684-1.Types.Base.Xyz, and one named ISO16684-1.Types.Fields.Xyz.
+The "Base" pattern defines the raw type. It should only be used in the "QValue"
+pattern, or in cases where use of XMP qualifiers is explicitly not allowed. The
+QValue pattern contains an rng:choice between the Base type and an
+rdf:Description element with nested rdf:value element of the Base type. The
+second choice covers the use of unexpected XMP qualifiers. The qualifiers
+themselves would get validation errors, but not the qualified value.
+The Fields pattern is just a list of the fields. The Base pattern contains the
+canonical rdf:Description element for the struct value, and a nested
+rng:interleave element that in turn contains an rng:ref to the Fields pattern.
+This allows derived struct types to contain more fields and still easily include
+the Base fields.
+-->
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <!-- ResourceRef -->
+    <rng:define name="ISO16684-1.Types.QValue.ResourceRef" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.ResourceRef"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.ResourceRef"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.ResourceRef" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="stRef.documentID"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="stRef.filePath"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="stRef.instanceID"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="stRef.renditionClass"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="stRef.renditionParams"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="stRef.documentID" combine="choice">
+        <rng:element name="stRef:documentID">
+            <rng:ref name="ISO16684-1.Types.QValue.GUID"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="stRef.filePath" combine="choice">
+        <rng:element name="stRef:filePath">
+            <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="stRef.instanceID" combine="choice">
+        <rng:element name="stRef:instanceID">
+            <rng:ref name="ISO16684-1.Types.QValue.GUID"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="stRef.renditionClass" combine="choice">
+        <rng:element name="stRef:renditionClass">
+            <rng:ref name="ISO16684-1.Types.QValue.RenditionClass"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="stRef.renditionParams" combine="choice">
+        <rng:element name="stRef:renditionParams">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+</rng:grammar>

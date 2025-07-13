@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Core simple value types for XMP defined in ISO 16684-1 clause 8.2. All
+stored values are of course text, the types such as Integer or Boolean are
+the semantic interpretations.
+There are two patterns for each type, one named
+ISO16684-1.Types.QValue.Xyz and one named ISO16684-1.Types.Base.Xyz. The
+"Base" pattern defines the raw type. It should only be used in the "QValue"
+pattern, or in cases where use of XMP qualifiers is explicitly not allowed.
+The QValue pattern contains an rng:choice between the Base type and an
+rdf:Description
+element with nested rdf:value element of the Base type. The second choice
+covers the use of unexpected XMP qualifiers. The qualifiers themselves would
+get validation errors, but not the qualified value.
+-->
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xmpidq="http://ns.adobe.com/xmp/Identifier/qual/1.0/" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <!-- ================================================================= -->
+    <!-- Standard qualifiers. Not types, but the most convenient location. -->
+    <!-- ================================================================= -->
+    <!-- xml:lang -->
+    <rng:define name="ISO16684-1.Types.Qualifier.xml-lang" combine="choice">
+        <rng:attribute name="xml:lang">
+            <rng:data type="string">
+                <rng:param name="pattern">x-default|([a-zA-Z]+(-[azA-Z0-9]+)*)</rng:param>
+            </rng:data>
+        </rng:attribute>
+    </rng:define>
+    <!-- xmpidq:Scheme -->
+    <rng:define name="ISO16684-1.Types.Qualifier.xmpidq-Scheme" combine="choice">
+        <rng:element name="xmpidq:Scheme">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+    <!-- ================= -->
+    <!-- General use types -->
+    <!-- ================= -->
+    <!-- Text -->
+    <rng:define name="ISO16684-1.Types.QValue.Text" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.Text" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.Text" combine="choice">
+        <rng:text/>
+    </rng:define>
+    <!-- Boolean -->
+    <rng:define name="ISO16684-1.Types.QValue.Boolean" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Boolean" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.Boolean" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.Boolean" combine="choice">
+        <rng:data type="string">
+            <rng:param name="pattern">True|False</rng:param>
+        </rng:data>
+    </rng:define>
+    <!-- Date -->
+    <rng:define name="ISO16684-1.Types.QValue.Date" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Date" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.Date" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.Date" combine="choice">
+        <rng:data type="string">
+            <rng:param name="pattern">(\d{4}((-)?(0[1-9]|1[0-2])((-)?(0[1-9]|[1-2][0-9]|3[0-1])(T(24:00(:00(\.[0]+)?)?|(([0-1][0-9]|2[0-3])(:)[0-5][0-9])((:)[0-5][0-9](\.[\d]+)?)?)((\+|-)(14:00|(0[0-9]|1[0-3])(:)[0-5][0-9])|Z)?)?)?)?)</rng:param>
+        </rng:data>
+    </rng:define>
+    <!-- Integer, real, and rational numbers -->
+    <rng:define name="ISO16684-1.Types.QValue.Integer" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Integer" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.Integer" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.Integer" combine="choice">
+        <rng:data type="integer" />
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.Real" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Real" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.Real" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.Real" combine="choice">
+        <rng:data type="double" />
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.Rational" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Rational" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.Rational" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.Rational" combine="choice">
+        <rng:data type="string">
+            <rng:param name="pattern">\d+/[1-9]\d*</rng:param>
+        </rng:data>
+    </rng:define>
+    <!-- ====================== -->
+    <!-- More specialized types -->
+    <!-- ====================== -->
+    <!-- Agent name -->
+    <rng:define name="ISO16684-1.Types.QValue.AgentName" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.AgentName" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.AgentName" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.AgentName" combine="choice">
+        <rng:text/>
+    </rng:define>
+    <!-- GUID -->
+    <rng:define name="ISO16684-1.Types.QValue.GUID" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.GUID" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.GUID" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.GUID" combine="choice">
+        <rng:text/>
+    </rng:define>
+    <!-- Locale -->
+    <rng:define name="ISO16684-1.Types.QValue.Locale" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Locale" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.Locale" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.Locale" combine="choice">
+        <rng:data type="string">
+            <rng:param name="pattern">[a-zA-Z]+(-[a-zA-Z0-9]+)*</rng:param>
+        </rng:data>
+    </rng:define>
+    <!-- MIME-type -->
+    <rng:define name="ISO16684-1.Types.QValue.MIMEType" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.MIMEType" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.MIMEType" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.MIMEType" combine="choice">
+        <rng:data type="string">
+            <rng:param name="pattern">(application|audio|example|image|message|model|multipart|text|video)/[a-zA-Z0-9]+([+\-.][a-zA-Z0-9]+)*</rng:param>
+        </rng:data>
+    </rng:define>
+    <!-- Proper name -->
+    <rng:define name="ISO16684-1.Types.QValue.ProperName" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.ProperName" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.ProperName" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.ProperName" combine="choice">
+        <rng:text/>
+    </rng:define>
+    <!-- Rendition class -->
+    <rng:define name="ISO16684-1.Types.QValue.RenditionClass" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.RenditionClass" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.RenditionClass" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.RenditionClass" combine="choice">
+        <rng:text/>
+    </rng:define>
+    <!-- URI -->
+    <rng:define name="ISO16684-1.Types.QValue.URI" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.URI" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.URI" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.URI" combine="choice">
+        <rng:text/>
+    </rng:define>
+    <!-- URL -->
+    <rng:define name="ISO16684-1.Types.QValue.URL" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.URL" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.URL" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.URL" combine="choice">
+        <rng:text/>
+    </rng:define>
+</rng:grammar>

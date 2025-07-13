@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:tiff="http://ns.adobe.com/tiff/1.0/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-tiff" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="tiff.Artist"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.BitsPerSample"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.Compression"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.Copyright"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.DateTime"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.ImageDescription"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.ImageLength"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.ImageWidth"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.Make"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.Model"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.Orientation"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.PhotometricInterpretation"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.PlanarConfiguration"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.PrimaryChromaticities"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.ReferenceBlackWhite"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.ResolutionUnit"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.SamplesPerPixel"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.Software"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.TransferFunction"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.WhitePoint"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.XResolution"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.YCbCrCoefficients"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.YCbCrPositioning"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.YCbCrSubSampling"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="tiff.YResolution"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="tiff.Artist" combine="choice">
+        <rng:element name="tiff:Artist">
+            <rng:ref name="ISO16684-1.Types.QValue.ProperName" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.ProperName" condition="$(IsPDFA4OrGreater)"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.BitsPerSample" combine="choice">
+        <rng:element name="tiff:BitsPerSample">
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.Compression" combine="choice">
+        <rng:element name="tiff:Compression">
+            <rng:ref name="tiff.Compression.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.Copyright" combine="choice">
+        <rng:element name="tiff:Copyright">
+            <rng:ref name="ISO16684-1.Types.QValue.LanguageAlternative" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.DateTime" combine="choice">
+        <rng:element name="tiff:DateTime">
+            <rng:ref name="ISO16684-1.Types.QValue.Date" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.ImageDescription" combine="choice">
+        <rng:element name="tiff:ImageDescription">
+            <rng:ref name="ISO16684-1.Types.QValue.LanguageAlternative" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.ImageLength" combine="choice">
+        <rng:element name="tiff:ImageLength">
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.ImageWidth" combine="choice">
+        <rng:element name="tiff:ImageWidth">
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.Make" combine="choice">
+        <rng:element name="tiff:Make">
+            <rng:ref name="ISO16684-1.Types.QValue.ProperName" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.Model" combine="choice">
+        <rng:element name="tiff:Model">
+            <rng:ref name="ISO16684-1.Types.QValue.ProperName" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$(IsPDFA4OrGreater)"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.Orientation" combine="choice">
+        <rng:element name="tiff:Orientation">
+            <rng:ref name="tiff.Orientation.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.PhotometricInterpretation" combine="choice">
+        <rng:element name="tiff:PhotometricInterpretation">
+            <rng:ref name="tiff.PhotometricInterpretation.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.PlanarConfiguration" combine="choice">
+        <rng:element name="tiff:PlanarConfiguration">
+            <rng:ref name="tiff.PlanarConfiguration.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.PrimaryChromaticities" combine="choice">
+        <rng:element name="tiff:PrimaryChromaticities">
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.ReferenceBlackWhite" combine="choice">
+        <rng:element name="tiff:ReferenceBlackWhite">
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.ResolutionUnit" combine="choice">
+        <rng:element name="tiff:ResolutionUnit">
+            <rng:ref name="tiff.ResolutionUnit.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.SamplesPerPixel" combine="choice">
+        <rng:element name="tiff:SamplesPerPixel">
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.Software" combine="choice">
+        <rng:element name="tiff:Software">
+            <rng:ref name="ISO16684-1.Types.QValue.AgentName" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.TransferFunction" combine="choice">
+        <rng:element name="tiff:TransferFunction">
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Integer" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.WhitePoint" combine="choice">
+        <rng:element name="tiff:WhitePoint">
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.XResolution" combine="choice">
+        <rng:element name="tiff:XResolution">
+            <rng:ref name="ISO16684-1.Types.QValue.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.YCbCrCoefficients" combine="choice">
+        <rng:element name="tiff:YCbCrCoefficients">
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.YCbCrPositioning" combine="choice">
+        <rng:element name="tiff:YCbCrPositioning">
+            <rng:ref name="tiff.YCbCrPositioning.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.YCbCrSubSampling" combine="choice">
+        <rng:element name="tiff:YCbCrSubSampling">
+            <rng:ref name="tiff.YCbCrSubSampling.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="tiff.YResolution" combine="choice">
+        <rng:element name="tiff:YResolution">
+            <rng:ref name="ISO16684-1.Types.QValue.Rational" />
+        </rng:element>
+    </rng:define>
+
+    <!-- Local types -->
+    <rng:define name="tiff.Compression.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="tiff.Compression.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="tiff.Compression.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="tiff.Compression.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="integer">1</rng:value>
+            <rng:value type="integer">6</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="tiff.Orientation.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="tiff.Orientation.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="tiff.Orientation.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="tiff.Orientation.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="integer">1</rng:value>
+            <rng:value type="integer">2</rng:value>
+            <rng:value type="integer">3</rng:value>
+            <rng:value type="integer">4</rng:value>
+            <rng:value type="integer">5</rng:value>
+            <rng:value type="integer">6</rng:value>
+            <rng:value type="integer">7</rng:value>
+            <rng:value type="integer">8</rng:value>
+        </rng:choice>
+    </rng:define>
+    
+    <rng:define name="tiff.PhotometricInterpretation.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="tiff.PhotometricInterpretation.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="tiff.PhotometricInterpretation.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="tiff.PhotometricInterpretation.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="integer">2</rng:value>
+            <rng:value type="integer">6</rng:value>
+        </rng:choice>
+    </rng:define>
+    
+    <rng:define name="tiff.PlanarConfiguration.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="tiff.PlanarConfiguration.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="tiff.PlanarConfiguration.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="tiff.PlanarConfiguration.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="integer">1</rng:value>
+            <rng:value type="integer">2</rng:value>
+        </rng:choice>
+    </rng:define>
+    
+    <rng:define name="tiff.ResolutionUnit.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="tiff.ResolutionUnit.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="tiff.ResolutionUnit.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="tiff.ResolutionUnit.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="integer">2</rng:value>
+            <rng:value type="integer">3</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="tiff.YCbCrPositioning.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="tiff.YCbCrPositioning.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="tiff.YCbCrPositioning.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="tiff.YCbCrPositioning.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="integer">1</rng:value>
+            <rng:value type="integer">2</rng:value>
+        </rng:choice>
+    </rng:define>
+
+   <!-- CHECK-ME: Can validate it better? Eg. the elements of the sequences being QValue as well? -->
+    <rng:define name="tiff.YCbCrSubSampling.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="tiff.YCbCrSubSampling.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="tiff.YCbCrSubSampling.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="tiff.YCbCrSubSampling.Base" combine="choice">
+        <rng:choice>
+          <rng:element name="rdf:Seq">
+            <rng:element name="rdf:li">
+              <rng:value type="integer">2</rng:value>
+            </rng:element>
+            <rng:element name="rdf:li">
+              <rng:value type="integer">1</rng:value>
+            </rng:element>
+          </rng:element>
+          <rng:element name="rdf:Seq">
+            <rng:element name="rdf:li">
+              <rng:value type="integer">2</rng:value>
+            </rng:element>
+            <rng:element name="rdf:li">
+              <rng:value type="integer">2</rng:value>
+            </rng:element>
+          </rng:element>
+        </rng:choice>
+    </rng:define>
+</rng:grammar>

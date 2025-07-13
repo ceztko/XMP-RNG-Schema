@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <rng:include href="ISO16684-1_Properties-dc.rng"/>
+    <rng:include href="ISO16684-1_Properties-xmp.rng"/>
+    <rng:include href="ISO16684-1_Properties-xmpMM.rng"/>
+    <rng:include href="ISO16684-1_Properties-xmpRights.rng"/>
+    <rng:start>
+        <rng:element name="rdf:RDF">
+            <rng:element name="rdf:Description">
+                <rng:attribute name="rdf:about"/>
+                <rng:interleave>
+                    <rng:ref name="ISO16684-1.Properties-dc"/>
+                    <rng:ref name="ISO16684-1.Properties-xmp"/>
+                    <rng:ref name="ISO16684-1.Properties-xmpMM"/>
+                    <rng:ref name="ISO16684-1.Properties-xmpRights"/>
+                </rng:interleave>
+            </rng:element>
+        </rng:element>
+    </rng:start>
+</rng:grammar>

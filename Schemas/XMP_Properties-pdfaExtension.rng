@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:pdfaextension="http://www.aiim.org/pdfa/ns/extension/" xmlns:pdfaSchema="http://www.aiim.org/pdfa/ns/schema#" xmlns:pdfaProperty="http://www.aiim.org/pdfa/ns/property#" xmlns:pdfaType="http://www.aiim.org/pdfa/ns/type#" xmlns:pdfaField="http://www.aiim.org/pdfa/ns/field#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-pdfaExtension" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="pdfaExtension.schemas"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.schemas" combine="choice">
+        <rng:element name="pdfaExtension:schemas">
+            <rng:ref name="pdfaExtension.schemas.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.schemas.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaExtension.schemas.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaExtension.schemas.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaExtension.schemas.Base" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="pdfaExtension.Schema.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaExtension.Schema.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaExtension.Schema.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaExtension.Schema.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <!-- NOTE: All fields are required -->
+                <rng:ref name="pdfaExtension.Schema.schema" />
+                <rng:ref name="pdfaExtension.Schema.namespaceURI" />
+                <rng:ref name="pdfaExtension.Schema.prefix" />
+                <rng:ref name="pdfaExtension.Schema.property" />
+                <rng:ref name="pdfaExtension.Schema.valueType" />
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Property.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaExtension.Property.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaExtension.Property.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaExtension.Property.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <!-- NOTE: All fields are required -->
+                <rng:ref name="pdfaExtension.Property.name" />
+                <rng:ref name="pdfaExtension.Property.valueType" />
+                <rng:ref name="pdfaExtension.Property.category" />
+                <rng:ref name="pdfaExtension.Property.description" />
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.ValueType.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaExtension.ValueType.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaExtension.ValueType.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaExtension.ValueType.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <!-- NOTE: All fields are required -->
+                <rng:ref name="pdfaExtension.ValueType.type" />
+                <rng:ref name="pdfaExtension.ValueType.namespaceURI" />
+                <rng:ref name="pdfaExtension.ValueType.prefix" />
+                <rng:ref name="pdfaExtension.ValueType.description" />
+                <rng:ref name="pdfaExtension.ValueType.field" />
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Field.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaExtension.Field.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaExtension.Field.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfaExtension.Field.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <!-- NOTE: All fields are required -->
+                <rng:ref name="pdfaExtension.Field.name" />
+                <rng:ref name="pdfaExtension.Field.valueType" />
+                <rng:ref name="pdfaExtension.Field.description" />
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.schema" combine="choice">
+        <rng:element name="pdfaSchema:schema">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.namespaceURI" combine="choice">
+        <rng:element name="pdfaSchema:namespaceURI">
+            <rng:ref name="ISO16684-1.Types.QValue.URI" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.prefix" combine="choice">
+        <rng:element name="pdfaSchema:prefix">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.property" combine="choice">
+        <rng:element name="pdfaSchema:property">
+            <rng:ref name="pdfaExtension.Schema.property.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.valueType" combine="choice">
+        <rng:element name="pdfaSchema:valueType">
+            <rng:ref name="pdfaExtension.Schema.valueType.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Property.name" combine="choice">
+        <rng:element name="pdfaProperty:name">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Property.valueType" combine="choice">
+        <rng:element name="pdfaProperty:valueType">
+            <!-- CHECK-ME: This is contextualized Open Choice of Text -->
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Property.category" combine="choice">
+        <rng:element name="pdfaProperty:category">
+            <rng:ref name="pdfaExtension.Property.category.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Property.description" combine="choice">
+        <rng:element name="pdfaProperty:description">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.ValueType.type" combine="choice">
+        <rng:element name="pdfaType:type">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.ValueType.namespaceURI" combine="choice">
+        <rng:element name="pdfaType:namespaceURI">
+            <rng:ref name="ISO16684-1.Types.QValue.URI" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.ValueType.prefix" combine="choice">
+        <rng:element name="pdfaType:prefix">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.ValueType.description" combine="choice">
+        <rng:element name="pdfaType:description">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.ValueType.field" combine="choice">
+        <rng:element name="pdfaType:field">
+            <rng:ref name="pdfaExtension.ValueType.field.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Field.name" combine="choice">
+        <rng:element name="pdfaField:name">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Field.valueType" combine="choice">
+        <rng:element name="pdfaField:valueType">
+            <!-- CHECK-ME: This is contextualized Open Choice of Text -->
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Field.description" combine="choice">
+        <rng:element name="pdfaField:description">
+            <rng:ref name="ISO16684-1.Types.QValue.Text" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.property.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaExtension.Schema.property.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaExtension.Schema.property.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.valueType.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaExtension.Schema.valueType.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaExtension.Schema.valueType.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Property.category.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaExtension.Property.category.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaExtension.Property.category.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.ValueType.field.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfaExtension.ValueType.field.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfaExtension.ValueType.field.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.property.Base" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="pdfaExtension.Property.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Schema.valueType.Base" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="pdfaExtension.ValueType.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.Property.category.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">internal</rng:value>
+            <rng:value type="string">external</rng:value>
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfaExtension.ValueType.field.Base" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="pdfaExtension.Field.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+
+</rng:grammar>

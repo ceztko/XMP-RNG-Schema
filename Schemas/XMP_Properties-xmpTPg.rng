@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/" xmlns:stDim="http://ns.adobe.com/xap/1.0/sType/Dimensions#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+    <rng:include href="XMP_Types-cmn.rng"/>
+
+    <rng:define name="XMP_Properties-xmpTPg" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="xmpTPg.MaxPageSize"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpTPg.NPages"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpTPg.Fonts" condition="$(IsPDFA2OrGreater)"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpTPg.Colorants" condition="$(IsPDFA2OrGreater)"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmpTPg.PlateNames" condition="$(IsPDFA2OrGreater)"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="xmpTPg.MaxPageSize" combine="choice">
+        <rng:element name="xmpTPg:MaxPageSize">
+            <rng:ref name="cmn.Dimensions.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpTPg.NPages" combine="choice">
+        <rng:element name="xmpTPg:NPages">
+            <rng:ref name="ISO16684-1.Types.QValue.Integer"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpTPg.Fonts" combine="choice">
+        <rng:element name="xmpTPg:Fonts">
+            <rng:ref name="xmpTPg.Fonts.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpTPg.Colorants" combine="choice">
+        <rng:element name="xmpTPg:Colorants">
+            <rng:ref name="xmpTPg.Colorants.QValue"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpTPg.PlateNames" combine="choice">
+        <rng:element name="xmpTPg:PlateNames">
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Text"/>
+        </rng:element>
+    </rng:define>
+
+    <!-- Local types -->
+    <rng:define name="xmpTPg.Fonts.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpTPg.Fonts.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpTPg.Fonts.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpTPg.Fonts.Base" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="xmpTPg.Font.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpTPg.Colorants.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpTPg.Colorants.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpTPg.Colorants.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpTPg.Colorants.Base" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="cmn.Colorant.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpTPg.Font.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpTPg.Font.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpTPg.Font.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmpTPg.Font.fontName"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpTPg.Font.fontFamily"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpTPg.Font.fontFace"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpTPg.Font.fontType"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpTPg.Font.versionString"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpTPg.Font.composite"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpTPg.Font.fontFileName"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmpTPg.Font.childFontFiles"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.fontName" combine="choice">
+        <rng:element name="stFnt:fontName">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.fontFamily" combine="choice">
+        <rng:element name="stFnt:fontFamily">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.fontFace" combine="choice">
+        <rng:element name="stFnt:fontFace">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.fontType" combine="choice">
+        <rng:element name="stFnt:fontType">
+            <rng:ref name="xmpTPg.Font.fontType.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.versionString" combine="choice">
+        <rng:element name="stFnt:versionString">
+            <!-- CHECK-ME: In the specification up to 2016 the type is "String", which is not documented -->
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.composite" combine="choice">
+        <rng:element name="stFnt:composite">
+            <rng:ref name="ISO16684-1.Types.QValue.Boolean"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.fontFileName" combine="choice">
+        <rng:element name="stFnt:fontFileName">
+            <!-- CHECK-ME: In the specification up to 2016 the type is "String", which is not documented -->
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.childFontFiles" combine="choice">
+        <rng:element name="stFnt:childFontFiles">
+            <!-- CHECK-ME: In the specification up to 2016 the type is "Seq String", which is not documented -->
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.Text"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmpTPg.Font.fontType.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmpTPg.Font.fontType.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmpTPg.Font.fontType.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmpTPg.Font.fontType.Base" combine="choice">
+        <rng:choice>
+            <rng:choice>
+                <rng:value type="string">TrueType</rng:value>
+                <rng:value type="string">Type 1</rng:value>
+                <rng:value type="string">Open Type</rng:value>
+            </rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+        </rng:choice>
+    </rng:define>
+</rng:grammar>

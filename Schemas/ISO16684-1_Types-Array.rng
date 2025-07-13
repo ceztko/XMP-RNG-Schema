@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2014 ISO <copyright@iso.org> -->
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<!--
+Core array value types for XMP defined in ISO 16684-1 clause 8.2.
+There are two patterns for each type, one named ISO16684-1.Types.QValue.Xyz and
+one named ISO16684-1.Types.Base.Xyz. The "Base" pattern defines the raw type. It
+should only be used in the "QValue" pattern, or in cases where use of XMP
+qualifiers is explicitly not allowed. The QValue pattern contains an rng:choice
+between the Base type and an rdf:Description element with nested rdf:value
+element of the Base type. The second choice covers the use of unexpected XMP
+qualifiers. The qualifiers themselves would get validation errors, but not the
+qualified value.
+All combinations are defined for arrays of the general simple types. Only the
+necessary types are defined for more specialized arrays. The array item types
+used here are all "QTypes", allowing for qualifiers.
+-->
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <!-- ================= -->
+    <!-- General use types -->
+    <!-- ================= -->
+    <!-- Unordered, ordered, alternative arrays of general text -->
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.Text" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Text"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Text"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.Text" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.OrderedArray.Text" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Text"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Text"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.OrderedArray.Text" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.AlternativeArray.Text" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Text"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Text"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.AlternativeArray.Text" combine="choice">
+        <rng:element name="rdf:Alt">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <!-- Unordered, ordered, alternative arrays of Boolean -->
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.Boolean" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Boolean"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Boolean"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.Boolean" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Boolean"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.OrderedArray.Boolean" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Boolean"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Boolean"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.OrderedArray.Boolean" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Boolean"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.AlternativeArray.Boolean" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Boolean"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Boolean"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.AlternativeArray.Boolean" combine="choice">
+        <rng:element name="rdf:Alt">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Boolean"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <!-- Unordered, ordered, alternative arrays of Date -->
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.Date" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Date"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Date"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.Date" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.OrderedArray.Date" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Date"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Date"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.OrderedArray.Date" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.AlternativeArray.Date" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Date"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Date"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.AlternativeArray.Date" combine="choice">
+        <rng:element name="rdf:Alt">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <!-- Unordered, ordered, alternative arrays of integer -->
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.Integer" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Integer"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Integer"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.Integer" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Integer"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.OrderedArray.Integer" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Integer"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Integer"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.OrderedArray.Integer" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Integer"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.AlternativeArray.Integer" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Integer"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Integer"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.AlternativeArray.Integer" combine="choice">
+        <rng:element name="rdf:Alt">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Integer"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <!-- Unordered, ordered, alternative arrays of real -->
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.Real" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Real"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Real"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.Real" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Real"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.OrderedArray.Real" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Real"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Real"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.OrderedArray.Real" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Real"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.AlternativeArray.Real" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Real"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Real"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.AlternativeArray.Real" combine="choice">
+        <rng:element name="rdf:Alt">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Real"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <!-- Unordered, ordered, alternative arrays of rational -->
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.Rational" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Rational"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Rational"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.Rational" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Rational"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.OrderedArray.Rational" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Rational"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.OrderedArray.Rational"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.OrderedArray.Rational" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Rational"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.AlternativeArray.Rational" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Rational"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.AlternativeArray.Rational"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.AlternativeArray.Rational" combine="choice">
+        <rng:element name="rdf:Alt">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Rational"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <!-- ====================== -->
+    <!-- More specialized types -->
+    <!-- ====================== -->
+    <!-- Language Alternative array -->
+    <rng:define name="ISO16684-1.Types.QValue.LanguageAlternative" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.LanguageAlternative"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.LanguageAlternative"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.LanguageAlternative" combine="choice">
+        <rng:element name="rdf:Alt">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.Qualifier.xml-lang"/>
+                    <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <!-- Unordered array of Locale -->
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.Locale" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Locale"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.Locale"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.Locale" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.Locale"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <!-- Unordered and ordered arrays of ProperName -->
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.ProperName" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.ProperName"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.ProperName"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.ProperName" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.ProperName"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.OrderedArray.ProperName" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.OrderedArray.ProperName"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.OrderedArray.ProperName"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.OrderedArray.ProperName" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.ProperName"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.OrderedArray.URI" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.OrderedArray.URI"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.OrderedArray.URI"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.OrderedArray.URI" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.URI" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.URI"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.URI"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.URI" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.URI"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.OrderedArray.URL" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.OrderedArray.URL"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.OrderedArray.URL"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.OrderedArray.URL" combine="choice">
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.URL"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.QValue.UnorderedArray.URL" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.URL"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.UnorderedArray.URL"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ISO16684-1.Types.Base.UnorderedArray.URL" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.URL"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+</rng:grammar>

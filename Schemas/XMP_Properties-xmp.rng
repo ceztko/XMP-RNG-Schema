@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2014 ISO <copyright@iso.org> -->
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<!--
+Property definitions for the XMP namespace defined in ISO 16684-1 clause 8.4.
+There is an rng:define element for each top-level property providing the formal
+definition of that property. There is also an rng:define for the pattern
+"ISO16684-1.Properties-xmp" that contains an rng:interleave of all of the top
+level properties. A full RelaxNG grammar would contain the outer rdf:RDF and
+rdf:Description elements, then refer to the relevant ISO16684-1.Properties-xx
+patterns for the necessary namespaces.
+-->
+<rng:grammar xmlns:xmp="http://ns.adobe.com/xap/1.0/"  xmlns:xapGImg="http://ns.adobe.com/xap/1.0/g/img/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+    <!-- ================================= -->
+    <!-- Interleave of all XMP properties. -->
+    <!-- ================================= -->
+    <rng:define name="XMP_Properties-xmp" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="xmp.Advisory"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.CreateDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.CreatorTool"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.Identifier"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA2OrGreater)">
+                <rng:ref name="xmp.Label"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.MetadataDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.ModifyDate"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.Nickname"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="xmp.Thumbnails"/>
+            </rng:optional>
+            <rng:optional condition="$(IsPDFA2OrGreater)">
+                <rng:ref name="xmp.Rating"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+    <!-- ===================================== -->
+    <!-- XMP properties in alpahbetical order. -->
+    <!-- ===================================== -->
+    <rng:define name="xmp.Advisory" combine="choice">
+        <rng:element name="xmp:Advisory">
+            <!-- xmp:Advisory is a bag of XPath. A XPath expression is described by a full grammar,
+            and can't be described by a regular expression. Since xmp:Advisory is deprecated anyway
+            in PDF/A-4, let's just describe it as an unordered array of Text. Actually
+            veraPDF does the same  https://github.com/veraPDF/veraPDF-library/blob/b75a016ff64eefc661b3365e7b47186d0d3a62fd/core/src/main/java/org/verapdf/model/tools/xmp/XMPConstants.java#L285 -->
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.CreateDate" combine="choice">
+        <rng:element name="xmp:CreateDate">
+            <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.CreatorTool" combine="choice">
+        <rng:element name="xmp:CreatorTool">
+            <rng:ref name="ISO16684-1.Types.QValue.AgentName"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Identifier" combine="choice">
+        <rng:element name="xmp:Identifier">
+            <rng:ref name="xmp.IdentifierArray.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Label" combine="choice">
+        <rng:element name="xmp:Label">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.MetadataDate" combine="choice">
+        <rng:element name="xmp:MetadataDate">
+            <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.ModifyDate" combine="choice">
+        <rng:element name="xmp:ModifyDate">
+            <rng:ref name="ISO16684-1.Types.QValue.Date"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Nickname" combine="choice">
+        <rng:element name="xmp:Nickname">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Thumbnails" combine="choice">
+        <rng:element name="xmp:Thumbnails">
+            <rng:ref name="xmp.Thumbnails.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Rating" combine="choice">
+        <rng:element name="xmp:Rating">
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="xmp.Rating.QValue" condition="$(IsPDFA4OrGreater)"/>
+        </rng:element>
+    </rng:define>
+    <!-- ================================== -->
+    <!-- Local types for the XMP namespace. -->
+    <!-- ================================== -->
+    <rng:define name="xmp.IdentifierArray.QValue" combine="choice">
+        <!-- Unordered array of text, items have optional xmpidq:Scheme qualifier. -->
+        <rng:choice>
+            <rng:ref name="xmp.IdentifierArray.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmp.IdentifierArray.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmp.IdentifierArray.Base" combine="choice">
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="xmp.IdentifierItem.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.IdentifierItem.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="ISO16684-1.Types.Base.Text"/>
+                </rng:element>
+                <rng:ref name="ISO16684-1.Types.Qualifier.xmpidq-Scheme"/>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmp.Rating.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmp.Rating.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmp.Rating.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmp.Rating.Base" combine="choice">
+        <rng:choice>
+            <!-- CHECK-ME: 16684-2 originally used "float", but Real is actually a double -->
+            <rng:value type="double">-1</rng:value>
+            <rng:data type="double">
+                <rng:param name="minInclusive">0</rng:param>
+                <rng:param name="maxInclusive">5</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    
+    <rng:define name="xmp.Thumbnails.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmp.Thumbnails.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmp.Thumbnails.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmp.Thumbnails.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:element name="rdf:Alt">
+                <rng:zeroOrMore>
+                    <rng:element name="rdf:li">
+                        <rng:ref name="xmp.Thumbnail.QValue"/>
+                    </rng:element>
+                </rng:zeroOrMore>
+            </rng:element>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmp.Thumbnail.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmp.Thumbnail.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmp.Thumbnail.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmp.Thumbnail.Base" combine="choice">
+        <rng:element name="rdf:Description">
+            <rng:interleave>
+                <rng:optional>
+                    <rng:ref name="xmp.Thumbnail.height"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmp.Thumbnail.width"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmp.Thumbnail.format"/>
+                </rng:optional>
+                <rng:optional>
+                    <rng:ref name="xmp.Thumbnail.image"/>
+                </rng:optional>
+            </rng:interleave>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Thumbnail.height" combine="choice">
+        <rng:element name="xapGImg:height">
+            <rng:ref name="ISO16684-1.Types.QValue.Integer"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Thumbnail.width" combine="choice">
+        <rng:element name="xapGImg:width">
+            <rng:ref name="ISO16684-1.Types.QValue.Integer"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Thumbnail.format" combine="choice">
+        <rng:element name="xapGImg:format">
+            <rng:ref name="xmp.Thumbnail.format.QValue"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="xmp.Thumbnail.image" combine="choice">
+        <rng:element name="xapGImg:image">
+            <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="xmp.Thumbnail.format.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="xmp.Thumbnail.format.Base"/>
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="xmp.Thumbnail.format.Base"/>
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="xmp.Thumbnail.format.Base" combine="choice">
+        <rng:choice>
+            <rng:value type="string">JPEG</rng:value>
+        </rng:choice>
+    </rng:define>
+</rng:grammar>
