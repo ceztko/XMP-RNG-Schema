@@ -8,8 +8,8 @@ The current snapshots can be found at the following locations:
 
 ## Quickstart
 
-- Download and install .NET SDK[1] and Powershell[2] (Linux, macOS, and Windows);
+- Download and install .NET SDK[^1] and Powershell[^2] (Linux, macOS, and Windows);
 - Run `pwsh generate-grammars.ps1`
 
-[1] https://dotnet.microsoft.com/en-us/download
-[2] https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell
+[^1]: https://dotnet.microsoft.com/en-us/download
+[^2]: https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell
