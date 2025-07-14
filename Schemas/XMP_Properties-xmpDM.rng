@@ -182,55 +182,55 @@
             <rng:optional>
                 <rng:ref name="xmpDM.scaleType"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.cameraAngle"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.cameraLabel"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.cameraModel"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.cameraMove"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.client"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.comment"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.director"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.directorPhotography"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.good"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.projectName"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.shotNumber"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.shotSize"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.takeNumber"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.videoFrameRate"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.partOfCompilation"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.lyrics"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.discNumber"/>
             </rng:optional>
         </rng:interleave>
@@ -764,16 +764,16 @@
             <rng:value type="string">SWWWS</rng:value>
             <rng:value type="string">WWWSS</rng:value>
             <rng:value type="string">WWSSW</rng:value>
-            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">WSSWW_24p</rng:value>
-            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">SSWWW_24p</rng:value>
-            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">SWWWS_24p</rng:value>
-            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">WWWSS_24p</rng:value>
-            <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">WWSSW_24p</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">WWWSW</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">WWSWW</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">WSWWW</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">SWWWW</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">WWWWS</rng:value>
+            <rng:value type="string" condition="$IsPDFA2 or $IsPDFA3">WSSWW_24p</rng:value>
+            <rng:value type="string" condition="$IsPDFA2 or $IsPDFA3">SSWWW_24p</rng:value>
+            <rng:value type="string" condition="$IsPDFA2 or $IsPDFA3">SWWWS_24p</rng:value>
+            <rng:value type="string" condition="$IsPDFA2 or $IsPDFA3">WWWSS_24p</rng:value>
+            <rng:value type="string" condition="$IsPDFA2 or $IsPDFA3">WWSSW_24p</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">WWWSW</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">WWSWW</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">WSWWW</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">SWWWW</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">WWWWS</rng:value>
         </rng:choice>
     </rng:define>
 
@@ -793,9 +793,9 @@
             <rng:value type="string">16Int</rng:value>
             <rng:value type="string">32Int</rng:value>
             <rng:value type="string">32Float</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">Compressed</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">Packed</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">Other</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">Compressed</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">Packed</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">Other</rng:value>
         </rng:choice>
     </rng:define>
 
@@ -815,8 +815,8 @@
             <rng:value type="string">Stereo</rng:value>
             <rng:value type="string">5.1</rng:value>
             <rng:value type="string">7.1</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">16</rng:value>
-            <rng:value type="string" condition="$(IsPDFA4OrGreater)">Other</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">16</rng:value>
+            <rng:value type="string" condition="$IsPDFA4OrGreater">Other</rng:value>
         </rng:choice>
     </rng:define>
 

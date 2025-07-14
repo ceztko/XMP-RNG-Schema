@@ -33,7 +33,7 @@ patterns for the necessary namespaces.
             <rng:optional>
                 <rng:ref name="xmp.Identifier"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA2OrGreater)">
+            <rng:optional condition="$IsPDFA2OrGreater">
                 <rng:ref name="xmp.Label"/>
             </rng:optional>
             <rng:optional>
@@ -48,7 +48,7 @@ patterns for the necessary namespaces.
             <rng:optional>
                 <rng:ref name="xmp.Thumbnails"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA2OrGreater)">
+            <rng:optional condition="$IsPDFA2OrGreater">
                 <rng:ref name="xmp.Rating"/>
             </rng:optional>
         </rng:interleave>
@@ -107,8 +107,8 @@ patterns for the necessary namespaces.
     </rng:define>
     <rng:define name="xmp.Rating" combine="choice">
         <rng:element name="xmp:Rating">
-            <rng:ref name="ISO16684-1.Types.QValue.Integer" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
-            <rng:ref name="xmp.Rating.QValue" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.Integer" condition="$IsPDFA2 or $IsPDFA3"/>
+            <rng:ref name="xmp.Rating.QValue" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
     <!-- ================================== -->

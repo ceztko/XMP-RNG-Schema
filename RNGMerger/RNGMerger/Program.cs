@@ -1,6 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
+using System.Xml.Xsl;
 
 namespace RelaxNgMerger;
 
@@ -150,13 +153,13 @@ class Program
         string outDir, string filename)
     {
         var processed = new XDocument(document);
-        preprocess(processed.Root!, properties);
+        preprocess(processed.Root!, new BoolDictionaryXsltContext(properties));
 
         Console.WriteLine($"Collecting grammar garbage...");
         collectGarbage(processed);
         var outputPath = Path.Combine(outDir, filename);
         using (var writer = XmlWriter.Create(outputPath,
-            new XmlWriterSettings { NewLineChars = "\n", Indent = true }))
+            new XmlWriterSettings { Encoding = new UTF8Encoding(false), NewLineChars = "\n", Indent = true }))
         {
             processed.Save(writer);
         }
@@ -164,43 +167,20 @@ class Program
         Console.WriteLine($"Merged grammar saved to: {outputPath}");
     }
 
-    // CHECK-ME: This was mostly LLM generated and not fully checked
-    // for correctness (70% checked)
     /// <summary>
-    /// Process condition="$(Prop1) And $(Prop2) Or $(Prop3)" like expressions
+    /// Process condition="$Prop1 and $Prop2 or $Prop3" like expressions
     /// </summary>
-    static void preprocess(XElement element, Dictionary<string, bool> properties)
+    static void preprocess(XElement element, BoolDictionaryXsltContext ctx)
     {
         bool evaluate(string? expr)
         {
             if (string.IsNullOrWhiteSpace(expr))
-                return true;                       // No condition == include
+                return true;            // no @condition == keep
 
-            // Tokenise on "Or" first, then "And" (MSBuild’s precedence)
-            //   expr := term (" Or " term)*         (low precedence)
-            //   term := factor (" And " factor)*    (high precedence)
-            bool evalTerm(string term)
-            {
-                bool evalFactor(string factor)
-                {
-                    // Trim and strip $(...)
-                    factor = factor.Trim();
-                    var m = Regex.Match(factor, @"^\$\(\s*(?<name>[A-Za-z0-9_.-]+)\s*\)$");
-                    if (!m.Success)
-                        throw new Exception($"Malformed factor \"{factor}\"");
-
-                    var name = m.Groups["name"].Value;
-                    return properties.TryGetValue(name, out var v) && v;
-                }
-
-                return term.Split([" And ", " and ", " AND "],
-                                   StringSplitOptions.RemoveEmptyEntries)
-                           .All(f => evalFactor(f));
-            }
-
-            return expr.Split([" Or ", " or ", " OR "],
-                              StringSplitOptions.RemoveEmptyEntries)
-                       .Any(t => evalTerm(t));
+            // Use an empty navigator (we only need variable lookup, no node test)
+            var nav = new XmlDocument().CreateNavigator()!;
+            object result = nav.Evaluate(expr!, ctx);
+            return Convert.ToBoolean(result);
         }
 
         foreach (var child in element.Elements().ToList())
@@ -210,7 +190,7 @@ class Program
             if (keep)
             {
                 condAttr?.Remove();
-                preprocess(child, properties);   // depth‑first
+                preprocess(child, ctx);   // depth‑first
             }
             else
             {
@@ -301,6 +281,39 @@ class Program
         return string.IsNullOrEmpty(prefix)
             ? element.Name.LocalName
             : $"{prefix}:{element.Name.LocalName}";
+    }
+
+    sealed class BoolDictionaryXsltContext : XsltContext
+    {
+        private readonly Dictionary<string, bool> _properties;
+
+        public BoolDictionaryXsltContext(Dictionary<string, bool> properties)
+            => _properties = properties;
+
+        // No functions or namespaces needed
+        public override bool Whitespace => true;
+        public override IXsltContextVariable ResolveVariable(string prefix, string name)
+            => new DictVar(name, _properties.TryGetValue(name, out bool v) && v);
+
+        public override IXsltContextFunction ResolveFunction(string prefix, string name, XPathResultType[] argTypes)
+            => throw new NotImplementedException();
+        public override int CompareDocument(string baseUri, string nextbaseUri) => 0;
+
+        public override bool PreserveWhitespace(XPathNavigator node)
+        {
+            return false;
+        }
+
+        /* Variable implementation */
+        private sealed class DictVar : IXsltContextVariable
+        {
+            private readonly bool _value;
+            public DictVar(string name, bool value) => _value = value;
+            public bool IsLocal => false;
+            public bool IsParam => true;
+            public XPathResultType VariableType => XPathResultType.Boolean;
+            public object Evaluate(XsltContext xsltContext) => _value;
+        }
     }
 
     enum RemovalReason

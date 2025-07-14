@@ -43,8 +43,8 @@ relevant ISO16684-1.Properties-xx patterns for the necessary namespaces.
     <!-- ======================================================= -->
     <rng:define name="xmpRights.Certificate" combine="choice">
         <rng:element name="xmpRights:Certificate">
-            <rng:ref name="ISO16684-1.Types.QValue.URL" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
-            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.URL" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
+            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
     <rng:define name="xmpRights.Marked" combine="choice">
@@ -54,8 +54,8 @@ relevant ISO16684-1.Properties-xx patterns for the necessary namespaces.
     </rng:define>
     <rng:define name="xmpRights.Owner" combine="choice">
         <rng:element name="xmpRights:Owner">
-            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.ProperName" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
-            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.ProperName" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
     <rng:define name="xmpRights.UsageTerms" combine="choice">
@@ -65,8 +65,8 @@ relevant ISO16684-1.Properties-xx patterns for the necessary namespaces.
     </rng:define>
     <rng:define name="xmpRights.WebStatement" combine="choice">
         <rng:element name="xmpRights:WebStatement">
-            <rng:ref name="ISO16684-1.Types.QValue.URL" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
-            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.URL" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
+            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
 </rng:grammar>

@@ -29,7 +29,7 @@
             <rng:optional>
                 <rng:ref name="exif.PixelYDimension"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA1)">
+            <rng:optional condition="$IsPDFA1">
                 <rng:ref name="exif.MakerNote"/>
             </rng:optional>
             <rng:optional>
@@ -738,14 +738,14 @@
         </rng:choice>
     </rng:define>
     <rng:define name="exif.ExifVersion.Base" combine="choice">
-        <rng:choice condition="$(IsPDFA1)">
+        <rng:choice condition="$IsPDFA1">
             <rng:value type="string">0210</rng:value>
         </rng:choice>
-        <rng:choice condition="$(IsPDFA2) Or $(IsPDFA3)">
+        <rng:choice condition="$IsPDFA2 or $IsPDFA3">
             <rng:value type="string">0210</rng:value>
             <rng:value type="string">0220</rng:value>
         </rng:choice>
-        <rng:choice condition="$(IsPDFA4OrGreater)">
+        <rng:choice condition="$IsPDFA4OrGreater">
             <rng:choice>
                 <rng:value type="string">0210</rng:value>
                 <rng:value type="string">0220</rng:value>
@@ -784,8 +784,8 @@
     <rng:define name="exif.ColorSpace.Base" combine="choice">
         <rng:choice>
             <rng:value type="integer">1</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA1)">-32786</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA4OrGreater)">65535</rng:value>
+            <rng:value type="integer" condition="$IsPDFA1">-32786</rng:value>
+            <rng:value type="integer" condition="$IsPDFA4OrGreater">65535</rng:value>
         </rng:choice>
     </rng:define>
 
@@ -852,23 +852,23 @@
             <rng:value type="integer">1</rng:value>
             <rng:value type="integer">2</rng:value>
             <rng:value type="integer">3</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">4</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">9</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">10</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">11</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">12</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">13</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">14</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">15</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA4OrGreater)">16</rng:value> 
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">4</rng:value>
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">9</rng:value>
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">10</rng:value>
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">11</rng:value>
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">12</rng:value>
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">13</rng:value>
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">14</rng:value>
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">15</rng:value>
+            <rng:value type="integer" condition="$IsPDFA4OrGreater">16</rng:value> 
             <rng:value type="integer">17</rng:value>
             <rng:value type="integer">18</rng:value>
             <rng:value type="integer">19</rng:value>
             <rng:value type="integer">20</rng:value>
             <rng:value type="integer">21</rng:value>
             <rng:value type="integer">22</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">23</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA2OrGreater)">24</rng:value>
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">23</rng:value>
+            <rng:value type="integer" condition="$IsPDFA2OrGreater">24</rng:value>
             <rng:value type="integer">255</rng:value>
         </rng:choice>
     </rng:define>
@@ -925,10 +925,10 @@
     </rng:define>
     <rng:define name="exif.FileSource.Base" combine="choice">
         <rng:choice>
-            <rng:value type="integer" condition="$(IsPDFA4OrGreater)">0</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA4OrGreater)">1</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA4OrGreater)">2</rng:value>
-            <rng:value type="integer" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)">3</rng:value>
+            <rng:value type="integer" condition="$IsPDFA4OrGreater">0</rng:value>
+            <rng:value type="integer" condition="$IsPDFA4OrGreater">1</rng:value>
+            <rng:value type="integer" condition="$IsPDFA4OrGreater">2</rng:value>
+            <rng:value type="integer" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3">3</rng:value>
         </rng:choice>
     </rng:define>
 

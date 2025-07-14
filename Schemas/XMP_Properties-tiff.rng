@@ -89,8 +89,8 @@
 
     <rng:define name="tiff.Artist" combine="choice">
         <rng:element name="tiff:Artist">
-            <rng:ref name="ISO16684-1.Types.QValue.ProperName" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
-            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.ProperName" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.ProperName" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
+            <rng:ref name="ISO16684-1.Types.QValue.OrderedArray.ProperName" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
 
@@ -144,8 +144,8 @@
 
     <rng:define name="tiff.Model" combine="choice">
         <rng:element name="tiff:Model">
-            <rng:ref name="ISO16684-1.Types.QValue.ProperName" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
-            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.ProperName" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
+            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
 

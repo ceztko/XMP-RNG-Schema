@@ -22,7 +22,7 @@
                 <rng:ref name="photoshop.City"/>
             </rng:optional>
             <rng:optional>
-                <rng:ref name="photoshop.ColorMode" condition="$(IsPDFA4OrGreater)"/>
+                <rng:ref name="photoshop.ColorMode" condition="$IsPDFA4OrGreater"/>
             </rng:optional>
             <rng:optional>
                 <rng:ref name="photoshop.Country"/>
@@ -34,16 +34,16 @@
                 <rng:ref name="photoshop.DateCreated"/>
             </rng:optional>
             <rng:optional>
-                <rng:ref name="photoshop.DocumentAncestors" condition="$(IsPDFA4OrGreater)"/>
+                <rng:ref name="photoshop.DocumentAncestors" condition="$IsPDFA4OrGreater"/>
             </rng:optional>
             <rng:optional>
                 <rng:ref name="photoshop.Headline"/>
             </rng:optional>
             <rng:optional>
-                <rng:ref name="photoshop.History" condition="$(IsPDFA4OrGreater)"/>
+                <rng:ref name="photoshop.History" condition="$IsPDFA4OrGreater"/>
             </rng:optional>
             <rng:optional>
-                <rng:ref name="photoshop.ICCProfile" condition="$(IsPDFA4OrGreater)"/>
+                <rng:ref name="photoshop.ICCProfile" condition="$IsPDFA4OrGreater"/>
             </rng:optional>
             <rng:optional>
                 <rng:ref name="photoshop.Instructions"/>
@@ -58,7 +58,7 @@
                 <rng:ref name="photoshop.SupplementalCategories"/>
             </rng:optional>
             <rng:optional>
-                <rng:ref name="photoshop.TextLayers" condition="$(IsPDFA4OrGreater)"/>
+                <rng:ref name="photoshop.TextLayers" condition="$IsPDFA4OrGreater"/>
             </rng:optional>
             <rng:optional>
                 <rng:ref name="photoshop.TransmissionReference"/>
@@ -161,8 +161,8 @@
 
     <rng:define name="photoshop.SupplementalCategories" combine="choice">
         <rng:element name="photoshop:SupplementalCategories">
-            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$(IsPDFA1)"/>
-            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text" condition="$(IsPDFA2OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.Text" condition="$IsPDFA1"/>
+            <rng:ref name="ISO16684-1.Types.QValue.UnorderedArray.Text" condition="$IsPDFA2OrGreater"/>
         </rng:element>
     </rng:define>
 

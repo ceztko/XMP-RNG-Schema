@@ -30,11 +30,11 @@ ISO16684-1.Properties-xx patterns for the necessary namespaces.
             <rng:optional>
                 <rng:ref name="xmpMM.History"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA2OrGreater)">
+            <rng:optional condition="$IsPDFA2OrGreater">
                 <rng:ref name="xmpMM.InstanceID"/>
             </rng:optional>
             <rng:optional>
-                <rng:ref name="xmpMM.Ingredients" condition="$(IsPDFA4OrGreater)"/>
+                <rng:ref name="xmpMM.Ingredients" condition="$IsPDFA4OrGreater"/>
             </rng:optional>
             <rng:optional>
                 <rng:ref name="xmpMM.ManagedFrom"/>
@@ -51,10 +51,10 @@ ISO16684-1.Properties-xx patterns for the necessary namespaces.
             <rng:optional>
                 <rng:ref name="xmpMM.ManagerVariant"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpMM.OriginalDocumentID"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpMM.Pantry"/>
             </rng:optional>
             <rng:optional>
@@ -90,9 +90,9 @@ ISO16684-1.Properties-xx patterns for the necessary namespaces.
     </rng:define>
     <rng:define name="xmpMM.DocumentID" combine="choice">
         <rng:element name="xmpMM:DocumentID">
-            <rng:ref name="ISO16684-1.Types.Base.URI" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="ISO16684-1.Types.Base.URI" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
             <!-- CHECK-ME In ISO16684-1:2019 it is GUID, but remains URI in XMPSpecificationPart2.pdf 2016 -->
-            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
     <rng:define name="xmpMM.History" combine="choice">
@@ -102,9 +102,9 @@ ISO16684-1.Properties-xx patterns for the necessary namespaces.
     </rng:define>
     <rng:define name="xmpMM.InstanceID" combine="choice">
         <rng:element name="xmpMM:InstanceID">
-            <rng:ref name="ISO16684-1.Types.QValue.URI" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.URI" condition="$IsPDFA2 or $IsPDFA3"/>
             <!-- CHECK-ME In ISO16684-1:2019 it is GUID, but remains URI in XMPSpecificationPart2.pdf 2016 -->
-            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
     <rng:define name="xmpMM.Ingredients" combine="choice">

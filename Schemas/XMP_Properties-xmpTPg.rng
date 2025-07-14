@@ -17,13 +17,13 @@
                 <rng:ref name="xmpTPg.NPages"/>
             </rng:optional>
             <rng:optional>
-                <rng:ref name="xmpTPg.Fonts" condition="$(IsPDFA2OrGreater)"/>
+                <rng:ref name="xmpTPg.Fonts" condition="$IsPDFA2OrGreater"/>
             </rng:optional>
             <rng:optional>
-                <rng:ref name="xmpTPg.Colorants" condition="$(IsPDFA2OrGreater)"/>
+                <rng:ref name="xmpTPg.Colorants" condition="$IsPDFA2OrGreater"/>
             </rng:optional>
             <rng:optional>
-                <rng:ref name="xmpTPg.PlateNames" condition="$(IsPDFA2OrGreater)"/>
+                <rng:ref name="xmpTPg.PlateNames" condition="$IsPDFA2OrGreater"/>
             </rng:optional>
         </rng:interleave>
     </rng:define>

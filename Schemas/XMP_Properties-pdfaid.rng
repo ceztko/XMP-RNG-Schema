@@ -15,13 +15,13 @@
             <rng:optional>
                 <rng:ref name="pdfaid.conformance"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="pdfaid.rev"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)">
+            <rng:optional condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3">
                 <rng:ref name="pdfaid.amd"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA2) Or $(IsPDFA3)">
+            <rng:optional condition="$IsPDFA2 or $IsPDFA3">
                 <rng:ref name="pdfaid.corr"/>
             </rng:optional>
         </rng:interleave>
@@ -71,10 +71,10 @@
     <rng:define name="pdfaid.part.Base" combine="choice">
         <rng:choice>
             <rng:choice>
-                <rng:value type="string" condition="$(IsPDFA1)">1</rng:value>
-                <rng:value type="string" condition="$(IsPDFA2)">2</rng:value>
-                <rng:value type="string" condition="$(IsPDFA3)">3</rng:value>
-                <rng:value type="string" condition="$(IsPDFA4)">4</rng:value>
+                <rng:value type="string" condition="$IsPDFA1">1</rng:value>
+                <rng:value type="string" condition="$IsPDFA2">2</rng:value>
+                <rng:value type="string" condition="$IsPDFA3">3</rng:value>
+                <rng:value type="string" condition="$IsPDFA4">4</rng:value>
             </rng:choice>
             <rng:ref name="ISO16684-1.Types.Base.Text" />
         </rng:choice>
@@ -93,12 +93,12 @@
     <rng:define name="pdfaid.conformance.Base" combine="choice">
         <rng:choice>
             <rng:choice>
-                <rng:value type="string" condition="$(IsPDFA4OrGreater)"></rng:value>
-                <rng:value type="string" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)">A</rng:value>
-                <rng:value type="string" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)">B</rng:value>
-                <rng:value type="string" condition="$(IsPDFA2) Or $(IsPDFA3)">U</rng:value>
-                <rng:value type="string" condition="$(IsPDFA4OrGreater)">E</rng:value>
-                <rng:value type="string" condition="$(IsPDFA4OrGreater)">F</rng:value>
+                <rng:value type="string" condition="$IsPDFA4OrGreater"></rng:value>
+                <rng:value type="string" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3">A</rng:value>
+                <rng:value type="string" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3">B</rng:value>
+                <rng:value type="string" condition="$IsPDFA2 or $IsPDFA3">U</rng:value>
+                <rng:value type="string" condition="$IsPDFA4OrGreater">E</rng:value>
+                <rng:value type="string" condition="$IsPDFA4OrGreater">F</rng:value>
             </rng:choice>
             <rng:ref name="ISO16684-1.Types.Base.Text" />
         </rng:choice>
@@ -150,7 +150,7 @@
     <rng:define name="pdfaid.rev.Base" combine="choice">
             <rng:choice>
                 <rng:choice>
-                    <rng:value type="string" condition="$(IsPDFA4)">2020</rng:value>
+                    <rng:value type="string" condition="$IsPDFA4">2020</rng:value>
                 </rng:choice>
                 <rng:ref name="ISO16684-1.Types.Base.Text" />
             </rng:choice>

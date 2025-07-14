@@ -35,7 +35,7 @@ the Base fields.
         <rng:element name="rdf:Description">
             <rng:interleave>
                 <rng:optional>
-                    <rng:ref name="stRef.alternatePaths" condition="$(IsPDFA4OrGreater)"/>
+                    <rng:ref name="stRef.alternatePaths" condition="$IsPDFA4OrGreater"/>
                 </rng:optional>
                 <rng:optional>
                     <rng:ref name="stRef.documentID"/>
@@ -44,13 +44,13 @@ the Base fields.
                     <rng:ref name="stRef.filePath"/>
                 </rng:optional>
                <rng:optional>
-                    <rng:ref name="stRef.fromPart" condition="$(IsPDFA4OrGreater)"/>
+                    <rng:ref name="stRef.fromPart" condition="$IsPDFA4OrGreater"/>
                 </rng:optional>
                 <rng:optional>
                     <rng:ref name="stRef.instanceID"/>
                 </rng:optional>
                 <rng:optional>
-                    <rng:ref name="stRef.lastModifyDate" condition="$(IsPDFA4OrGreater)"/>
+                    <rng:ref name="stRef.lastModifyDate" condition="$IsPDFA4OrGreater"/>
                 </rng:optional>
                 <rng:optional>
                     <rng:ref name="stRef.manager"/>
@@ -62,10 +62,10 @@ the Base fields.
                     <rng:ref name="stRef.manageUI"/>
                 </rng:optional>
                <rng:optional>
-                    <rng:ref name="stRef.maskMarkers" condition="$(IsPDFA4OrGreater)"/>
+                    <rng:ref name="stRef.maskMarkers" condition="$IsPDFA4OrGreater"/>
                 </rng:optional>
                <rng:optional>
-                    <rng:ref name="stRef.partMapping" condition="$(IsPDFA4OrGreater)"/>
+                    <rng:ref name="stRef.partMapping" condition="$IsPDFA4OrGreater"/>
                 </rng:optional>
                 <rng:optional>
                     <rng:ref name="stRef.renditionClass"/>
@@ -74,7 +74,7 @@ the Base fields.
                     <rng:ref name="stRef.renditionParams"/>
                 </rng:optional>
                <rng:optional>
-                    <rng:ref name="stRef.toPart" condition="$(IsPDFA4OrGreater)"/>
+                    <rng:ref name="stRef.toPart" condition="$IsPDFA4OrGreater"/>
                 </rng:optional>
                 <rng:optional>
                     <rng:ref name="stRef.versionID"/>
@@ -89,9 +89,9 @@ the Base fields.
     </rng:define>
     <rng:define name="stRef.documentID" combine="choice">
         <rng:element name="stRef:documentID">
-            <rng:ref name="ISO16684-1.Types.QValue.URI" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.URI" condition="$IsPDFA2 or $IsPDFA3"/>
             <!-- CHECK-ME In ISO16684-1:2019 it is GUID, but remains URI in XMPSpecificationPart2.pdf 2016 -->
-            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
     <rng:define name="stRef.filePath" combine="choice">
@@ -106,9 +106,9 @@ the Base fields.
     </rng:define>
     <rng:define name="stRef.instanceID" combine="choice">
         <rng:element name="stRef:instanceID">
-            <rng:ref name="ISO16684-1.Types.QValue.URI" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.URI" condition="$IsPDFA2 or $IsPDFA3"/>
             <!-- CHECK-ME In ISO16684-1:2019 it is GUID, but remains URI in XMPSpecificationPart2.pdf 2016 -->
-            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$(IsPDFA4OrGreater)"/>
+            <rng:ref name="ISO16684-1.Types.QValue.GUID" condition="$IsPDFA4OrGreater"/>
         </rng:element>
     </rng:define>
     <rng:define name="stRef.lastModifyDate" combine="choice">

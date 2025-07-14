@@ -9,17 +9,17 @@
     <rng:include href="XMP_Properties-xmpMM.rng"/>
     <rng:include href="XMP_Properties-xmpBJ.rng"/>
     <rng:include href="XMP_Properties-xmpTPg.rng"/>
-    <rng:include href="XMP_Properties-xmpDM.rng" condition="$(IsPDFA2OrGreater)"/>
+    <rng:include href="XMP_Properties-xmpDM.rng" condition="$IsPDFA2OrGreater"/>
     <rng:include href="XMP_Properties-pdf.rng"/>
     <rng:include href="XMP_Properties-photoshop.rng"/>
     <rng:include href="XMP_Properties-tiff.rng"/>
-    <rng:include href="XMP_Properties-crs.rng" condition="$(IsPDFA2OrGreater)"/>
+    <rng:include href="XMP_Properties-crs.rng" condition="$IsPDFA2OrGreater"/>
     <rng:include href="XMP_Properties-exif.rng"/>
     <!-- CHECK-ME: aux properties strangely disappeared from recent XMP specifications -->
-    <rng:include href="XMP_Properties-exif_aux.rng" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
-    <rng:include href="XMP_Properties-exifEX.rng" condition="$(IsPDFA4OrGreater)"/>
+    <rng:include href="XMP_Properties-exif_aux.rng" condition="$IsPDFA2 or $IsPDFA3"/>
+    <rng:include href="XMP_Properties-exifEX.rng" condition="$IsPDFA4OrGreater"/>
     <rng:include href="XMP_Properties-pdfaid.rng"/>
-    <rng:include href="XMP_Properties-pdfaExtension.rng" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+    <rng:include href="XMP_Properties-pdfaExtension.rng" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
     <rng:start>
         <rng:element name="rdf:RDF">
             <rng:element name="rdf:Description">
@@ -31,16 +31,16 @@
                     <rng:ref name="XMP_Properties-xmpMM"/>
                     <rng:ref name="XMP_Properties-xmpBJ"/>
                     <rng:ref name="XMP_Properties-xmpTPg"/>
-                    <rng:ref name="XMP_Properties-xmpDM" condition="$(IsPDFA2OrGreater)"/>
+                    <rng:ref name="XMP_Properties-xmpDM" condition="$IsPDFA2OrGreater"/>
                     <rng:ref name="XMP_Properties-pdf"/>
                     <rng:ref name="XMP_Properties-photoshop"/>
                     <rng:ref name="XMP_Properties-tiff"/>
-                    <rng:ref name="XMP_Properties-crs" condition="$(IsPDFA2OrGreater)"/>
+                    <rng:ref name="XMP_Properties-crs" condition="$IsPDFA2OrGreater"/>
                     <rng:ref name="XMP_Properties-exif"/>
-                    <rng:ref name="XMP_Properties-exif_aux" condition="$(IsPDFA2) Or $(IsPDFA3)"/>
-                    <rng:ref name="XMP_Properties-exifEX" condition="$(IsPDFA4OrGreater)"/>
+                    <rng:ref name="XMP_Properties-exif_aux" condition="$IsPDFA2 or $IsPDFA3"/>
+                    <rng:ref name="XMP_Properties-exifEX" condition="$IsPDFA4OrGreater"/>
                     <rng:ref name="XMP_Properties-pdfaid"/>
-                    <rng:ref name="XMP_Properties-pdfaExtension" condition="$(IsPDFA1) Or $(IsPDFA2) Or $(IsPDFA3)"/>
+                    <rng:ref name="XMP_Properties-pdfaExtension" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
                 </rng:interleave>
             </rng:element>
         </rng:element>

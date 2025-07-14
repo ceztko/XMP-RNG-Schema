@@ -18,7 +18,7 @@
             <rng:optional>
                 <rng:ref name="pdf.Producer"/>
             </rng:optional>
-            <rng:optional condition="$(IsPDFA4OrGreater)">
+            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="pdf.Trapped"/>
             </rng:optional>
         </rng:interleave>
