@@ -21,8 +21,8 @@
             <rng:optional>
                 <rng:ref name="photoshop.City"/>
             </rng:optional>
-            <rng:optional>
-                <rng:ref name="photoshop.ColorMode" condition="$IsPDFA4OrGreater"/>
+            <rng:optional condition="$IsPDFA4OrGreater">
+                <rng:ref name="photoshop.ColorMode"/>
             </rng:optional>
             <rng:optional>
                 <rng:ref name="photoshop.Country"/>
@@ -33,17 +33,17 @@
             <rng:optional>
                 <rng:ref name="photoshop.DateCreated"/>
             </rng:optional>
-            <rng:optional>
-                <rng:ref name="photoshop.DocumentAncestors" condition="$IsPDFA4OrGreater"/>
+            <rng:optional condition="$IsPDFA4OrGreater">
+                <rng:ref name="photoshop.DocumentAncestors"/>
             </rng:optional>
             <rng:optional>
                 <rng:ref name="photoshop.Headline"/>
             </rng:optional>
-            <rng:optional>
-                <rng:ref name="photoshop.History" condition="$IsPDFA4OrGreater"/>
+            <rng:optional condition="$IsPDFA4OrGreater">
+                <rng:ref name="photoshop.History"/>
             </rng:optional>
-            <rng:optional>
-                <rng:ref name="photoshop.ICCProfile" condition="$IsPDFA4OrGreater"/>
+            <rng:optional condition="$IsPDFA4OrGreater">
+                <rng:ref name="photoshop.ICCProfile"/>
             </rng:optional>
             <rng:optional>
                 <rng:ref name="photoshop.Instructions"/>
@@ -57,8 +57,8 @@
             <rng:optional>
                 <rng:ref name="photoshop.SupplementalCategories"/>
             </rng:optional>
-            <rng:optional>
-                <rng:ref name="photoshop.TextLayers" condition="$IsPDFA4OrGreater"/>
+            <rng:optional condition="$IsPDFA4OrGreater">
+                <rng:ref name="photoshop.TextLayers"/>
             </rng:optional>
             <rng:optional>
                 <rng:ref name="photoshop.TransmissionReference"/>

@@ -43,7 +43,17 @@ class Program
             var mainDoc = XDocument.Load(inputPath);
             string baseDir = Path.GetDirectoryName(Path.GetFullPath(inputPath))!;
 
-            processIncludes(mainDoc.Root!, baseDir);
+            var namespaces = new Dictionary<string, string>();
+            processIncludes(mainDoc.Root!, baseDir, namespaces);
+
+            foreach (var (prefix, uri) in namespaces)
+            {
+                XName nsAttrName = XNamespace.Xmlns + prefix;
+
+                if (mainDoc.Root!.Attribute(nsAttrName) == null)
+                    mainDoc.Root!.SetAttributeValue(nsAttrName, uri);
+            }
+
             validateSchema(mainDoc.Root!);
 
             Console.WriteLine();
@@ -84,7 +94,7 @@ class Program
         }
     }
 
-    static void processIncludes(XElement element, string basePath)
+    static void processIncludes(XElement element, string basePath, Dictionary<string, string> namespaces)
     {
         foreach (var include in element.Descendants(RngNs + "include").ToList())
         {
@@ -119,10 +129,28 @@ class Program
                 .ForEach(c => c.Remove());
 
             // Recursively process includes in the included file
-            processIncludes(includedRoot, Path.GetDirectoryName(resolvedPath)!);
+            processIncludes(includedRoot, Path.GetDirectoryName(resolvedPath)!, namespaces);
 
             // Replace <rng:include> with the children of the included schema
             include.ReplaceWith(includedRoot.Elements());
+
+            foreach (var attr in includedRoot.Attributes())
+            {
+                if (attr.IsNamespaceDeclaration)
+                {
+                    var prefix = attr.Name.LocalName == "xmlns" ? "" : attr.Name.LocalName;
+                    var uri = attr.Value;
+                    if (namespaces.TryGetValue(prefix, out var value))
+                    {
+                        if (uri != value)
+                            throw new Exception($"Invalid redefined namespace for prefix \"{prefix}\". It was \"{value}\" and trying to insert {uri}");
+                    }
+                    else
+                    {
+                        namespaces[prefix] = uri;
+                    }
+                }
+            }
         }
     }
 

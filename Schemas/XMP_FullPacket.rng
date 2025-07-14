@@ -2,7 +2,7 @@
 <!-- SPDX-FileCopyrightText: (C) 2014 ISO <copyright@iso.org> -->
 <!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
 <!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
-<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0">
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
     <rng:include href="XMP_Properties-dc.rng"/>
     <rng:include href="XMP_Properties-xmp.rng"/>
     <rng:include href="XMP_Properties-xmpRights.rng"/>

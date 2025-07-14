@@ -2,7 +2,7 @@
 <!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
 <!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
 
-<rng:grammar xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/" xmlns:stDim="http://ns.adobe.com/xap/1.0/sType/Dimensions#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<rng:grammar xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/" xmlns:stFnt="http://ns.adobe.com/xap/1.0/sType/Font#" xmlns:stDim="http://ns.adobe.com/xap/1.0/sType/Dimensions#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
     <rng:include href="ISO16684-1_Types-Simple.rng"/>
     <rng:include href="ISO16684-1_Types-Array.rng"/>
     <rng:include href="ISO16684-1_Types-Structure.rng"/>
@@ -16,14 +16,14 @@
             <rng:optional>
                 <rng:ref name="xmpTPg.NPages"/>
             </rng:optional>
-            <rng:optional>
-                <rng:ref name="xmpTPg.Fonts" condition="$IsPDFA2OrGreater"/>
+            <rng:optional  condition="$IsPDFA2OrGreater">
+                <rng:ref name="xmpTPg.Fonts"/>
             </rng:optional>
-            <rng:optional>
-                <rng:ref name="xmpTPg.Colorants" condition="$IsPDFA2OrGreater"/>
+            <rng:optional condition="$IsPDFA2OrGreater">
+                <rng:ref name="xmpTPg.Colorants"/>
             </rng:optional>
-            <rng:optional>
-                <rng:ref name="xmpTPg.PlateNames" condition="$IsPDFA2OrGreater"/>
+            <rng:optional condition="$IsPDFA2OrGreater">
+                <rng:ref name="xmpTPg.PlateNames"/>
             </rng:optional>
         </rng:interleave>
     </rng:define>

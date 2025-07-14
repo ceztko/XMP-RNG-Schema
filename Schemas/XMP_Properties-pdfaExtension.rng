@@ -2,7 +2,7 @@
 <!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
 <!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
 
-<rng:grammar xmlns:pdfaextension="http://www.aiim.org/pdfa/ns/extension/" xmlns:pdfaSchema="http://www.aiim.org/pdfa/ns/schema#" xmlns:pdfaProperty="http://www.aiim.org/pdfa/ns/property#" xmlns:pdfaType="http://www.aiim.org/pdfa/ns/type#" xmlns:pdfaField="http://www.aiim.org/pdfa/ns/field#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<rng:grammar xmlns:pdfaExtension="http://www.aiim.org/pdfa/ns/extension/" xmlns:pdfaSchema="http://www.aiim.org/pdfa/ns/schema#" xmlns:pdfaProperty="http://www.aiim.org/pdfa/ns/property#" xmlns:pdfaType="http://www.aiim.org/pdfa/ns/type#" xmlns:pdfaField="http://www.aiim.org/pdfa/ns/field#" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
     <rng:include href="ISO16684-1_Types-Simple.rng"/>
     <rng:include href="ISO16684-1_Types-Array.rng"/>
     <rng:include href="ISO16684-1_Types-Structure.rng"/>
