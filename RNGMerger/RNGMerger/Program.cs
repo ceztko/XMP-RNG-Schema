@@ -39,42 +39,42 @@ class Program
 
         try
         {
-            Console.WriteLine($"Merging RELAX NG grammar from: {inputPath} ...");
+            Console.WriteLine($"Merging RELAX NG schema from: {inputPath} ...");
             var mainDoc = XDocument.Load(inputPath);
             string baseDir = Path.GetDirectoryName(Path.GetFullPath(inputPath))!;
 
             processIncludes(mainDoc.Root!, baseDir);
-            validateGrammar(mainDoc.Root!);
+            validateSchema(mainDoc.Root!);
 
             Console.WriteLine();
-            Console.WriteLine($"Processing PDF/A-1 grammar...");
+            Console.WriteLine($"Processing PDF/A-1 schema...");
 
             var properties = new Dictionary<string, bool>
             {
                 ["IsPDFA1"] = true,
                 ["IsPDFA1OrGreater"] = true,
             };
-            makeGrammar(mainDoc, properties, outputDir, "ISO19005-1-XMP_Packet.rng");
+            makeSchema(mainDoc, properties, outputDir, "ISO19005-1-XMP_Packet.rng");
 
             Console.WriteLine();
-            Console.WriteLine($"Processing PDF/A-2 and PDF/A-3 grammar...");
+            Console.WriteLine($"Processing PDF/A-2 and PDF/A-3 schema...");
 
             properties["IsPDFA1"] = false;
             properties["IsPDFA2"] = true;
             properties["IsPDFA2OrGreater"] = true;
             properties["IsPDFA3"] = true;
             properties["IsPDFA3OrGreater"] = true;
-            makeGrammar(mainDoc, properties, outputDir, "ISO19005-2_3-XMP_Packet.rng");
+            makeSchema(mainDoc, properties, outputDir, "ISO19005-2_3-XMP_Packet.rng");
 
             Console.WriteLine();
-            Console.WriteLine($"Processing PDF/A-4 grammar...");
+            Console.WriteLine($"Processing PDF/A-4 schema...");
 
             properties["IsPDFA1"] = false;
             properties["IsPDFA2"] = false;
             properties["IsPDFA3"] = false;
             properties["IsPDFA4"] = true;
             properties["IsPDFA4OrGreater"] = true;
-            makeGrammar(mainDoc, properties, outputDir, "ISO19005-4-XMP_Packet.rng");
+            makeSchema(mainDoc, properties, outputDir, "ISO19005-4-XMP_Packet.rng");
             return 0;
         }
         catch (Exception ex)
@@ -112,7 +112,7 @@ class Program
             var includedDoc = XDocument.Load(resolvedPath);
             var includedRoot = includedDoc.Root!;
 
-            // Remove all comments recursively in the included grammar
+            // Remove all comments recursively in the included schema
             includedRoot.DescendantNodes()
                 .OfType<XComment>()
                 .ToList()
@@ -121,12 +121,12 @@ class Program
             // Recursively process includes in the included file
             processIncludes(includedRoot, Path.GetDirectoryName(resolvedPath)!);
 
-            // Replace <rng:include> with the children of the included grammar
+            // Replace <rng:include> with the children of the included schema
             include.ReplaceWith(includedRoot.Elements());
         }
     }
 
-    static void validateGrammar(XElement element)
+    static void validateSchema(XElement element)
     {
         var defines = new HashSet<string>();
         foreach (var define in element.Descendants(RngNs + "define").Select((XElement r) => r.Attribute("name")?.Value ?? throw new Exception("Missing name attribute")))
@@ -149,13 +149,13 @@ class Program
         }
     }
 
-    static void makeGrammar(XDocument document, Dictionary<string, bool> properties,
+    static void makeSchema(XDocument document, Dictionary<string, bool> properties,
         string outDir, string filename)
     {
         var processed = new XDocument(document);
         preprocess(processed.Root!, new BoolDictionaryXsltContext(properties));
 
-        Console.WriteLine($"Collecting grammar garbage...");
+        Console.WriteLine($"Collecting schema garbage...");
         collectGarbage(processed);
         var outputPath = Path.Combine(outDir, filename);
         using (var writer = XmlWriter.Create(outputPath,
@@ -164,7 +164,7 @@ class Program
             processed.Save(writer);
         }
 
-        Console.WriteLine($"Merged grammar saved to: {outputPath}");
+        Console.WriteLine($"Merged schema saved to: {outputPath}");
     }
 
     /// <summary>
