@@ -1,12 +1,31 @@
 ## What is this project about?
 
-This projects aims to create RELAX NG grammars to validate [XMP](https://en.wikipedia.org/wiki/Extensible_Metadata_Platform) metadata packets in [PDF/A](https://en.wikipedia.org/wiki/PDF/A) compliances.
-The current snapshots can be found at the following locations:
+This projects aims to create RELAX NG grammars to validate [XMP](https://en.wikipedia.org/wiki/Extensible_Metadata_Platform) metadata packets in PDF and [PDF/A](https://en.wikipedia.org/wiki/PDF/A) compliances. The source is a custom RELAX NG grammar with simple extensions to allow to customize the template for different flavors (eg. different the PDF/A parts/revisions). The main one is a `condition` attribute that can be used to select nodes using a XSLT compatible expression, so for example the `pdf:Trapped` property below:
+
+```
+<rng:optional condition="$IsPDFA4OrGreater">
+    <rng:ref name="pdf.Trapped"/>
+</rng:optional>
+```
+
+... is enabled for a PDF/A-4 grammar, while all the `pdfaExtension` properties below:
+
+```
+<rng:interleave>
+    <!-- ... -->
+    <rng:ref name="XMP_Properties-pdfaExtension" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
+</rng:interleave>
+```
+
+... are enabled for PDF/A-1, PDF/A-2 and PDF/A-3 grammars. The grammars are then garbage collected so only recursivelly referenced nodes from the `<rng:start>` element are preserved in the final generated grammar. The current snapshots targeting PDF/A compliances can be found at the following locations:
+
 - PDF/A-1: [`ISO19005-1-XMP_Packet.rng`](https://gist.github.com/ceztko/7edd48fae7a9b80f2d089dd5f6aab304#file-iso19005-1-xmp_packet-rng)
 - PDF/A-2 and PDF/A-3: [`ISO19005-2_3-XMP_Packet.rng`](https://gist.github.com/ceztko/7edd48fae7a9b80f2d089dd5f6aab304#file-iso19005-2_3-xmp_packet-rng)
 - PDF/A-4: [`ISO19005-4-XMP_Packet.rng`](https://gist.github.com/ceztko/7edd48fae7a9b80f2d089dd5f6aab304#file-iso19005-4-xmp_packet-rng)
 
 ## Quickstart
+
+If you want to look at the template development follows the steps below:
 
 - Download and install .NET SDK[^1] and Powershell[^2] (Linux, macOS, and Windows);
 - Run `pwsh generate-grammars.ps1`
