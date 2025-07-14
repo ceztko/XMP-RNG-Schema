@@ -17,8 +17,8 @@ public sealed class XMPPacketTest : TestBase
         try
         {
             ValidateXML(
-            Path.Combine(ProjectDir, "Test", "XMPPacket1.xml"),
-            Path.Combine(ProjectDir, "ISO19005-1-XMP_Packet.rng"));
+                Path.Combine(ProjectDir, "Test", "XMPPacket1.xml"),
+                Path.Combine(ProjectDir, "ISO19005-1-XMP_Packet.rng"));
         }
         catch
         {
