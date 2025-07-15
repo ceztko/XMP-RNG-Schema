@@ -19,20 +19,25 @@ that can be used to select nodes using a XSLT compatible expression, so for exam
 </rng:interleave>
 ```
 
-... are enabled for PDF/A-1, PDF/A-2 and PDF/A-3 schemas. The schemas are then garbage collected so only recursivelly referenced nodes from the `<rng:start>` element are preserved in the final generated schema. The current snapshots targeting PDF/A compliances can be found at the following locations:
+... are enabled for PDF/A-1, PDF/A-2 and PDF/A-3 schemas. The schemas are then garbage collected so only recursivelly referenced nodes from the `<rng:start>` element are preserved in the final generated schema.
+
+## Schema developement quick start
+
+If you want to look at the template development follows the steps below:
+
+- Download and install .NET SDK[^1] and Powershell[^2] (Linux, macOS, and Windows);
+- Run `pwsh generate-schemas.ps1`
+- Have a look at the schema template starting with `Schemas/XMP_FullPacket.rng`, plus the `RNGMerger` and `XMPSchema.Test` C# projects. 
+
+## Snapshots
+
+The current snapshots targeting PDF/A compliances can be found at the following locations:
 
 - PDF/A-1: [`ISO19005-1-XMP_Packet.rng`](https://gist.github.com/ceztko/7edd48fae7a9b80f2d089dd5f6aab304#file-iso19005-1-xmp_packet-rng)
 - PDF/A-2 and PDF/A-3: [`ISO19005-2_3-XMP_Packet.rng`](https://gist.github.com/ceztko/7edd48fae7a9b80f2d089dd5f6aab304#file-iso19005-2_3-xmp_packet-rng)
 - PDF/A-4: [`ISO19005-4-XMP_Packet.rng`](https://gist.github.com/ceztko/7edd48fae7a9b80f2d089dd5f6aab304#file-iso19005-4-xmp_packet-rng)
 
 The schemas are meant to be used to actually validate XMP packets following the normalization procedure as explained in chapter 5 _"Canonical serialization of XMP"_ of [ISO 16684-2:2014](https://www.iso.org/standard/57422.html). An implementation of the algorithm can be found in the [PoDoFo](https://github.com/podofo/podofo/blob/919cd23665b208f6a2bc2459745d0a3506009534/src/podofo/main/PdfXMPPacket.cpp#L127) library.
-
-## Quickstart
-
-If you want to look at the template development follows the steps below:
-
-- Download and install .NET SDK[^1] and Powershell[^2] (Linux, macOS, and Windows);
-- Run `pwsh generate-schemas.ps1`
 
 [^1]: https://dotnet.microsoft.com/en-us/download
 [^2]: https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell
