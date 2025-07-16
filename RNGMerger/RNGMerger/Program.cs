@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Mono.Options;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -9,30 +10,25 @@ namespace RelaxNgMerger;
 class Program
 {
     static readonly XNamespace RngNs = "http://relaxng.org/ns/structure/1.0";
-    static readonly HashSet<string> IncludedFiles = new(StringComparer.OrdinalIgnoreCase);
+    static readonly XNamespace UiNs = "http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0";
 
     static int Main(string[] args)
     {
-        if (args.Length < 4)
-        {
-            Console.Error.WriteLine("Usage: RelaxNgMerger -i <input.rng> -o <outputDir>");
-            return 1;
-        }
-
         string? inputPath = null;
         string? outputDir = null;
+        bool dropDescriptions = false;
 
-        for (int i = 0; i < args.Length; i++)
+        var options = new OptionSet()
         {
-            if (args[i] == "-i" || args[i] == "--input")
-                inputPath = args[++i];
-            else if (args[i] == "-o" || args[i] == "--outdir")
-                outputDir = args[++i];
-        }
+            { "i|input=", "The input RELAX NG schema", (i) => inputPath = i },
+            { "o|outdir=", "The output directory", (o) => outputDir = o },
+            { "dropdesc", "Drop descritions", (_) => dropDescriptions = true },
+        };
 
+        _ = options.Parse(args);
         if (inputPath == null || outputDir == null)
         {
-            Console.Error.WriteLine("Error: Both --input and --outdir must be specified.");
+            ShowHelp(options);
             return -1;
         }
 
@@ -43,7 +39,8 @@ class Program
             string baseDir = Path.GetDirectoryName(Path.GetFullPath(inputPath))!;
 
             var namespaces = new Dictionary<string, string>();
-            processIncludes(mainDoc.Root!, baseDir, namespaces);
+            processIncludes(mainDoc.Root!, mainDoc.Root!, baseDir,
+                namespaces, new HashSet<string>(), dropDescriptions);
 
             foreach (var (prefix, uri) in namespaces)
             {
@@ -54,6 +51,7 @@ class Program
             }
 
             validateSchema(mainDoc.Root!);
+            saveDoc(mainDoc, Path.Combine(outputDir, "Merged_XMP_Packet.rng"), skipIndent: true);
 
             Console.WriteLine();
             Console.WriteLine($"Processing PDF/A-1 schema...");
@@ -93,9 +91,27 @@ class Program
         }
     }
 
-    static void processIncludes(XElement element, string basePath, Dictionary<string, string> namespaces)
+    static void ShowHelp(OptionSet options)
     {
-        foreach (var include in element.Descendants(RngNs + "include").ToList())
+        Console.WriteLine("Usage: RNGMerger [OPTIONS]");
+        Console.WriteLine();
+        Console.WriteLine("Options:");
+        options.WriteOptionDescriptions(Console.Out);
+    }
+
+    static void processIncludes(XElement rootElement, XElement element, string basePath,
+        Dictionary<string, string> namespaces, HashSet<string> includedFiles, bool dropDescriptions)
+    {
+        if (dropDescriptions)
+            removeDescendantElements(element, UiNs);
+
+        // Remove all comments recursively in the included schema
+        element.DescendantNodes()
+            .OfType<XComment>()
+            .ToList()
+            .ForEach(c => c.Remove());
+
+        foreach (var include in element.Elements(RngNs + "include").ToList())
         {
             var href = include.Attribute("href")?.Value;
             if (string.IsNullOrEmpty(href))
@@ -105,8 +121,7 @@ class Program
             }
 
             var resolvedPath = Path.GetFullPath(Path.Combine(basePath, href));
-
-            if (!IncludedFiles.Add(resolvedPath))
+            if (!includedFiles.Add(resolvedPath))
             {
                 Console.WriteLine($"Skipping already included: {resolvedPath}");
                 include.Remove();
@@ -119,21 +134,17 @@ class Program
             Console.WriteLine($"Including: {resolvedPath}");
 
             var includedDoc = XDocument.Load(resolvedPath);
-            var includedRoot = includedDoc.Root!;
-
-            // Remove all comments recursively in the included schema
-            includedRoot.DescendantNodes()
-                .OfType<XComment>()
-                .ToList()
-                .ForEach(c => c.Remove());
+            var includedElement = includedDoc.Root!;
 
             // Recursively process includes in the included file
-            processIncludes(includedRoot, Path.GetDirectoryName(resolvedPath)!, namespaces);
+            processIncludes(rootElement, includedElement, Path.GetDirectoryName(resolvedPath)!,
+                namespaces, includedFiles, dropDescriptions);
 
             // Replace <rng:include> with the children of the included schema
-            include.ReplaceWith(includedRoot.Elements());
+            include.Remove();
+            rootElement.Add(includedElement.Elements());
 
-            foreach (var attr in includedRoot.Attributes())
+            foreach (var attr in includedElement.Attributes())
             {
                 if (attr.IsNamespaceDeclaration)
                 {
@@ -185,12 +196,7 @@ class Program
         Console.WriteLine($"Collecting schema garbage...");
         collectGarbage(processed);
         var outputPath = Path.Combine(outDir, filename);
-        using (var writer = XmlWriter.Create(outputPath,
-            new XmlWriterSettings { Encoding = new UTF8Encoding(false), NewLineChars = "\n", Indent = true }))
-        {
-            processed.Save(writer);
-        }
-
+        saveDoc(processed, outputPath);
         Console.WriteLine($"Merged schema saved to: {outputPath}");
     }
 
@@ -267,7 +273,7 @@ class Program
         }
     }
 
-    private static void logElementRemoval(XElement child, RemovalReason reason)
+    static void logElementRemoval(XElement child, RemovalReason reason)
     {
         var name = child.Attribute("name");
         XElement? reference = null;
@@ -302,12 +308,35 @@ class Program
         }
     }
 
+    static void saveDoc(XDocument doc, string filepath, bool skipIndent = false)
+    {
+        using (var writer = XmlWriter.Create(filepath,
+            new XmlWriterSettings { Encoding = new UTF8Encoding(false), NewLineChars = "\n", Indent = !skipIndent }))
+        {
+            doc.Save(writer);
+        }
+    }
+
     static string getPrefixedName(XElement element)
     {
         string? prefix = element.GetPrefixOfNamespace(element.Name.Namespace);
         return string.IsNullOrEmpty(prefix)
             ? element.Name.LocalName
             : $"{prefix}:{element.Name.LocalName}";
+    }
+
+    static void removeDescendantElements(XElement element, XNamespace ns)
+    {
+        foreach (var child in element.Elements())
+        {
+            if (child.Name.Namespace == ns)
+            {
+                child.Remove();
+                continue;
+            }
+
+            removeDescendantElements(child, ns);
+        }
     }
 
     sealed class BoolDictionaryXsltContext : XsltContext
