@@ -1,4 +1,5 @@
-﻿using Mono.Options;
+﻿using Microsoft.Extensions.Configuration.Ini;
+using Mono.Options;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -7,8 +8,9 @@ using System.Xml.Xsl;
 
 namespace RelaxNgMerger;
 
-class Program
+public class RNGMerger
 {
+    public const string DefaultMergedFilename = "Merged_XMP_Packet.rng";
     static readonly XNamespace RngNs = "http://relaxng.org/ns/structure/1.0";
     static readonly XNamespace UiNs = "http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0";
 
@@ -17,11 +19,13 @@ class Program
         string? inputPath = null;
         string? outputDir = null;
         bool dropDescriptions = false;
+        var presets = new List<string>();
 
         var options = new OptionSet()
         {
             { "i|input=", "The input RELAX NG schema", (i) => inputPath = i },
             { "o|outdir=", "The output directory", (o) => outputDir = o },
+            { "p|preset=", "Condition preset for the schema generation", presets.Add },
             { "dropdesc", "Drop descritions", (_) => dropDescriptions = true },
         };
 
@@ -34,60 +38,40 @@ class Program
 
         try
         {
-            Console.WriteLine($"Merging RELAX NG schema from: {inputPath} ...");
-            var mainDoc = XDocument.Load(inputPath);
-            string baseDir = Path.GetDirectoryName(Path.GetFullPath(inputPath))!;
-
-            var namespaces = new Dictionary<string, string>();
-            processIncludes(mainDoc.Root!, mainDoc.Root!, baseDir,
-                namespaces, new HashSet<string>(), dropDescriptions);
-
-            foreach (var (prefix, uri) in namespaces)
-            {
-                XName nsAttrName = XNamespace.Xmlns + prefix;
-
-                if (mainDoc.Root!.Attribute(nsAttrName) == null)
-                    mainDoc.Root!.SetAttributeValue(nsAttrName, uri);
-            }
-
-            validateSchema(mainDoc.Root!);
-            saveDoc(mainDoc, Path.Combine(outputDir, "Merged_XMP_Packet.rng"), skipIndent: true);
-
-            Console.WriteLine();
-            Console.WriteLine($"Processing PDF/A-1 schema...");
-
-            var properties = new Dictionary<string, bool>
-            {
-                ["IsPDFA1"] = true,
-                ["IsPDFA1OrGreater"] = true,
-            };
-            makeSchema(mainDoc, properties, outputDir, "ISO19005-1-XMP_Packet.rng");
-
-            Console.WriteLine();
-            Console.WriteLine($"Processing PDF/A-2 and PDF/A-3 schema...");
-
-            properties["IsPDFA1"] = false;
-            properties["IsPDFA2"] = true;
-            properties["IsPDFA2OrGreater"] = true;
-            properties["IsPDFA3"] = true;
-            properties["IsPDFA3OrGreater"] = true;
-            makeSchema(mainDoc, properties, outputDir, "ISO19005-2_3-XMP_Packet.rng");
-
-            Console.WriteLine();
-            Console.WriteLine($"Processing PDF/A-4 schema...");
-
-            properties["IsPDFA1"] = false;
-            properties["IsPDFA2"] = false;
-            properties["IsPDFA3"] = false;
-            properties["IsPDFA4"] = true;
-            properties["IsPDFA4OrGreater"] = true;
-            makeSchema(mainDoc, properties, outputDir, "ISO19005-4-XMP_Packet.rng");
+            MakeSchemas(inputPath, outputDir, presets, dropDescriptions);
             return 0;
         }
         catch (Exception ex)
         {
             Console.Error.WriteLine($"Error: {ex.Message}");
             return -1;
+        }
+    }
+
+    public static void MakeSchemas(string rngFilePath, string outputPath, IReadOnlyList<string> presets, bool dropDescriptions = false)
+    {
+        Console.WriteLine($"Merging RELAX NG schema from: {rngFilePath} ...");
+        var mainDoc = XDocument.Load(rngFilePath);
+        string schemaBaseDir = Path.GetDirectoryName(Path.GetFullPath(rngFilePath))!;
+
+        var namespaces = new Dictionary<string, string>();
+        processIncludes(mainDoc.Root!, mainDoc.Root!, schemaBaseDir,
+            namespaces, new HashSet<string>(), dropDescriptions);
+
+        foreach (var (prefix, uri) in namespaces)
+        {
+            XName nsAttrName = XNamespace.Xmlns + prefix;
+
+            if (mainDoc.Root!.Attribute(nsAttrName) == null)
+                mainDoc.Root!.SetAttributeValue(nsAttrName, uri);
+        }
+
+        validateSchema(mainDoc.Root!);
+        saveDoc(mainDoc, Path.Combine(outputPath, "Merged_XMP_Packet.rng"), skipIndent: true);
+
+        foreach (var preset in presets)
+        {
+            makeSchema(mainDoc, preset, outputPath);
         }
     }
 
@@ -187,11 +171,19 @@ class Program
         }
     }
 
-    static void makeSchema(XDocument document, Dictionary<string, bool> properties,
-        string outDir, string filename)
+    static void makeSchema(XDocument document, string presetPath,
+        string outDir)
     {
+        if (!File.Exists(presetPath))
+            throw new Exception($"Preset not fount at \"{presetPath}\"");
+
+        var filename = $"{Path.GetFileNameWithoutExtension(presetPath)}.rng";
+
+        Console.WriteLine();
+        Console.WriteLine($"Processing {filename} schema...");
+
         var processed = new XDocument(document);
-        preprocess(processed.Root!, new BoolDictionaryXsltContext(properties));
+        preprocess(processed.Root!, new BoolDictionaryXsltContext(readPreset(presetPath)));
 
         Console.WriteLine($"Collecting schema garbage...");
         collectGarbage(processed);
@@ -337,6 +329,20 @@ class Program
 
             removeDescendantElements(child, ns);
         }
+    }
+
+    static Dictionary<string, bool> readPreset(string filePath)
+    {
+        var ret = new Dictionary<string, bool>();
+        var iniProps = IniStreamConfigurationProvider.Read(
+            File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read));
+        foreach (var pair in iniProps)
+        {
+            _ = bool.TryParse(pair.Value, out bool val);
+            ret[pair.Key] = val;
+        }
+
+        return ret;
     }
 
     sealed class BoolDictionaryXsltContext : XsltContext

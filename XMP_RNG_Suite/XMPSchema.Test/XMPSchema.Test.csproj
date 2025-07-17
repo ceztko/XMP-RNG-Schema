@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Resources\Commons.Xml.Relaxng\Commons.Xml.Relaxng.csproj" />
+    <ProjectReference Include="..\RNGMerger\RNGMerger.csproj" />
   </ItemGroup>
 
 </Project>
