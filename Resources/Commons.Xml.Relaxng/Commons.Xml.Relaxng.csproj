@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <!-- Disable all reported warnings, it's 3rd party code -->
+    <NoWarn>CS0618;CS0169;CS0184;CS0219;CS0649</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
