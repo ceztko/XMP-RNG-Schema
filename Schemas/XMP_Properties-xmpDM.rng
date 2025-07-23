@@ -222,9 +222,6 @@
                 <rng:ref name="xmpDM.takeNumber"/>
             </rng:optional>
             <rng:optional condition="$IsPDFA4OrGreater">
-                <rng:ref name="xmpDM.videoFrameRate"/>
-            </rng:optional>
-            <rng:optional condition="$IsPDFA4OrGreater">
                 <rng:ref name="xmpDM.partOfCompilation"/>
             </rng:optional>
             <rng:optional condition="$IsPDFA4OrGreater">

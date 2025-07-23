@@ -173,6 +173,7 @@ public class RNGMerger
         // Find main <rng:interleave> element
         var interleave = root.Descendants(RngNs + "interleave").First();
         var refs = interleave.Descendants(RngNs + "ref").ToList();
+        HashSet<string> properties = new HashSet<string>();
         foreach (var reference in refs)
         {
             var name = reference.Attribute("name")!.Value!;
@@ -182,8 +183,13 @@ public class RNGMerger
             {
                 // Ensure the second level interleave elements
                 // are <rng:optional> elements with a single child
-                if (child.Name.LocalName != "optional" || child.Elements().Count() != 1)
+                List<XElement> children;
+                if (child.Name.LocalName != "optional" || (children = child.Elements().ToList()).Count != 1)
                     throw new Exception("Invalid interleaved element");
+
+                var propName = children[0].Attribute("name")!.Value!;
+                if (!properties.Add(children[0].Attribute("name")!.Value!))
+                    throw new Exception($"Repeated property \"{propName}\"");
             }
         }
     }
