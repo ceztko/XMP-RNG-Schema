@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration.Ini;
 using Mono.Options;
+using System.Diagnostics;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -18,7 +19,7 @@ public class RNGMerger
     {
         string? inputPath = null;
         string? outputDir = null;
-        bool dropDescriptions = false;
+        RNGSchemaFlags flags = RNGSchemaFlags.None;
         var presets = new List<string>();
 
         var options = new OptionSet()
@@ -26,7 +27,8 @@ public class RNGMerger
             { "i|input=", "The input RELAX NG schema", (i) => inputPath = i },
             { "o|outdir=", "The output directory", (o) => outputDir = o },
             { "p|preset=", "Condition preset for the schema generation", presets.Add },
-            { "dropdesc", "Drop descritions", (_) => dropDescriptions = true },
+            { "dropdesc", "Drop descriptions", (_) => flags |= RNGSchemaFlags.DropDescriptions },
+            { "deterministic", "Make the schema deterministic", (_) => flags |= RNGSchemaFlags.Deterministic },
         };
 
         _ = options.Parse(args);
@@ -38,7 +40,7 @@ public class RNGMerger
 
         try
         {
-            MakeSchemas(inputPath, outputDir, presets, dropDescriptions);
+            MakeSchemas(inputPath, outputDir, presets, flags);
             return 0;
         }
         catch (Exception ex)
@@ -48,31 +50,30 @@ public class RNGMerger
         }
     }
 
-    public static void MakeSchemas(string rngFilePath, string outputPath, IReadOnlyList<string> presets, bool dropDescriptions = false)
+    public static void MakeSchemas(string rngFilePath, string outputPath,
+        IReadOnlyList<string> presets, RNGSchemaFlags flags = RNGSchemaFlags.None)
     {
         Console.WriteLine($"Merging RELAX NG schema from: {rngFilePath} ...");
         var mainDoc = XDocument.Load(rngFilePath);
         string schemaBaseDir = Path.GetDirectoryName(Path.GetFullPath(rngFilePath))!;
 
         var namespaces = new Dictionary<string, string>();
-        processIncludes(mainDoc.Root!, mainDoc.Root!, schemaBaseDir,
-            namespaces, new HashSet<string>(), dropDescriptions);
+        processIncludes(mainDoc.Root ?? throw new Exception("Invalid document"), mainDoc.Root, schemaBaseDir,
+            namespaces, new HashSet<string>(), flags.HasFlag(RNGSchemaFlags.DropDescriptions));
 
         foreach (var (prefix, uri) in namespaces)
         {
             XName nsAttrName = XNamespace.Xmlns + prefix;
 
-            if (mainDoc.Root!.Attribute(nsAttrName) == null)
-                mainDoc.Root!.SetAttributeValue(nsAttrName, uri);
+            if (mainDoc.Root.Attribute(nsAttrName) == null)
+                mainDoc.Root.SetAttributeValue(nsAttrName, uri);
         }
 
-        validateSchema(mainDoc.Root!);
+        validateSchema(mainDoc.Root);
         saveDoc(mainDoc, Path.Combine(outputPath, "Merged_XMP_Packet.rng"), skipIndent: true);
 
         foreach (var preset in presets)
-        {
-            makeSchema(mainDoc, preset, outputPath);
-        }
+            makeSchema(mainDoc, preset, outputPath, flags.HasFlag(RNGSchemaFlags.Deterministic));
     }
 
     static void ShowHelp(OptionSet options)
@@ -90,10 +91,8 @@ public class RNGMerger
             removeDescendantElements(element, UiNs);
 
         // Remove all comments recursively in the included schema
-        element.DescendantNodes()
-            .OfType<XComment>()
-            .ToList()
-            .ForEach(c => c.Remove());
+        foreach (var comment in element.DescendantNodes().OfType<XComment>().ToList())
+            comment.Remove();
 
         foreach (var include in element.Elements(RngNs + "include").ToList())
         {
@@ -148,31 +147,49 @@ public class RNGMerger
         }
     }
 
-    static void validateSchema(XElement element)
+    static void validateSchema(XElement root)
     {
-        var defines = new HashSet<string>();
-        foreach (var define in element.Descendants(RngNs + "define").Select((XElement r) => r.Attribute("name")?.Value ?? throw new Exception("Missing name attribute")))
+        var defines = new Dictionary<string, XElement>();
+        foreach (var define in root.Descendants(RngNs + "define"))
         {
-            if (string.IsNullOrEmpty(define) || define.Contains(':'))
+            var name = define.Attribute("name")?.Value ?? throw new Exception("Missing name attribute");
+            if (string.IsNullOrEmpty(name) || name.Contains(':'))
                 throw new Exception($"Invalid element \"{define}\"");
 
-            if (!defines.Add(define))
-                throw new Exception($"Element \"{define}\" is already defined");
+            if (!defines.TryAdd(name, define))
+                throw new Exception($"Define \"{name}\" is already present");
         }
 
-        var references = element.Descendants(RngNs + "ref").Select((XElement r) => r.Attribute("name")?.Value ?? throw new Exception("Missing name attribute")).ToHashSet();
+        var references = root.Descendants(RngNs + "ref").Select((XElement r) => r.Attribute("name")?.Value ?? throw new Exception("Missing name attribute")).ToHashSet();
         foreach (var reference in references)
         {
             if (string.IsNullOrEmpty(reference) || reference.Contains(':'))
                 throw new Exception($"Invalid reference \"{reference}\"");
 
-            if (!defines.Contains(reference))
+            if (!defines.ContainsKey(reference))
                 throw new Exception($"Reference \"{reference}\" is not defined");
+        }
+
+        // Find main <rng:interleave> element
+        var interleave = root.Descendants(RngNs + "interleave").First();
+        var refs = interleave.Descendants(RngNs + "ref").ToList();
+        foreach (var reference in refs)
+        {
+            var name = reference.Attribute("name")!.Value!;
+            var define = defines[name];
+            interleave = define.Descendants(RngNs + "interleave").First();
+            foreach (var child in interleave.Elements())
+            {
+                // Ensure the second level interleave elements
+                // are <rng:optional> elements with a single child
+                if (child.Name.LocalName != "optional" || child.Elements().Count() != 1)
+                    throw new Exception("Invalid interleaved element");
+            }
         }
     }
 
     static void makeSchema(XDocument document, string presetPath,
-        string outDir)
+        string outDir, bool wantDeterministic)
     {
         if (!File.Exists(presetPath))
             throw new Exception($"Preset not fount at \"{presetPath}\"");
@@ -185,8 +202,30 @@ public class RNGMerger
         var processed = new XDocument(document);
         preprocess(processed.Root!, new BoolDictionaryXsltContext(readPreset(presetPath)));
 
+        var defineMap = new Dictionary<string, XElement>();
+        foreach (var define in processed.Root!.Descendants(RngNs + "define"))
+        {
+            var name = define.Attribute("name")?.Value ?? throw new Exception("Missing name attribute");
+            defineMap[name] = define;
+        }
+
+        var start = processed.Root!.Descendants(RngNs + "start").First();
+        if (wantDeterministic)
+            makeDeterministic(start, defineMap);
+
         Console.WriteLine($"Collecting schema garbage...");
-        collectGarbage(processed);
+        var visitedDefines = new HashSet<string>();
+        collectGarbage(start, visitedDefines, defineMap);
+
+        foreach (var pair in defineMap)
+        {
+            if (!visitedDefines.Contains(pair.Key))
+            {
+                logElementRemoval(pair.Value, RemovalReason.Collected);
+                pair.Value.Remove();
+            }
+        }
+
         var outputPath = Path.Combine(outDir, filename);
         saveDoc(processed, outputPath);
         Console.WriteLine($"Merged schema saved to: {outputPath}");
@@ -221,33 +260,6 @@ public class RNGMerger
             {
                 logElementRemoval(child, RemovalReason.Excluded);
                 child.Remove();   // prune whole subtree
-            }
-        }
-    }
-
-    /// <summary>
-    /// Remove unreferenced defines
-    /// </summary>
-    static void collectGarbage(XDocument document)
-    {
-        var defineMap = new Dictionary<string, XElement>();
-        foreach (var define in document.Root!.Descendants(RngNs + "define"))
-        {
-            var name = define.Attribute("name")?.Value ?? throw new Exception("Missing name attribute");
-            defineMap[name] = define;
-        }
-
-        var start = document.Root!.Descendants(RngNs + "start").FirstOrDefault() ??
-            throw new Exception("Missing start element");
-        var visitedDefines = new HashSet<string>(); 
-        collectGarbage(start, visitedDefines, defineMap);
-
-        foreach (var pair in defineMap)
-        {
-            if (!visitedDefines.Contains(pair.Key))
-            {
-                logElementRemoval(pair.Value, RemovalReason.Collected);
-                pair.Value.Remove();
             }
         }
     }
@@ -297,6 +309,32 @@ public class RNGMerger
         else
         {
             Console.WriteLine($"Removing {reasonString} \"{prefixedName}\" element with name \"{name?.Value ?? "null"}\"");
+        }
+    }
+
+    /// <summary>
+    /// This erase the top level rng:interleave elements and place a
+    /// big choice of zero or more XMP properties
+    /// </summary>
+    private static void makeDeterministic(XElement start, Dictionary<string, XElement> defineMap)
+    {
+        var interleave = start.Descendants(RngNs + "interleave").First();
+        var zeroOrMore = new XElement(RngNs + "zeroOrMore");
+        interleave.Parent!.Add(zeroOrMore);
+        var choice = new XElement(RngNs + "choice");
+        zeroOrMore.Add(choice);
+        var refs = interleave.Descendants(RngNs + "ref").ToList();
+        interleave.Remove();
+        foreach (var reference in refs)
+        {
+            var name = reference.Attribute("name")!.Value!;
+            var define = defineMap[name];
+            interleave = define.Descendants(RngNs + "interleave").First();
+            foreach (var child in interleave.Elements())
+            {
+                Debug.Assert(child.Name.LocalName == "optional");
+                choice.Add(child.Elements().First());
+            }
         }
     }
 
@@ -383,4 +421,12 @@ public class RNGMerger
         Excluded,
         Collected,
     }
+}
+
+[Flags]
+public enum RNGSchemaFlags
+{
+    None = 0,
+    DropDescriptions = 1,
+    Deterministic = 2,
 }
