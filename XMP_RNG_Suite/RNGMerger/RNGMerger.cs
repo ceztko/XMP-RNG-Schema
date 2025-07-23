@@ -55,6 +55,7 @@ public class RNGMerger
     {
         Console.WriteLine($"Merging RELAX NG schema from: {rngFilePath} ...");
         var mainDoc = XDocument.Load(rngFilePath);
+        mainDoc.AddFirst(new XComment(" Generated with https://github.com/ceztko/XMP-RNG-Schema, DO NOT EDIT! "));
         string schemaBaseDir = Path.GetDirectoryName(Path.GetFullPath(rngFilePath))!;
 
         var namespaces = new Dictionary<string, string>();
