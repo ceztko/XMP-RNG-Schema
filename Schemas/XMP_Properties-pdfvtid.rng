@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:pdfvtid="http://www.npes.org/pdfvt/ns/id/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-pdfvtid" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="pdfvtid.GTS_PDFVTVersion"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="pdfvtid.rev"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="pdfvtid.GTS_PDFVTModDate"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="pdfvtid.GTS_PDFVTVersion" combine="choice">
+        <rng:element name="pdfvtid:GTS_PDFVTVersion">
+            <rng:ref name="pdfvtid.GTS_PDFVTVersion.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfvtid.rev" combine="choice">
+        <rng:element name="pdfvtid:rev">
+            <rng:ref name="pdfvtid.rev.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfvtid.GTS_PDFVTModDate" combine="choice">
+        <rng:element name="pdfvtid:GTS_PDFVTModDate">
+            <rng:ref name="ISO16684-1.Types.QValue.Date" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfvtid.GTS_PDFVTVersion.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfvtid.GTS_PDFVTVersion.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfvtid.GTS_PDFVTVersion.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfvtid.GTS_PDFVTVersion.Base" combine="choice">
+        <rng:choice>
+            <rng:choice>
+                <rng:value type="string">PDF/VT-1</rng:value>
+                <rng:value type="string">PDF/VT-2</rng:value>
+                <rng:value type="string">PDF/VT-3</rng:value>
+            </rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfvtid.rev.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfvtid.rev.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfvtid.rev.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfvtid.rev.Base" combine="choice">
+            <rng:choice>
+                <rng:choice>
+                    <rng:value type="integer">2020</rng:value>
+                </rng:choice>
+                <rng:ref name="ISO16684-1.Types.Base.Integer" />
+            </rng:choice>
+    </rng:define>
+</rng:grammar>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:pdfxid="http://www.npes.org/pdfx/ns/id/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-pdfxid" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="pdfxid.GTS_PDFXVersion"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="pdfxid.rev"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="pdfxid.GTS_PDFXVersion" combine="choice">
+        <rng:element name="pdfxid:GTS_PDFXVersion">
+            <rng:ref name="pdfxid.GTS_PDFXVersion.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfxid.rev" combine="choice">
+        <rng:element name="pdfxid:rev">
+            <rng:ref name="pdfxid.rev.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfxid.GTS_PDFXVersion.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfxid.GTS_PDFXVersion.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfxid.GTS_PDFXVersion.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfxid.GTS_PDFXVersion.Base" combine="choice">
+        <rng:choice>
+            <rng:choice>
+                <rng:value type="string">PDF/X-1:2001</rng:value>
+                <rng:value type="string">PDF/X-1a:2001</rng:value>
+                <rng:value type="string">PDF/X-1a:2003</rng:value>
+                <rng:value type="string">PDF/X-3:2002</rng:value>
+                <rng:value type="string">PDF/X-3:2003</rng:value>
+                <rng:value type="string">PDF/X-4</rng:value>
+                <rng:value type="string">PDF/X-4p</rng:value>
+                <rng:value type="string">PDF/X-5g</rng:value>
+                <rng:value type="string">PDF/X-5n</rng:value>
+                <rng:value type="string">PDF/X-5pg</rng:value>
+                <rng:value type="string">PDF/X-6</rng:value>
+                <rng:value type="string">PDF/X-6n</rng:value>
+                <rng:value type="string">PDF/X-6p</rng:value>
+            </rng:choice>
+            <rng:ref name="ISO16684-1.Types.Base.Text" />
+        </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfxid.rev.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfxid.rev.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfxid.rev.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfxid.rev.Base" combine="choice">
+            <rng:choice>
+                <rng:choice>
+                    <rng:value type="integer">2020</rng:value>
+                </rng:choice>
+                <rng:ref name="ISO16684-1.Types.Base.Integer" />
+            </rng:choice>
+    </rng:define>
+</rng:grammar>

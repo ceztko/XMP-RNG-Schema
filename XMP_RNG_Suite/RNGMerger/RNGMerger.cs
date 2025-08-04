@@ -29,6 +29,7 @@ public class RNGMerger
             { "p|preset=", "Condition preset for the schema generation", presets.Add },
             { "dropdesc", "Drop descriptions", (_) => flags |= RNGSchemaFlags.DropDescriptions },
             { "deterministic", "Make the schema deterministic", (_) => flags |= RNGSchemaFlags.Deterministic },
+            { "withext", "Include schema extensions", (_) => flags |= RNGSchemaFlags.WithExtensions },
         };
 
         _ = options.Parse(args);
@@ -73,8 +74,10 @@ public class RNGMerger
         validateSchema(mainDoc.Root);
         saveDoc(mainDoc, Path.Combine(outputPath, "Merged_XMP_Packet.rng"), skipIndent: true);
 
+        bool wantDeterministic = flags.HasFlag(RNGSchemaFlags.Deterministic);
+        bool withExtensions = flags.HasFlag(RNGSchemaFlags.WithExtensions);
         foreach (var preset in presets)
-            makeSchema(mainDoc, preset, outputPath, flags.HasFlag(RNGSchemaFlags.Deterministic));
+            makeSchema(mainDoc, preset, outputPath, wantDeterministic, withExtensions);
     }
 
     static void ShowHelp(OptionSet options)
@@ -196,7 +199,7 @@ public class RNGMerger
     }
 
     static void makeSchema(XDocument document, string presetPath,
-        string outDir, bool wantDeterministic)
+        string outDir, bool wantDeterministic, bool withExtensions)
     {
         if (!File.Exists(presetPath))
             throw new Exception($"Preset not fount at \"{presetPath}\"");
@@ -207,7 +210,11 @@ public class RNGMerger
         Console.WriteLine($"Processing {filename} schema...");
 
         var processed = new XDocument(document);
-        preprocess(processed.Root!, new BoolDictionaryXsltContext(readPreset(presetPath)));
+        var props = readPreset(presetPath);
+        if (withExtensions)
+            props["IncludeExtensions"] = true;
+
+        preprocess(processed.Root!, new BoolDictionaryXsltContext(props));
 
         var defineMap = new Dictionary<string, XElement>();
         foreach (var define in processed.Root!.Descendants(RngNs + "define"))
@@ -436,4 +443,5 @@ public enum RNGSchemaFlags
     None = 0,
     DropDescriptions = 1,
     Deterministic = 2,
+    WithExtensions = 4,
 }

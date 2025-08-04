@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: (C) 2025 Francesco Pretto <ceztko@gmail.com> -->
+<!-- SPDX-License-Identifier: MIT OR LicenseRef-ISO16684_2-2014-schema -->
+
+<rng:grammar xmlns:pdfuaid="http://www.aiim.org/pdfua/ns/id/" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ui="http://ns.iso.org/iso-16684-2/xmp-schema-ui-info/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="ISO16684-1_Types-Simple.rng"/>
+    <rng:include href="ISO16684-1_Types-Array.rng"/>
+    <rng:include href="ISO16684-1_Types-Structure.rng"/>
+
+    <rng:define name="XMP_Properties-pdfuaid" combine="choice">
+        <rng:interleave>
+            <rng:optional>
+                <rng:ref name="pdfuaid.part"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="pdfuaid.amd"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="pdfuaid.corr"/>
+            </rng:optional>
+            <rng:optional>
+                <rng:ref name="pdfuaid.rev"/>
+            </rng:optional>
+        </rng:interleave>
+    </rng:define>
+
+    <rng:define name="pdfuaid.part" combine="choice">
+        <rng:element name="pdfuaid:part">
+            <rng:ref name="pdfuaid.part.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfuaid.amd" combine="choice">
+        <rng:element name="pdfuaid:amd">
+            <rng:ref name="pdfuaid.amd.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfuaid.corr" combine="choice">
+        <rng:element name="pdfuaid:corr">
+            <rng:ref name="pdfuaid.corr.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfuaid.rev" combine="choice">
+        <rng:element name="pdfuaid:rev">
+            <rng:ref name="pdfuaid.rev.QValue" />
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="pdfuaid.part.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfuaid.part.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfuaid.part.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfuaid.part.Base" combine="choice">
+            <rng:choice>
+                <rng:choice>
+                    <rng:value type="integer">1</rng:value>
+                    <rng:value type="integer">2</rng:value>
+                </rng:choice>
+                <rng:ref name="ISO16684-1.Types.Base.Integer" />
+            </rng:choice>
+    </rng:define>
+
+    <rng:define name="pdfuaid.amd.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfuaid.amd.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfuaid.amd.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfuaid.amd.Base" combine="choice">
+        <!-- I don't know any amendement -->
+        <rng:ref name="ISO16684-1.Types.Base.Text" />
+    </rng:define>
+
+    <rng:define name="pdfuaid.corr.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfuaid.corr.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfuaid.corr.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfuaid.corr.Base" combine="choice">
+        <!-- I don't know any corrigendum -->
+        <rng:ref name="ISO16684-1.Types.Base.Text" />
+    </rng:define>
+
+    <rng:define name="pdfuaid.rev.QValue" combine="choice">
+        <rng:choice>
+            <rng:ref name="pdfuaid.rev.Base" />
+            <rng:element name="rdf:Description">
+                <rng:element name="rdf:value">
+                    <rng:ref name="pdfuaid.rev.Base" />
+                </rng:element>
+            </rng:element>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="pdfuaid.rev.Base" combine="choice">
+            <rng:choice>
+                <rng:choice>
+                    <rng:value type="integer">2024</rng:value>
+                </rng:choice>
+                <rng:ref name="ISO16684-1.Types.Base.Integer" />
+            </rng:choice>
+    </rng:define>
+</rng:grammar>

@@ -20,6 +20,10 @@
     <rng:include href="XMP_Properties-exifEX.rng" condition="$IsPDFA4OrGreater"/>
     <rng:include href="XMP_Properties-pdfaid.rng"/>
     <rng:include href="XMP_Properties-pdfaExtension.rng" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
+    <!-- Include extensions as mentioned in https://pdfa.org/resource/xmp-extension-schema-templates/ -->
+    <rng:include href="XMP_Properties-pdfuaid.rng" condition="$IncludeExtensions"/>
+    <rng:include href="XMP_Properties-pdfvtid.rng" condition="$IncludeExtensions"/>
+    <rng:include href="XMP_Properties-pdfxid.rng" condition="$IncludeExtensions"/>
     <rng:start>
         <rng:element name="x:xmpmeta">
             <rng:element name="rdf:RDF">
@@ -42,6 +46,9 @@
                         <rng:ref name="XMP_Properties-exifEX" condition="$IsPDFA4OrGreater"/>
                         <rng:ref name="XMP_Properties-pdfaid"/>
                         <rng:ref name="XMP_Properties-pdfaExtension" condition="$IsPDFA1 or $IsPDFA2 or $IsPDFA3"/>
+                        <rng:ref name="XMP_Properties-pdfuaid" condition="$IncludeExtensions"/>
+                        <rng:ref name="XMP_Properties-pdfvtid" condition="$IncludeExtensions"/>
+                        <rng:ref name="XMP_Properties-pdfxid" condition="$IncludeExtensions"/>
                     </rng:interleave>
                 </rng:element>
             </rng:element>
