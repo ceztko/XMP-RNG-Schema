@@ -150,9 +150,9 @@
     <rng:define name="pdfaid.rev.Base" combine="choice">
             <rng:choice>
                 <rng:choice>
-                    <rng:value type="string" condition="$IsPDFA4">2020</rng:value>
+                    <rng:value type="integer" condition="$IsPDFA4">2020</rng:value>
                 </rng:choice>
-                <rng:ref name="ISO16684-1.Types.Base.Text" />
+                <rng:ref name="ISO16684-1.Types.Base.Integer" />
             </rng:choice>
     </rng:define>
 </rng:grammar>
