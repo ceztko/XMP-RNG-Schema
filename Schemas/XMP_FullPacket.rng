@@ -26,6 +26,14 @@
     <rng:include href="XMP_Properties-pdfxid.rng" condition="$IncludeExtensions"/>
     <rng:start>
         <rng:element name="x:xmpmeta">
+            <rng:zeroOrMore>
+                <!-- ISO 16684-1:2019 "While there are no standard attributes
+                    for the x:xmpmeta element, XMP processors may write custom
+                    attributes. Unknown attributes shall be ignored when reading" -->
+                <rng:attribute>
+                  <rng:anyName/>
+                </rng:attribute>
+            </rng:zeroOrMore>
             <rng:element name="rdf:RDF">
                 <rng:element name="rdf:Description">
                     <rng:attribute name="rdf:about"/>
