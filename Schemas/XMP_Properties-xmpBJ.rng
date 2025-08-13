@@ -33,14 +33,12 @@
         </rng:choice>
     </rng:define>
     <rng:define name="xmpBJ.JobRef.Base" combine="choice">
-        <rng:element name="rdf:Description">
-            <rng:element name="rdf:Bag">
-                <rng:zeroOrMore>
-                    <rng:element name="rdf:li">
-                        <rng:ref name="xmpBJ.Job.QValue"/>
-                    </rng:element>
-                </rng:zeroOrMore>
-            </rng:element>
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="xmpBJ.Job.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
         </rng:element>
     </rng:define>
 

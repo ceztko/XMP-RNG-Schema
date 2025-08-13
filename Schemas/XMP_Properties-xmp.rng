@@ -177,14 +177,12 @@ patterns for the necessary namespaces.
         </rng:choice>
     </rng:define>
     <rng:define name="xmp.Thumbnails.Base" combine="choice">
-        <rng:element name="rdf:Description">
-            <rng:element name="rdf:Alt">
-                <rng:zeroOrMore>
-                    <rng:element name="rdf:li">
-                        <rng:ref name="xmp.Thumbnail.QValue"/>
-                    </rng:element>
-                </rng:zeroOrMore>
-            </rng:element>
+        <rng:element name="rdf:Alt">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="xmp.Thumbnail.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
         </rng:element>
     </rng:define>
 

@@ -196,14 +196,12 @@ ISO16684-1.Properties-xx patterns for the necessary namespaces.
         </rng:choice>
     </rng:define>
     <rng:define name="xmpMM.History.Base" combine="choice">
-        <rng:element name="rdf:Description">
-            <rng:element name="rdf:Seq">
-                <rng:zeroOrMore>
-                    <rng:element name="rdf:li">
-                        <rng:ref name="xmpMM.ResourceEvent.QValue"/>
-                    </rng:element>
-                </rng:zeroOrMore>
-            </rng:element>
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="xmpMM.ResourceEvent.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
         </rng:element>
     </rng:define>
 
@@ -218,14 +216,12 @@ ISO16684-1.Properties-xx patterns for the necessary namespaces.
         </rng:choice>
     </rng:define>
     <rng:define name="xmpMM.Ingredients.Base" combine="choice">
-        <rng:element name="rdf:Description">
-            <rng:element name="rdf:Seq">
-                <rng:zeroOrMore>
-                    <rng:element name="rdf:li">
-                        <rng:ref name="ISO16684-1.Types.QValue.ResourceRef"/>
-                    </rng:element>
-                </rng:zeroOrMore>
-            </rng:element>
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="ISO16684-1.Types.QValue.ResourceRef"/>
+                </rng:element>
+            </rng:zeroOrMore>
         </rng:element>
     </rng:define>
 
@@ -240,15 +236,13 @@ ISO16684-1.Properties-xx patterns for the necessary namespaces.
         </rng:choice>
     </rng:define>
     <rng:define name="xmpMM.Pantry.Base" combine="choice">
-        <rng:element name="rdf:Description">
-            <rng:element name="rdf:Bag">
-                <rng:zeroOrMore>
-                    <rng:element name="rdf:li">
-                        <!-- TODO: This is completely missing -->
-                        <rng:ref name="ISO16684-1.Types.QValue.Text"/>
-                    </rng:element>
-                </rng:zeroOrMore>
-            </rng:element>
+        <rng:element name="rdf:Bag">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <!-- TODO: This is completely missing -->
+                    <rng:ref name="ISO16684-1.Types.QValue.Text"/>
+                </rng:element>
+            </rng:zeroOrMore>
         </rng:element>
     </rng:define>
 
@@ -263,14 +257,12 @@ ISO16684-1.Properties-xx patterns for the necessary namespaces.
         </rng:choice>
     </rng:define>
     <rng:define name="xmpMM.Versions.Base" combine="choice">
-        <rng:element name="rdf:Description">
-            <rng:element name="rdf:Seq">
-                <rng:zeroOrMore>
-                    <rng:element name="rdf:li">
-                        <rng:ref name="xmpMM.Version.QValue"/>
-                    </rng:element>
-                </rng:zeroOrMore>
-            </rng:element>
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="xmpMM.Version.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
         </rng:element>
     </rng:define>
 

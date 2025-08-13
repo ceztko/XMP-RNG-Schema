@@ -219,14 +219,12 @@
         </rng:choice>
     </rng:define>
     <rng:define name="photoshop.DocumentAncestors.Base" combine="choice">
-        <rng:element name="rdf:Description">
-            <rng:element name="rdf:Seq">
-                <rng:zeroOrMore>
-                    <rng:element name="rdf:li">
-                        <rng:ref name="photoshop.Ancestor.QValue"/>
-                    </rng:element>
-                </rng:zeroOrMore>
-            </rng:element>
+        <rng:element name="rdf:Seq">
+            <rng:zeroOrMore>
+                <rng:element name="rdf:li">
+                    <rng:ref name="photoshop.Ancestor.QValue"/>
+                </rng:element>
+            </rng:zeroOrMore>
         </rng:element>
     </rng:define>
 
